@@ -1,0 +1,6 @@
+Mateo,1234,A
+Maria,122,E
+Gabi,113,E
+Tomas,111,C
+Camilo,123,C
+MariaL,222,C

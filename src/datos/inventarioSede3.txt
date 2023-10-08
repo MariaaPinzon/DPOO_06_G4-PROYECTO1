@@ -1,0 +1,3 @@
+GTR873,Chevrolet Spark,2018,economico,negro,MANUAL,s3,disponible
+IOP575,Toyota Corolla,2017,estándar,gris,MANUAL,s3,disponible
+HNB333,Ford Focus,2020,economico,rojo,MANUAL,s3,Camilo,10/06/2023

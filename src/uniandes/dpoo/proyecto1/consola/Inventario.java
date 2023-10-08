@@ -47,6 +47,7 @@ public class Inventario {
 			}
 			linea = br.readLine();
 		}
+		br.close();
 		this.catalogo= catalogo;
 		
 		
@@ -72,9 +73,6 @@ public class Inventario {
 			if (disponible == null) {
 				s= carro.getinfoAlquilado();
 			}
-			else if (disponible.equals("limpieza")|| disponible.equals("mantenimiento")){
-				s=carro.getinfo();
-			}
 			else {
 				s=carro.getinfo();
 			}
@@ -85,5 +83,7 @@ public class Inventario {
 	public void mostrarinventarioSEDE(String sede) {
 		
 	}
-
+	public ArrayList<Vehiculo> getCatalogo() {
+		return catalogo;
+	}
 }

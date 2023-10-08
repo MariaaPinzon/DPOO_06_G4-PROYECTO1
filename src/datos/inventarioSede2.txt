@@ -1,0 +1,4 @@
+MBV456,Ford Taurus,2022,lujo,negro,AUTOMATICO,s2,disponible
+JSH892,Toyota RAV4,2021,todoterreno,azul,AUTOMATICO,s2,disponible
+HSG345,Chevrolet Express,2016,van,negro,AUTOMATICO,s2,mantenimiento
+MPI800,Hyundai Elantra,2020,estándar,blanco,MANUAL,s2,limpieza

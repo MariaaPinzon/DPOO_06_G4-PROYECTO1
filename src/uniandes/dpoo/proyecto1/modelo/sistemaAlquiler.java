@@ -5,7 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
+
 import java.io.FileWriter;
 
 import uniandes.dpoo.proyecto1.consola.Administrador;
@@ -13,6 +13,7 @@ import uniandes.dpoo.proyecto1.consola.Cliente;
 import uniandes.dpoo.proyecto1.consola.Usuario;
 import uniandes.dpoo.proyecto1.consola.Empleado;
 import uniandes.dpoo.proyecto1.consola.Inventario;
+import uniandes.dpoo.proyecto1.consola.InventarioSede;
 
 public class sistemaAlquiler {
 	@SuppressWarnings("resource")
@@ -81,17 +82,10 @@ public class sistemaAlquiler {
 		//PARA HACER UN EMPLEADO SE TYPEA "secreto"
 		//PARA HACER UN ADMINISTRADOR SE TYPEA "secretoA"
 		if (!usuario.equals("secreto") && (!usuario.equals("secretoA"))) {
-			String contra = input("ingrese su contraseña: ");
-				
-				
-				
-				
-				
+			String contra = input("ingrese su contraseña: ");				
 			br.write(usuario+","+contra+",C");
 			br.close();
 			returnfinal = new Cliente (usuario, contra);
-			
-				
 		}
 		else if(usuario.equals("secretoA")){
 			System.out.println("Hola admin");
@@ -153,7 +147,7 @@ public class sistemaAlquiler {
 		
 		*System.out.println("\nMostrando todos los carros de la empresa\n");
 		*inventariogeneral.mostrarinventariototal();*/
-		int opcion = usuario.mostrarOpciones();
+		
 		/*TOTAL DE OPCIONES:
 		  	0.cerrar
 			1. revisar los carros del inventario general
@@ -173,6 +167,7 @@ public class sistemaAlquiler {
 		 */
 		Boolean revision_opciones = true;
 		while (revision_opciones == true){
+			int opcion = usuario.mostrarOpciones();
 			if (opcion == 1) {
 				inventariogeneral.mostrarinventariototal();
 			}
@@ -180,7 +175,23 @@ public class sistemaAlquiler {
 				inventariogeneral.mostrarinventariodisponible();
 			}
 			if (opcion == 3) {
-				break;
+				InventarioSede inventariosede = null;
+				System.out.println("1. Sede 1");
+				System.out.println("2. Sede 2");
+				System.out.println("3. Sede 3");;
+				String opcionsede = input("Seleccione una sede");
+				System.out.println(opcionsede);
+				if (opcionsede.equals("1")) {
+					inventariosede = new InventarioSede("./src/datos/InventarioGENERAL.txt", "s1","./src/datos/inventarioSede1.txt");
+				}
+				else if (opcionsede.equals("2")) {
+					inventariosede = new InventarioSede("./src/datos/InventarioGENERAL.txt", "s2","./src/datos/inventarioSede2.txt");
+				}
+				else if (opcionsede.equals("3")) {
+					inventariosede = new InventarioSede("./src/datos/InventarioGENERAL.txt", "s3","./src/datos/inventarioSede3.txt");
+				}
+				inventariosede.mostrarinventariodisponible();
+				
 			}
 			if (opcion == 4) {
 				break;

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 public class Inventario {
 	private ArrayList<Vehiculo> catalogo;
+	public Inventario() {
+		
+	}
 
 	public Inventario(String enlace) throws Exception {
 		ArrayList<Vehiculo> catalogo = new ArrayList<Vehiculo>();
@@ -79,6 +82,8 @@ public class Inventario {
 			System.out.println(s);
 			}
 	}
-	
+	public void mostrarinventarioSEDE(String sede) {
+		
+	}
 
 }

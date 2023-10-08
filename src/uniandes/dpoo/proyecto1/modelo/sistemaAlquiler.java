@@ -147,12 +147,72 @@ public class sistemaAlquiler {
 			usuario = sistema.CrearNuevoUsuario("./src/datos/Usuarios.txt");
 		}
 		Inventario inventariogeneral = new Inventario("./src/datos/InventarioGENERAL.txt");
-		System.out.println("\nMostrando todos los carros disponibles en todas las sedes\n");
-		inventariogeneral.mostrarinventariodisponible();
 		
-		System.out.println("\nMostrando todos los carros de la empresa\n");
-		inventariogeneral.mostrarinventariototal();
-		usuario.mostrarOpciones();
+		/*System.out.println("\nMostrando todos los carros disponibles en todas las sedes\n");
+		*inventariogeneral.mostrarinventariodisponible();
+		
+		*System.out.println("\nMostrando todos los carros de la empresa\n");
+		*inventariogeneral.mostrarinventariototal();*/
+		int opcion = usuario.mostrarOpciones();
+		/*TOTAL DE OPCIONES:
+		  	0.cerrar
+			1. revisar los carros del inventario general
+			2. revisar todos los carros disponibles
+			3. revisar todos los carros disponibles de una sede.
+			4.Crear una reserva
+			5.Gestionar/eliminar reserva
+			6.Añadir carro al inventario
+			7. Eliminar carro del inventario
+			8. Crear seguro
+			9. crear empleado
+			10. eliminar empleado
+			11. alquiler con reserva
+			12. alquiler sin reserva
+
+
+		 */
+		Boolean revision_opciones = true;
+		while (revision_opciones == true){
+			if (opcion == 1) {
+				inventariogeneral.mostrarinventariototal();
+			}
+			if (opcion == 2) {
+				inventariogeneral.mostrarinventariodisponible();
+			}
+			if (opcion == 3) {
+				break;
+			}
+			if (opcion == 4) {
+				break;
+			}
+			if (opcion == 5) {
+				break;
+			}
+			if (opcion == 6) {
+				break;
+			}
+			if (opcion == 7) {
+				break;
+			}
+			if (opcion == 8) {
+				break;
+			}
+			if (opcion == 9) {
+				break;
+			}
+			if (opcion == 10) {
+				break;
+			}
+			if (opcion == 11) {
+				break;
+			}
+			if (opcion == 12) {
+				break;
+			}
+			if (opcion == 0) {
+				revision_opciones = false;
+			}
+		}
 		
 	}
 	

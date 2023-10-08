@@ -9,5 +9,6 @@ public class InventarioSede extends Inventario {
 		this.catalogo = carros;
 		// TODO Auto-generated constructor stub
 	}
+	
 
 }

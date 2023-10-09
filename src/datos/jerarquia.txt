@@ -1,6 +1,6 @@
-economico
-estándar
-van
-SUV
-todoterreno
-lujo
+1,economico
+2,estándar
+3,van
+4,SUV
+5,todoterreno
+6,lujo

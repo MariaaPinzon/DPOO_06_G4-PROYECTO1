@@ -8,3 +8,6 @@ HSG345,Chevrolet Express,2016,van,negro,AUTOMATICO,s2,mantenimiento
 IOP575,Toyota Corolla,2017,estándar,gris,MANUAL,s3,disponible
 HNB333,Ford Focus,2020,economico,rojo,MANUAL,s3,Camilo,10/06/2023
 MPI800,Hyundai Elantra,2020,estándar,blanco,MANUAL,s2,limpieza
+HBU766,Kia Picanto,2020,económico,gris,MANUAL,s1
+CDM234,Fiat Mobi,2017,estándar,gris,MANUAL,s3,disponible
+MKL874,Renault Duster,2022,todoterreno,gris,AUTOMATICO,s2,disponible

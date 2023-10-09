@@ -1,5 +1,8 @@
 package uniandes.dpoo.proyecto1.consola;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 
 public class Reserva {
@@ -25,11 +28,20 @@ public class Reserva {
 		this.sedefinal= sedeFin;
 		//Se asume que todos los meses tienen 30 días
 		this.diasAlquiler= diferenciadias(fechaIni,fechaFin);
-		this.setCategoria(categoria);
-		this.ID= crearID();
-		
-		
-		
+		this.categoria = categoria;
+		this.ID= crearID();		
+	}
+	public Reserva(int ID,Cliente pana, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria) {
+		this.cliente= pana;
+		this.fechaIni= fechaIni;
+		this.horaIni= horaIni;
+		this.fechaFin= fechaFin;
+		this.horaFin= horaFin;
+		this.sedeinicial= sedeIn;
+		this.sedefinal= sedeFin;
+		this.diasAlquiler= diferenciadias(fechaIni,fechaFin);
+		this.categoria = categoria;
+		this.ID= ID;		
 	}
 	public int diferenciadias(String fechaIni, String fechaFin) {
 	//Se asume que todos los meses tienen 30 días
@@ -57,10 +69,18 @@ public class Reserva {
 		int rando = x.nextInt(9999);
 		return rando;
 	}
+	public void escribirTXT(String enlace) throws Exception {
+		FileWriter output = new FileWriter(enlace, true);
+		BufferedWriter br = new BufferedWriter(output);
+		String nombrecliente = cliente.getNombre();
+		
+		br.write("\n"+ID+","+nombrecliente+","+categoria+","+diasAlquiler+","+fechaIni+","+horaIni+","+fechaFin+","+horaFin+","+sedeinicial+","+sedefinal);
+		br.close();
+	}
 	public String getinfo() {
 		String nombrecliente = cliente.getNombre();
 		String categoriaS = findcategoria();
-		return "Cliente que realiza la reserva: "+nombrecliente+"\nBusca un carro de la categoría:"+categoriaS+" por "+diasAlquiler+" dias"
+		return "Cliente que realiza la reserva: "+nombrecliente+"\nBusca un carro de la categoría:"+categoriaS+" por: "+diasAlquiler+" dias"
 				+"\nDesde el día "+fechaIni+" a la hora "+horaIni+"\nHasta el día "+fechaFin+" a la hora "+horaFin
 				+"\nArrendado en la sede "+sedeinicial+" y regresado en la sede "+sedefinal
 				+"\nSu identificación de la reserva es: "+ID;
@@ -111,8 +131,8 @@ public class Reserva {
 	public int getID() {
 		return ID;
 	}
-	public void setCategoria(int categoria) {
-		this.categoria = categoria;
+	public int getCategoria() {
+		return categoria;
 	}
 
 }

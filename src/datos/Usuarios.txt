@@ -1,7 +1,11 @@
-Mateo,1234,A
-Maria,122,E
-Gabi,113,E
-Tomas,111,C
-Camilo,123,C
-MariaL,222,C
-Jules,321,C
+nombreUsuario,contraseña,tipoUsuario,nombres,datosContacto,fechaNacimiento,nacionalidad,imagenDocIdentidad,numeroLicencia,paisExpedicionLicencia,fechaVencimientoLicencia,tipoMedioDePago,numeroMedioDePago,fechaVencimientoMedioPago
+Mateo,1234,AG,Mateo Perez,3001234567,01/01/1980,Colombia,ID12345,NA,NA,NA,NA,NA,NA
+Maria,122,EAL,Maria Rodriguez,3012345678,15/03/1985,Colombia,ID67890,NA,NA,NA,NA,NA,NA
+Gabi,113,E,Gabriela Santos,3023456789,20/05/1990,Colombia,ID45678,NA,NA,NA,NA,NA,NA
+Tomas,111,C,Tomas Gutierrez,3034567890,25/07/1995,Colombia,ID11223,123456789012,Colombia,25/12/2025,Tarjeta,123456789012,10/12/2024
+Camilo,123,C,Camilo Torres,3045678901,30/09/2000,Colombia,ID33445,234567890123,Colombia,20/10/2024,Tarjeta,234567890123,11/11/2023
+MariaL,222,C,Maria Lopez,3056789012,05/11/1985,Colombia,ID55667,345678901234,Colombia,15/09/2023,Tarjeta,345678901234,02/10/2022
+Andrea,5678,EAL,Andrea Ramirez,3067890123,10/01/1990,Colombia,ID77889,NA,NA,NA,NA,NA,NA
+Pedro,3456,E,Pedro Mendez,3078901234,15/03/1995,Colombia,ID88990,NA,NA,NA,NA,NA,NA
+Luisa,9012,C,Luisa Fernandez,3089012345,20/05/2000,Colombia,ID99001,456789012345,Colombia,10/05/2026,Tarjeta,456789012345,03/09/2025
+Juan,7890,E,Juan Diaz,3090123456,25/07/1985,Colombia,ID22334,NA,NA,NA,NA,NA,NA

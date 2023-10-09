@@ -14,6 +14,7 @@ import uniandes.dpoo.proyecto1.consola.Usuario;
 import uniandes.dpoo.proyecto1.consola.Empleado;
 import uniandes.dpoo.proyecto1.consola.Inventario;
 import uniandes.dpoo.proyecto1.consola.InventarioSede;
+import uniandes.dpoo.proyecto1.consola.Reserva;
 
 public class sistemaAlquiler {
 	@SuppressWarnings("resource")
@@ -168,6 +169,7 @@ public class sistemaAlquiler {
 		Boolean revision_opciones = true;
 		while (revision_opciones == true){
 			int opcion = usuario.mostrarOpciones();
+
 			if (opcion == 1) {
 				inventariogeneral.mostrarinventariototal();
 			}
@@ -175,6 +177,7 @@ public class sistemaAlquiler {
 				inventariogeneral.mostrarinventariodisponible();
 			}
 			if (opcion == 3) {
+				
 				InventarioSede inventariosede = null;
 				System.out.println("1. Sede 1");
 				System.out.println("2. Sede 2");
@@ -194,7 +197,30 @@ public class sistemaAlquiler {
 				
 			}
 			if (opcion == 4) {
-				break;
+				Cliente cliente = (Cliente)usuario;
+				System.out.println(cliente.getNombre()); 
+				
+				System.out.println("Estos son los tipos de carros disponibles actualmente: \n"
+						+ "1.economico\r\n"
+						+ "2.estándar\r\n"
+						+ "3.van\r\n"
+						+ "4.SUV\r\n"
+						+ "5.todoterreno\r\n"
+						+ "6.lujo");
+				int categoria = Integer.parseInt(input("Seleccione una categoría"));
+				String fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA): ");
+				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM): ");
+				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA): ");
+				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM): ");
+				System.out.println("Nuestras sedes: \n"
+						+ "Sede 1 (s1)\r\n"
+						+ "Sede 2 (s2)\r\n"
+						+ "Sede 3 (s3)\r\n");
+				String sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil: ");
+				String sedeFin = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil: ");
+				Reserva reserva = new Reserva (cliente,fechaini, horaini, fechafinal, horafinal,  sedeIn, sedeFin, categoria);
+				System.out.println(reserva.getinfo()); 
+				//falta añadirlo a un txt de reservas
 			}
 			if (opcion == 5) {
 				break;

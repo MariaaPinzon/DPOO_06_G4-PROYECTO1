@@ -17,58 +17,48 @@ import uniandes.dpoo.proyecto1.consola.InventarioSede;
 
 public class sistemaAlquiler {
 	@SuppressWarnings("resource")
-	public Usuario IniciarSesion() throws IOException {
-		BufferedReader br = null;
-		br = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
-		
-		String linea = null;
-		Boolean revisar = false;
-		Usuario usuarioreal = null;
-		linea = br.readLine();
-		while (revisar == false) {
-			String usuario = input("ingrese su usuario: ");
-			String contra = input("ingrese su contraseña: ");
-			while (linea!=null) 
-			{
-				
-				String[] info = linea.split(",");
-				String cuenta = info[0];
-				String password = info[1];
-				String jerarquia = info[2];
-				if (usuario.equals(cuenta) && contra.equals(password)) {
-					if (jerarquia.equals("A") ){
-						usuarioreal = new Administrador(usuario, contra);
-						usuarioreal.getRol();
-						
-					}
-					else if (jerarquia.equals("E") ){
-						usuarioreal = new Empleado(usuario, contra);
-						usuarioreal.getRol();
-						
-					}
-					else if (jerarquia.equals("C") ){
-						usuarioreal = new Cliente(usuario, contra);
-						usuarioreal.getRol();
-						
-					}
-					
-					revisar = true;
-					break;
-				}
-				
-				linea = br.readLine();
-			}
-			if (revisar == false) {
-				System.out.println("No se encontró el usuario registrado, intente de nuevo");
-			}
-		
-		
-		}
-		return usuarioreal;
-		
-		
-		
-	}
+    public Usuario IniciarSesion() throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
+        
+        String linea = br.readLine();
+        Boolean revisar = false;
+        Usuario usuarioreal = null;
+
+        while (revisar == false) {
+            String usuario = input("ingrese su usuario: ");
+            String contra = input("ingrese su contraseña: ");
+
+            while (linea != null) {
+                String[] info = linea.split(",");
+                String cuenta = info[0];
+                String password = info[1];
+                String jerarquia = info[2];
+
+                if (usuario.equals(cuenta) && contra.equals(password)) {
+                    if (jerarquia.equals("AG")) {
+                        usuarioreal = new Administrador(usuario, contra);
+                        usuarioreal.getRol();
+                    } 
+                    else if (jerarquia.equals("EAL") || jerarquia.equals("E")) {
+                        usuarioreal = new Empleado(usuario, contra);
+                        usuarioreal.getRol();
+                    } 
+                    else if (jerarquia.equals("C")) {
+                        usuarioreal = new Cliente(usuario, contra, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], Integer.parseInt(info[12]), info[13]);
+                        usuarioreal.getRol();
+                    }
+                    
+                    revisar = true;
+                    break;
+                }
+                linea = br.readLine();
+            }
+            if (revisar == false) {
+                System.out.println("No se encontró el usuario registrado, intente de nuevo");
+            }
+        }
+        return usuarioreal;
+    }
 	public void CargarUsuarios() {
 		
 		
@@ -81,12 +71,25 @@ public class sistemaAlquiler {
 		String usuario = input("ingrese su usuario: ");
 		//PARA HACER UN EMPLEADO SE TYPEA "secreto"
 		//PARA HACER UN ADMINISTRADOR SE TYPEA "secretoA"
-		if (!usuario.equals("secreto") && (!usuario.equals("secretoA"))) {
-			String contra = input("ingrese su contraseña: ");				
-			br.write(usuario+","+contra+",C");
-			br.close();
-			returnfinal = new Cliente (usuario, contra);
-		}
+        if (!usuario.equals("secreto") && (!usuario.equals("secretoA"))) {
+            String contra = input("ingrese su contraseña: ");
+            String nombres = input("Ingrese sus nombres: ");
+            String contacto = input("Ingrese su número de teléfono: ");
+            String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy): ");
+            String nacionalidad = input("Ingrese su nacionalidad: ");
+            String docIdentidad = input("Ingrese su documento de identidad: ");
+            String numeroLicencia = input("Ingrese su número de licencia (12 dígitos): ");
+            String paisExpedicionLicencia = "Colombia"; // Asumiendo que siempre es Colombia
+            String fechaVencimientoLicencia = input("Ingrese la fecha de vencimiento de su licencia (dd/mm/yyyy): ");
+            String tipoMedioDePago = input("Ingrese el tipo de medio de pago (ej. Tarjeta, Transferencia, etc.): ");
+            int numeroMedioDePago = Integer.parseInt(input("Ingrese el número de su medio de pago: "));
+            String fechaVencimientoMedioPago = input("Ingrese la fecha de vencimiento de su medio de pago (dd/mm/yyyy): ");
+            
+            br.write(usuario + "," + contra + ",C," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + numeroLicencia + "," + paisExpedicionLicencia + "," + fechaVencimientoLicencia + "," + tipoMedioDePago + "," + numeroMedioDePago + "," + fechaVencimientoMedioPago);
+            br.close();
+            
+            returnfinal = new Cliente(usuario, contra, nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, numeroLicencia, paisExpedicionLicencia, fechaVencimientoLicencia, tipoMedioDePago, numeroMedioDePago, fechaVencimientoMedioPago);
+        } 
 		else if(usuario.equals("secretoA")){
 			System.out.println("Hola admin");
 			String adminusuario = input("ingrese su usuario: ");

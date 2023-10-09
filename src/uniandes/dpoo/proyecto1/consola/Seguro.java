@@ -1,8 +1,8 @@
 package uniandes.dpoo.proyecto1.consola;
 
-public class Seguros {
+public class Seguro {
 
-	public Seguros() {
+	public Seguro() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -11,14 +11,13 @@ public class AdministradorLocal extends Administrador{
     private String fechaNacimiento;
     private String nacionalidad;
     private String docIdentidad;
-	private String sede;
-	public AdministradorLocal(String nombreUsuario, String contraseña, String tipoUsuario,String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String docIdentidad, String sede) {
+    private String sede;
+    public AdministradorLocal(String nombreUsuario, String contraseña, String tipoUsuario,String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String docIdentidad, String sede) {
 		super(nombreUsuario,contraseña,tipoUsuario,nombres,datosContacto,fechaNacimiento,nacionalidad,docIdentidad);
 		this.sede=sede;
 		// TODO Auto-generated constructor stub
 	}
-	
-	public String getTipoUsuario() {
+    public String getTipoUsuario() {
 		return tipoUsuario;
 	}
 
@@ -73,6 +72,10 @@ public class AdministradorLocal extends Administrador{
 		return resp;
 	}
 	
+	@Override
+	public void getRol() {
+		System.out.println("Eres un administrador Local.");
+	} 
 	
 	
 	

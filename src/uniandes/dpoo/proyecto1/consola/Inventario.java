@@ -80,6 +80,19 @@ public class Inventario {
 			System.out.println(s);
 			}
 	}
+	public ArrayList<String> mostrarinventarioalquilado(){
+		ArrayList<String> alquilados = new ArrayList<>();
+		for (int i=0; i<catalogo.size(); i++) {
+			String s = null;
+			Vehiculo carro = catalogo.get(i);
+			String disponible = carro.getCliente();
+			if (disponible != null) {
+				s= carro.getinfoAlquilado();
+				alquilados.add(s);
+			}
+		}
+		return alquilados;
+	}
 	public void mostrarinventarioSEDE(String sede) {
 		
 	}

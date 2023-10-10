@@ -60,6 +60,7 @@ public class Reserva {
 		this.ID= crearID();
 	}
 	
+	
 	public int diferenciadias(String fechaIni, String fechaFin) {
 	//Se asume que todos los meses tienen 30 días
 	int diferencia = 0;
@@ -95,6 +96,12 @@ public class Reserva {
 
 	    br.write(ID + "," + nombrecliente + "," + categoria + "," + diasAlquiler + "," + fechaIni + "," + horaIni + "," + fechaFin + "," + horaFin + "," + sedeinicial + "," + sedefinal + "," + segurosStr+"\n");
 	    br.close();
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 	public void escribirTXTespecial(String enlace) throws Exception {
 		FileWriter output = new FileWriter(enlace, true);

@@ -1,10 +1,10 @@
 package uniandes.dpoo.proyecto1.consola;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class Empleado extends Usuario {
 	private String tipoUsuario;
@@ -13,7 +13,7 @@ public class Empleado extends Usuario {
     private String fechaNacimiento;
     private String nacionalidad;
     private String docIdentidad;
-    
+
     public Empleado(String nombreUsuario, String contraseña, String tipoUsuario,String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String docIdentidad) {
         super(nombreUsuario, contraseña); // llamada al constructor de la clase padre Usuario
         this.tipoUsuario = tipoUsuario;
@@ -23,19 +23,19 @@ public class Empleado extends Usuario {
         this.nacionalidad = nacionalidad;
         this.docIdentidad = docIdentidad;
 	}
-    
+
 	public void escribirTXT(String enlace) throws Exception {
 		FileWriter output = new FileWriter(enlace, true);
 		BufferedWriter br = new BufferedWriter(output);
 
-	    br.write(getNombre() + "," + getContraseña() + "," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad +"\n");
+	    br.write(getNombre() + "," + getContraseña() + "," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+"\n");
 	    br.close();
 	}
-	
+
 	public String getTipoUsuario() {
 		return tipoUsuario;
 	}
-    
+
 	public String getNombres() {
 		return nombres;
 	}

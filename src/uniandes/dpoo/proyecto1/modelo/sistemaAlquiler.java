@@ -29,8 +29,8 @@ public class sistemaAlquiler {
         Usuario usuarioreal = null;
 
         while (revisar == false) {
-            String usuario = input("ingrese su usuario: ");
-            String contra = input("ingrese su contraseña: ");
+            String usuario = input("ingrese su usuario ");
+            String contra = input("ingrese su contraseña ");
 
             while (linea != null) {
                 String[] info = linea.split(",");
@@ -44,7 +44,7 @@ public class sistemaAlquiler {
                         usuarioreal.getRol();
                     } 
                     else if (jerarquia.equals("AL")) {
-                        usuarioreal = new AdministradorLocal(usuario, contra, jerarquia, info[3], info[4], info[5], info[6], info[7], info[8]);
+                        usuarioreal = new AdministradorLocal(usuario, contra, jerarquia, info[3], info[4], info[5], info[6], info[7], info[13]);
                         usuarioreal.getRol();
                     } 
                     else if (jerarquia.equals("E")) {
@@ -76,42 +76,42 @@ public class sistemaAlquiler {
 		FileWriter output = new FileWriter(name, true);
 		BufferedWriter br = new BufferedWriter(output);
 		//br.newLine();
-		String usuario = input("ingrese su usuario: ");
-		//PARA HACER UN AG SE TYPEA "secreto"
-		//PARA HACER UN AL SE TYPEA "secretoA"
+		String usuario = input("ingrese su usuario ");
+		//PARA HACER UN AG SE TYPEA "secretoAG"
+		//PARA HACER UN AL SE TYPEA "secretoAL"
 		
 		//CLIENTE:
-		if (!usuario.equals("secreto") && (!usuario.equals("secretoA"))) {
-            String contra = input("ingrese su contraseña: ");
-            String nombres = input("Ingrese sus nombres: ");
-            String contacto = input("Ingrese su número de teléfono: ");
-            String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy): ");
-            String nacionalidad = "Colombia";
-            String docIdentidad = input("Ingrese su documento de identidad: ");
-            String numeroLicencia = input("Ingrese su número de licencia (12 dígitos): ");
-            String paisExpedicionLicencia = "Colombia"; // Asumiendo que siempre es Colombia
-            String fechaVencimientoLicencia = input("Ingrese la fecha de vencimiento de su licencia (dd/mm/yyyy): ");
-            String tipoMedioDePago = input("Ingrese el tipo de medio de pago (ej. Tarjeta, Transferencia, etc.): ");
-            int numeroMedioDePago = Integer.parseInt(input("Ingrese el número de su medio de pago: "));
-            String fechaVencimientoMedioPago = input("Ingrese la fecha de vencimiento de su medio de pago (dd/mm/yyyy): ");
+		if (!usuario.equals("secretoAG") && (!usuario.equals("secretoAL"))) {
+            String contra = input("ingrese su contraseña ");
+            String nombres = input("Ingrese sus nombres ");
+            String contacto = input("Ingrese su número de teléfono ");
+            String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy) ");
+            String nacionalidad = input("Escriba su pais de nacionalidad");
+            String docIdentidad = input("Ingrese su documento de identidad ");
+            String numeroLicencia = input("Ingrese su número de licencia (9 dígitos) ");
+            String paisExpedicionLicencia = input("Escriba el pais de expedicion de su licencia "); 
+            String fechaVencimientoLicencia = input("Ingrese la fecha de vencimiento de su licencia (dd/mm/yyyy) ");
+            String tipoMedioDePago = input("Ingrese el tipo de medio de pago (ej. Tarjeta, Transferencia, etc.) ");
+            long numeroMedioDePago = Long.parseLong(input("Ingrese el número de su medio de pago "));
+            String fechaVencimientoMedioPago = input("Ingrese la fecha de vencimiento de su medio de pago (dd/mm/yyyy) ");
 
-            br.write(usuario + "," + contra + ",C," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + numeroLicencia + "," + paisExpedicionLicencia + "," + fechaVencimientoLicencia + "," + tipoMedioDePago + "," + numeroMedioDePago + "," + fechaVencimientoMedioPago);
+            br.write(usuario + "," + contra + ",C," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + numeroLicencia + "," + paisExpedicionLicencia + "," + fechaVencimientoLicencia + "," + tipoMedioDePago + "," + numeroMedioDePago + "," + fechaVencimientoMedioPago+"\n");
             br.close();
 
             returnfinal = new Cliente(usuario, contra, nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, numeroLicencia, paisExpedicionLicencia, fechaVencimientoLicencia, tipoMedioDePago, numeroMedioDePago, fechaVencimientoMedioPago);
             
             //EMPLEADO: ADMINISTRADOR GENERAL:
             
-		   } else if (usuario.equals("secretoA")) {
+		   } else if (usuario.equals("secretoAG")) {
 		        System.out.println("Hola admin general");
-		        String adminusuario = input("ingrese su usuario: ");
-		        String contra = input("ingrese su contraseña: ");
-		        String nombres = input("Ingrese sus nombres: ");
-		        String contacto = input("Ingrese su número de teléfono: ");
-		        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy): ");
-		        String nacionalidad = input("Ingrese su nacionalidad: ");
-		        String docIdentidad = input("Ingrese su documento de identidad: ");
-		        br.write("\n" + adminusuario + "," + contra + ",AG," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad);
+		        String adminusuario = input("ingrese su usuario ");
+		        String contra = input("ingrese su contraseña ");
+		        String nombres = input("Ingrese sus nombres ");
+		        String contacto = input("Ingrese su número de teléfono ");
+		        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy) ");
+		        String nacionalidad = input("Ingrese su nacionalidad ");
+		        String docIdentidad = input("Ingrese su documento de identidad ");
+		        br.write( adminusuario + "," + contra + ",AG," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+"\n" );
 		        br.close();
 		        returnfinal = new Administrador(adminusuario, contra, "AG", nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad);
 		        
@@ -119,15 +119,15 @@ public class sistemaAlquiler {
 		        
 		    } else {
 		        System.out.println("Hola admin local");
-		        String adminLocalUsuario = input("ingrese su usuario: ");
-		        String contra = input("ingrese su contraseña: ");
-		        String nombres = input("Ingrese sus nombres: ");
-		        String contacto = input("Ingrese su número de teléfono: ");
-		        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy): ");
-		        String nacionalidad = input("Ingrese su nacionalidad: ");
-		        String docIdentidad = input("Ingrese su documento de identidad: ");
-		        String sede = input("Ingrese la sede: ");
-		        br.write("\n" + adminLocalUsuario + "," + contra + ",AL," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + sede);
+		        String adminLocalUsuario = input("ingrese su usuario ");
+		        String contra = input("ingrese su contraseña ");
+		        String nombres = input("Ingrese sus nombres ");
+		        String contacto = input("Ingrese su número de teléfono ");
+		        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy) ");
+		        String nacionalidad = input("Ingrese su nacionalidad ");
+		        String docIdentidad = input("Ingrese su documento de identidad ");
+		        String sede = input("Ingrese la sede ");
+		        br.write( adminLocalUsuario + "," + contra + ",AL," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA" +"," + sede+"\n");
 		        br.close();
 		        returnfinal = new AdministradorLocal(adminLocalUsuario, contra, "AL", nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, sede);
 		    }
@@ -243,22 +243,22 @@ public class sistemaAlquiler {
 						+ "Sede 1 (s1)\r\n"
 						+ "Sede 2 (s2)\r\n"
 						+ "Sede 3 (s3)\r\n");
-				String sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil: ");
-				String sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil: ");
-				String fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA): ");
-				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM): ");
-				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA): ");
-				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM): ");
+				String sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil ");
+				String sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil ");
+				String fechaini = input("Escriba qué día quiere recoger el vehículo (en formato (dd/mm/yyyy)) ");
+				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM) ");
+				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato (dd/mm/yyyy)) ");
+				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM) ");
 				ArrayList<String> segurosSeleccionados = new ArrayList<>();
 			    boolean seleccionandoSeguros = true;
 			    while (seleccionandoSeguros) {
 			        System.out.println("Seleccione un seguro por su ID, escriba 'terminar' para finalizar la selección:");
 					System.out.println("Nuestros seguros: \n"
-							+ "Protección completa contra accidentes (Seguro1)\r\n"
-							+ "Protección básica contra accidentes (Seguro2)\r\n"
-							+ "Protección contra daños a terceros (Seguro3)\r\n"
-							+ "Protección en caso de accidentes en viajes largos (Seguro4)\r\n"
-							+ "Protección en caso de robo del vehículo (Seguro5)\r\n");
+							+ "Protección completa contra accidentes $ 150000 (Seguro1)\r\n"
+							+ "Protección básica contra accidentes $50000 (Seguro2)\r\n"
+							+ "Protección contra daños a terceros $80000 (Seguro3)\r\n"
+							+ "Protección en caso de accidentes en viajes largos $100000 (Seguro4)\r\n"
+							+ "Protección en caso de robo del vehículo 120000 (Seguro5)\r\n");
 			        String seguro = input("Seguro");
 			        if (seguro.equalsIgnoreCase("terminar")) {
 			            seleccionandoSeguros = false;
@@ -416,14 +416,14 @@ public class sistemaAlquiler {
 				AdministradorLocal admLocal = (AdministradorLocal)usuario; 
 				System.out.println(admLocal.getNombre()); 
 				
-				String nombreUsuario = input("Escriba el nombre de usuario del empleado: ");
-				String contraseña = input("Escriba la constraseña del empleado: ");
+				String nombreUsuario = input("Escriba el nombre de usuario del empleado ");
+				String contraseña = input("Escriba la constraseña del empleado ");
 				String tipoUsuario = "E";
-				String nombres = input("Escriba el nombre y apellido del empleado: ");
-				String datosContacto = input("Escriba el numero de contacto del empleado): ");
-				String fechaNacimiento = input("Escriba la fecha de nacimiento del empleado (en formato DD/MM/AA) : ");
-				String nacionalidad = "Colombia";
-				String docIdentidad = input("Escriba el documento de identidad del empleado: ");
+				String nombres = input("Escriba el nombre y apellido del empleado ");
+				String datosContacto = input("Escriba el numero de contacto del empleado ");
+				String fechaNacimiento = input("Escriba la fecha de nacimiento del empleado (en formato dd/mm/yy) ");
+				String nacionalidad = input("Escriba su pais de nacionalidad ");
+				String docIdentidad = input("Escriba el documento de identidad del empleado ");
 				
 			    Empleado empleado = new Empleado(nombreUsuario,contraseña,tipoUsuario,nombres,datosContacto,fechaNacimiento,nacionalidad,docIdentidad);
 			    empleado.escribirTXT("./src/datos/Usuarios.txt");

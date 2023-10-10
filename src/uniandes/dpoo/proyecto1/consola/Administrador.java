@@ -9,12 +9,10 @@ public class Administrador extends Empleado{
     private String fechaNacimiento;
     private String nacionalidad;
     private String docIdentidad;
-    
-	public Administrador(String nombreUsuario, String contraseña, String tipoUsuario,String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String docIdentidad){
+    public Administrador(String nombreUsuario, String contraseña, String tipoUsuario,String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String docIdentidad){
 		super(nombreUsuario,contraseña,tipoUsuario,nombres,datosContacto,fechaNacimiento,nacionalidad,docIdentidad);
-		
 	}
-	public String getTipoUsuario() {
+    public String getTipoUsuario() {
 		return tipoUsuario;
 	}
 	public String getNombres() {

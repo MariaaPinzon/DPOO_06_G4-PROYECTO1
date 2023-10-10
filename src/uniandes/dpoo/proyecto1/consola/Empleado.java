@@ -21,7 +21,8 @@ public class Empleado extends Usuario {
 		System.out.println("4. Revisar todos los carros disponibles");
 		System.out.println("5. Revisar todos los carros de una sede específica");
 		System.out.println("6. Reserva especial (traslado de carro entre sedes)");
-		System.out.println("7. Salir.");
+		System.out.println("7. Alquilar el carro (trasladarlo entre sede)");
+		System.out.println("8. Salir.");
 		int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
 		int resp = 0;
 		if (opcion_seleccionada==(1)) {
@@ -40,6 +41,12 @@ public class Empleado extends Usuario {
 			resp =3;
 		}
 		if (opcion_seleccionada==(6)) {
+			resp =13;
+		}
+		if (opcion_seleccionada==(7)) {
+			resp =14;
+		}
+		if (opcion_seleccionada==(8)) {
 			resp =0;
 		}
 		return resp;

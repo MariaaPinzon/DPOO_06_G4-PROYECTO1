@@ -1,5 +1,4 @@
 HMU321,Ford Escape,2020,todoterreno,gris,AUTOMATICO,s1,disponible
-JHB387,Kia Rio,2015,economico,verde,MANUAL,s1,disponible
 GTR873,Chevrolet Spark,2018,economico,negro,MANUAL,s3,disponible
 CCD243,Toyota Sienna,2019,van,gris,AUTOMATICO,s1,MariaL,9/06/2023
 MBV456,Ford Taurus,2022,lujo,negro,AUTOMATICO,s2,disponible
@@ -8,3 +7,4 @@ HSG345,Chevrolet Express,2016,van,negro,AUTOMATICO,s1,mantenimiento
 IOP575,Toyota Corolla,2017,estándar,gris,MANUAL,s3,disponible
 HNB333,Ford Focus,2020,economico,rojo,MANUAL,s3,Camilo,10/06/2023
 MPI800,Hyundai Elantra,2020,estándar,blanco,MANUAL,s2,limpieza
+JHB387,Kia Rio2015,economico,verde,MANUAL,s2,disponible

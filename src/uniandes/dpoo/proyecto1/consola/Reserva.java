@@ -18,6 +18,7 @@ public class Reserva {
 	private int ID;
 	private int categoria;
 	private ArrayList<String> seguros; 
+	private Empleado empleado;
 	
 
 	public Reserva(Cliente pana, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria, ArrayList<String> seguros) {
@@ -47,6 +48,16 @@ public class Reserva {
 		this.ID= ID;
 		this.seguros = seguros;
 
+	}
+	public Reserva(Empleado chambeador, int categoria, String fecha, String sede1, String sede2) {
+		this.empleado=chambeador;
+		this.categoria=categoria;
+		this.fechaIni=fecha;
+		this.fechaFin=fecha;
+		this.sedeinicial=sede1;
+		this.sedefinal=sede2;
+		this.diasAlquiler=diferenciadias(fecha,fecha);
+		this.ID= crearID();
 	}
 	
 	public int diferenciadias(String fechaIni, String fechaFin) {
@@ -85,6 +96,14 @@ public class Reserva {
 	    br.write(ID + "," + nombrecliente + "," + categoria + "," + diasAlquiler + "," + fechaIni + "," + horaIni + "," + fechaFin + "," + horaFin + "," + sedeinicial + "," + sedefinal + "," + segurosStr+"\n");
 	    br.close();
 	}
+	public void escribirTXTespecial(String enlace) throws Exception {
+		FileWriter output = new FileWriter(enlace, true);
+		BufferedWriter br = new BufferedWriter(output);
+		String nombreempleado = empleado.getNombre();
+
+	    br.write(ID + "," + nombreempleado + "," + categoria + "," + diasAlquiler + "," + fechaIni + ","+ fechaFin + ","+ sedeinicial + "," + sedefinal +",ESPECIAL"+"\n");
+	    br.close();
+	}
 	
 	
 	public String getinfo() {
@@ -96,6 +115,13 @@ public class Reserva {
 				+"\nDesde el día "+fechaIni+" a la hora "+horaIni+"\nHasta el día "+fechaFin+" a la hora "+horaFin
 				+"\nArrendado en la sede "+sedeinicial+" y regresado en la sede "+sedefinal
 				+"\nSu identificación de la reserva es: "+ID+"\nSeguros seleccionados: " + segurosStr;
+	}
+	public String getinfoEspecial() {
+		String nombreempleado = empleado.getNombre();
+		String categoriaS = findcategoria();
+		return "Empleado que realiza la reserva: "+nombreempleado
+				+"\nCarro de la categoría "+categoriaS
+				+"\nel día "+fechaIni+" de la sede "+sedeinicial+" a la sede "+ sedefinal+"\nCon el identificador: "+ID;
 	}
 	public String findcategoria() {
 		String resp = "";
@@ -173,5 +199,8 @@ public class Reserva {
 	public ArrayList<String> getSegurosCliente() {
         return seguros;
     }
+	public Empleado getEmpleado() {
+		return empleado;
+	}
 
 }

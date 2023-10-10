@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.io.FileWriter;
 
 import uniandes.dpoo.proyecto1.consola.Administrador;
@@ -168,6 +169,8 @@ public class sistemaAlquiler {
 			10. eliminar empleado
 			11. alquiler con reserva
 			12. alquiler sin reserva
+			13. reserva especial
+			14. alquiler especial
 			tarifa por reserva y 30%										check
 
 
@@ -405,10 +408,180 @@ public class sistemaAlquiler {
 				break;
 			}
 			if (opcion == 11) {
-				break;
+				System.out.println("\nOpciones para buscar la reserva\n");
+				System.out.println("1. Por nombre de quien generó la reserva.");
+				System.out.println("2. Por identificador de la reserva");
+				int seleccion = Integer.parseInt(input("Seleccione una opción"));
+				String comparador = "";
+				if (seleccion ==1) {
+					comparador = input("Escriba el nombre de quien generó la reserva");
+				}
+				if (seleccion ==2) {
+					comparador = input("Escriba el identificador de su reserva");
+				}
+				BufferedReader br = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
+				String linea = null;
+				Reserva reserva = null;
+				linea = br.readLine();
+				if (linea==null) {
+					linea = br.readLine();
+				}
+				Usuario usuarioreal = null;
+				while (linea!=null) {
+					boolean encontrar_reserva =linea.contains(comparador);
+					if (encontrar_reserva==true) {
+
+						String inforeserva[]= linea.split(",");
+						String nombrecliente = inforeserva[1];
+						int categoria = Integer.parseInt(inforeserva[2]);
+						String fechaIni = inforeserva[4];
+						String horaIni = inforeserva[5];
+						String fechaFin = inforeserva[6];
+						String horafin = inforeserva[7];
+						String sedein = inforeserva[8];
+						String sedeout = inforeserva[9];
+						int ID = Integer.parseInt(inforeserva[0]);
+
+						ArrayList<String> seguros = new ArrayList<>();
+						String segurosgrande = inforeserva[10];
+						String[]seguroslistagrande = segurosgrande.split(";");
+						
+						for (int i = 0; i<seguroslistagrande.length; i++) {
+							seguros.add(seguroslistagrande[i]);
+						}
+
+						BufferedReader lect_usuario = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
+						String linea_usuarios = null;
+						linea_usuarios= lect_usuario.readLine();
+						while (linea_usuarios!=null) {
+							String info[]= linea_usuarios.split(",");
+							String usuariocomp = info[0];
+							if (nombrecliente.equals(usuariocomp)) {
+
+								String contraseña= info[1];
+								usuarioreal = new Cliente(nombrecliente, contraseña, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], 1111, info[13]);
+								break;
+							}
+							linea_usuarios= lect_usuario.readLine();
+						}
+						lect_usuario.close();
+						Cliente cliente = (Cliente)usuarioreal;
+						reserva = new Reserva(ID,cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
+					}
+				}
+				br.close();
 			}
 			if (opcion == 12) {
 				break;
+			}
+			if (opcion == 13) {
+				System.out.println("\n"
+						+ "1.economico\r\n"
+						+ "2.estándar\r\n"
+						+ "3.van\r\n"
+						+ "4.SUV\r\n"
+						+ "5.todoterreno\r\n"
+						+ "6.lujo\r\n");
+				int categoria = Integer.parseInt(input("Seleccione una categoría"));
+				String fechaini = input("Escriba qué día va a desplazar el vehículo (en formato DD/MM/AA)");
+				String sedein = input("Escriba de qué sede vendrá el vehiculo");
+				String sedeout = input("Escriba a qué sede irá el vehiculo");
+				Empleado empleado = (Empleado)usuario;
+				Reserva reservaespecial = new Reserva (empleado,categoria,fechaini,sedein,sedeout);
+				reservaespecial.escribirTXTespecial("./src/datos/ListaReserva.txt");
+				System.out.println(reservaespecial.getinfoEspecial());
+			}
+			if (opcion == 14) {
+				String identificador = input("Escriba el número de identificación de la reserva ESPECIAL");
+				BufferedReader br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
+				String linea = null;
+				String sedeorigen = "";
+				String sedefin = "";
+				String categoria = "";
+				int numcategoria = 0;
+				linea = br.readLine();
+				ArrayList<String> lista = new ArrayList<>();
+				boolean encontrar_reserva = false;
+				while (linea!=null) {
+					String info[]= linea.split(",");
+					String IDcomp = info[0];
+					String especial = info[8];
+					if (! identificador.equals(IDcomp)) {
+						lista.add(linea+"\n");
+					}
+					else if (identificador.equals(IDcomp) && especial.equals("ESPECIAL")){
+						encontrar_reserva=true;
+						sedeorigen = info[6];
+						categoria=findcategoria(Integer.parseInt(info[2]));
+						numcategoria = Integer.parseInt(info[2]);
+						sedefin= info[7];
+					}
+					linea= br.readLine();
+				}
+				br.close();
+				
+				if (encontrar_reserva==true) {
+				FileWriter output = new FileWriter("./src/datos/ListaReserva.txt");
+				for (int i=0; i<lista.size(); i++) {
+					String dato = lista.get(i);
+					output.append(dato);
+				}
+				output.close();
+				BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
+				String lineainv = null;
+				lineainv=brinventario.readLine();
+				ArrayList<String> listaInventario = new ArrayList<>();
+				String marca = "";
+				String placa = "";
+				boolean encontrar_auto = false;
+				String lineareescribir = null;
+				while (lineainv!=null) {
+					String info[]= lineainv.split(",");
+					
+					String categoriacomp = info[3];
+					String sedecomp = info[6];
+					String es_disponible = info[7];
+					if ((!categoriacomp.equals(categoria))||(!sedecomp.equals(sedeorigen))||(encontrar_auto==true)){
+						listaInventario.add(lineainv);	
+					}
+					else if (es_disponible.equals("disponible")){
+						encontrar_auto=true;
+						String informacion[]=lineainv.split(",");
+						marca = informacion[1];
+						placa= informacion[0];
+						lineareescribir =informacion[0]+","+informacion[1]+informacion[2]+","+informacion[3]+","+informacion[4]+","+informacion[5]+","+sedefin+","+informacion[7];
+					}
+					else {
+						listaInventario.add(lineainv);	
+					}
+					
+					
+					lineainv=brinventario.readLine();
+					
+					}
+					brinventario.close();
+					if (encontrar_auto==true) {
+						FileWriter escritura = new FileWriter("./src/datos/InventarioGENERAL.txt");
+						for (int i=0; i<listaInventario.size(); i++) {
+							String dato = listaInventario.get(i);
+							escritura.append(dato+"\n");
+							}
+					
+						if (lineareescribir!=null) {
+							escritura.append(lineareescribir+"\n");
+							System.out.println("El vehiculo "+marca +" con las placas "+placa+" fue transferido con éxito");
+						}
+						escritura.close();
+					}
+					else {
+						System.out.println("No se encontró el carro");
+					}
+				}
+				
+				else {
+					System.out.println("No existe una reserva especial con esa identificación");
+				}
+				
 			}
 			if (opcion == 0) {
 				revision_opciones = false;
@@ -424,7 +597,7 @@ public class sistemaAlquiler {
 	public static String findcategoria(int categoria) {
 		String resp = "";
 		if (categoria==1) {
-			resp = "económico";
+			resp = "economico";
 		}
 		if (categoria==2) {
 			resp = "estándar";

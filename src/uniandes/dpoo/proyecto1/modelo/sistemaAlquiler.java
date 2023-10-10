@@ -6,13 +6,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.io.FileWriter;
 
 import uniandes.dpoo.proyecto1.consola.Administrador;
 import uniandes.dpoo.proyecto1.consola.Cliente;
 import uniandes.dpoo.proyecto1.consola.Usuario;
-import uniandes.dpoo.proyecto1.consola.Vehiculo;
+
 import uniandes.dpoo.proyecto1.consola.Empleado;
 import uniandes.dpoo.proyecto1.consola.Inventario;
 import uniandes.dpoo.proyecto1.consola.InventarioSede;
@@ -41,6 +41,8 @@ public class sistemaAlquiler {
                 if (usuario.equals(cuenta) && contra.equals(password)) {
                     if (jerarquia.equals("AG")) {
                         usuarioreal = new Administrador(usuario, contra);
+                        String nombrereal = info[3];
+                        System.out.println("Hola "+nombrereal);
                         usuarioreal.getRol();
                     } 
                     else if (jerarquia.equals("EAL") || jerarquia.equals("E")) {
@@ -91,7 +93,7 @@ public class sistemaAlquiler {
 
             br.write(usuario + "," + contra + ",C," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + numeroLicencia + "," + paisExpedicionLicencia + "," + fechaVencimientoLicencia + "," + tipoMedioDePago + "," + numeroMedioDePago + "," + fechaVencimientoMedioPago);
             br.close();
-
+            System.out.println("Hola "+nombres);
             returnfinal = new Cliente(usuario, contra, nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, numeroLicencia, paisExpedicionLicencia, fechaVencimientoLicencia, tipoMedioDePago, numeroMedioDePago, fechaVencimientoMedioPago);
         } 
 		else if(usuario.equals("secretoA")){
@@ -169,8 +171,11 @@ public class sistemaAlquiler {
 			10. eliminar empleado
 			11. alquiler con reserva
 			12. alquiler sin reserva
-			13. reserva especial
-			14. alquiler especial
+			13. reserva especial											check
+			14. alquiler especial											check
+			15.recibir un automovil (ponerlo en limpieza)
+			16. mandar un automovil a mantenimiento
+			17.devolver auto de limpieza o mantenimiento
 			tarifa por reserva y 30%										check
 
 
@@ -498,7 +503,7 @@ public class sistemaAlquiler {
 				String sedeorigen = "";
 				String sedefin = "";
 				String categoria = "";
-				int numcategoria = 0;
+				
 				linea = br.readLine();
 				ArrayList<String> lista = new ArrayList<>();
 				boolean encontrar_reserva = false;
@@ -513,7 +518,7 @@ public class sistemaAlquiler {
 						encontrar_reserva=true;
 						sedeorigen = info[6];
 						categoria=findcategoria(Integer.parseInt(info[2]));
-						numcategoria = Integer.parseInt(info[2]);
+						
 						sedefin= info[7];
 					}
 					linea= br.readLine();

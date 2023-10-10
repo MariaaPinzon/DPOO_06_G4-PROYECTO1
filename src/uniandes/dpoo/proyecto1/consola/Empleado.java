@@ -28,7 +28,7 @@ public class Empleado extends Usuario {
 		FileWriter output = new FileWriter(enlace, true);
 		BufferedWriter br = new BufferedWriter(output);
 
-	    br.write(getNombre() + "," + getContraseña() + "," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+"\n");
+	    br.write(getNombre() + "," + getContraseña() +"E" +  "," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+"\n");
 	    br.close();
 	}
 

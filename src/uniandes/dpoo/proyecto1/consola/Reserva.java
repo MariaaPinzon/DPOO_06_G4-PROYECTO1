@@ -96,6 +96,12 @@ public class Reserva {
 	    br.write(ID + "," + nombrecliente + "," + categoria + "," + diasAlquiler + "," + fechaIni + "," + horaIni + "," + fechaFin + "," + horaFin + "," + sedeinicial + "," + sedefinal + "," + segurosStr+"\n");
 	    br.close();
 	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 	public void escribirTXTespecial(String enlace) throws Exception {
 		FileWriter output = new FileWriter(enlace, true);
 		BufferedWriter br = new BufferedWriter(output);

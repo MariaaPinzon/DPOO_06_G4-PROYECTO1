@@ -55,7 +55,7 @@ public class Empleado extends Usuario {
 		System.out.println("Eres un empleado.");
 	}
 	@Override
-	public int mostrarOpciones() {
+	public int mostrarOpciones() { // este chico tambien va a registrar conductores adicionales si el cliente lo quiere, par añadirlos a tarifa
 		System.out.println("\nOpciones de empleado:\n");
 		System.out.println("1. Generar alquiler (con reserva realizada previamente)");
 		System.out.println("2. Generar alquiler (sin reserva)");

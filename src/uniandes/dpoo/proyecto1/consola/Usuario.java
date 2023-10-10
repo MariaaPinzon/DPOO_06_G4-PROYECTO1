@@ -5,10 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public abstract class Usuario {
-
+	private String nombre;
+	private String contraseña;
 	
 
 	public Usuario(String nombre, String contraseña) {
+		this.nombre=nombre;
+		this.contraseña=contraseña;
 	}
 	public abstract void getRol();
 	
@@ -28,5 +31,11 @@ public abstract class Usuario {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	public String getContraseña() {
+		return contraseña;
+	}
+	public String getNombre() {
+		return nombre;
 	}
 }

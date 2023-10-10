@@ -18,6 +18,7 @@ public class Reserva {
 	private int ID;
 	private int categoria;
 	private ArrayList<String> seguros; 
+	private Empleado empleado;
 	
 
 	public Reserva(Cliente pana, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria, ArrayList<String> seguros) {
@@ -31,10 +32,10 @@ public class Reserva {
 		//Se asume que todos los meses tienen 30 días
 		this.diasAlquiler= diferenciadias(fechaIni,fechaFin);
 		this.categoria = categoria;
-		this.ID= crearID();
 		this.seguros = seguros;
+		this.ID= crearID();
 	}
-	public Reserva(int ID,Cliente pana, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria) {
+	public Reserva(int ID,Cliente pana, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria,ArrayList<String> seguros) {
 		this.cliente= pana;
 		this.fechaIni= fechaIni;
 		this.horaIni= horaIni;
@@ -44,9 +45,21 @@ public class Reserva {
 		this.sedefinal= sedeFin;
 		this.diasAlquiler= diferenciadias(fechaIni,fechaFin);
 		this.categoria = categoria;
-		this.ID= ID;	
-		
+		this.ID= ID;
+		this.seguros = seguros;
+
 	}
+	public Reserva(Empleado chambeador, int categoria, String fecha, String sede1, String sede2) {
+		this.empleado=chambeador;
+		this.categoria=categoria;
+		this.fechaIni=fecha;
+		this.fechaFin=fecha;
+		this.sedeinicial=sede1;
+		this.sedefinal=sede2;
+		this.diasAlquiler=diferenciadias(fecha,fecha);
+		this.ID= crearID();
+	}
+	
 	public int diferenciadias(String fechaIni, String fechaFin) {
 	//Se asume que todos los meses tienen 30 días
 	int diferencia = 0;
@@ -77,21 +90,38 @@ public class Reserva {
 		FileWriter output = new FileWriter(enlace, true);
 		BufferedWriter br = new BufferedWriter(output);
 		String nombrecliente = cliente.getNombre();
-		
+
 	    String segurosStr = String.join(";", seguros);  //  ';' para separar los seguros en la cadena
 
-	    br.write("\n" + ID + "," + nombrecliente + "," + categoria + "," + diasAlquiler + "," + fechaIni + "," + horaIni + "," + fechaFin + "," + horaFin + "," + sedeinicial + "," + sedefinal + "," + segurosStr);
+	    br.write(ID + "," + nombrecliente + "," + categoria + "," + diasAlquiler + "," + fechaIni + "," + horaIni + "," + fechaFin + "," + horaFin + "," + sedeinicial + "," + sedefinal + "," + segurosStr+"\n");
 	    br.close();
 	}
+	public void escribirTXTespecial(String enlace) throws Exception {
+		FileWriter output = new FileWriter(enlace, true);
+		BufferedWriter br = new BufferedWriter(output);
+		String nombreempleado = empleado.getNombre();
+
+	    br.write(ID + "," + nombreempleado + "," + categoria + "," + diasAlquiler + "," + fechaIni + ","+ fechaFin + ","+ sedeinicial + "," + sedefinal +",ESPECIAL"+"\n");
+	    br.close();
+	}
+	
+	
 	public String getinfo() {
 		String nombrecliente = cliente.getNombre();
 		String categoriaS = findcategoria();
 		String segurosStr = String.join(";", seguros); 
-		
+
 		return "Cliente que realiza la reserva: "+nombrecliente+"\nBusca un carro de la categoría:"+categoriaS+" por: "+diasAlquiler+" dias"
 				+"\nDesde el día "+fechaIni+" a la hora "+horaIni+"\nHasta el día "+fechaFin+" a la hora "+horaFin
 				+"\nArrendado en la sede "+sedeinicial+" y regresado en la sede "+sedefinal
 				+"\nSu identificación de la reserva es: "+ID+"\nSeguros seleccionados: " + segurosStr;
+	}
+	public String getinfoEspecial() {
+		String nombreempleado = empleado.getNombre();
+		String categoriaS = findcategoria();
+		return "Empleado que realiza la reserva: "+nombreempleado
+				+"\nCarro de la categoría "+categoriaS
+				+"\nel día "+fechaIni+" de la sede "+sedeinicial+" a la sede "+ sedefinal+"\nCon el identificador: "+ID;
 	}
 	public String findcategoria() {
 		String resp = "";
@@ -115,14 +145,13 @@ public class Reserva {
 		}
 		return resp;
 	}
-	
 	public boolean esTemporadaAlta() {
 	    String[] fechaIniParts = fechaIni.split("/");
 	    int mesFechaIni = Integer.parseInt(fechaIniParts[1]);
 	    String[] fechaFinParts = fechaFin.split("/");
 	    int mesFechaFin = Integer.parseInt(fechaFinParts[1]);
 		boolean  esAlta = false;
-		
+
 	    for (int mes = mesFechaIni; mes <= mesFechaFin; mes++) { // de junio (6) a diciembre (12) es alta
 	        if (mes >= 6 && mes <= 12) {
 	            esAlta = true;
@@ -130,7 +159,7 @@ public class Reserva {
 	    }
 		return esAlta;
 		}
-	
+
 	public boolean esEntregaOtraSede() {
 		String sedeInicial = getSedeinicial();
 		String sedeFinal = getSedefinal();
@@ -140,7 +169,6 @@ public class Reserva {
 		}
 		return esOtraSede;
 	}
-	
 	public String getFechaIni() {
 		return fechaIni;
 	}
@@ -168,7 +196,11 @@ public class Reserva {
 	public int getCategoria() {
 		return categoria;
 	}
-    public ArrayList<String> getSegurosCliente() {
+	public ArrayList<String> getSegurosCliente() {
         return seguros;
     }
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
 }

@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Cliente extends Usuario {
-    private String nombres;
+public class Cliente extends Usuario{
+	private String nombres;
     private String contacto;
     private String fechaNacimiento;
     private String nacionalidad;
@@ -15,16 +15,16 @@ public class Cliente extends Usuario {
     private String fechaVencimientoLicencia;
     private String imagenLicencia;
     private String tipoMedioDePago;
-    private int numeroMedioDePago;
+    private long numeroMedioDePago;
     private String fechaVencimientoMedioPago;
-
-    public Cliente(String nombreUsuario, String contraseña, String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String imagenDocIdentidad, String numeroLicencia, String paisExpedicionLicencia, String fechaVencimientoLicencia, String tipoMedioDePago, int numeroMedioDePago, String fechaVencimientoMedioPago) {
+    
+    public Cliente(String nombreUsuario, String contraseña, String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String docIdentidad, String numeroLicencia, String paisExpedicionLicencia, String fechaVencimientoLicencia, String tipoMedioDePago, long numeroMedioDePago, String fechaVencimientoMedioPago) {
         super(nombreUsuario, contraseña); // llamada al constructor de la clase padre Usuario
         this.nombres = nombres;
         this.contacto = datosContacto;
         this.fechaNacimiento = fechaNacimiento;
         this.nacionalidad = nacionalidad;
-        this.docIdentidad = imagenDocIdentidad;
+        this.docIdentidad = docIdentidad;
         this.numeroLicencia = numeroLicencia;
         this.paisExpedicionLicencia = paisExpedicionLicencia;
         this.fechaVencimientoLicencia = fechaVencimientoLicencia;
@@ -38,7 +38,6 @@ public class Cliente extends Usuario {
 		System.out.println("Eres un cliente");
 		
 	}
-	
 
 	@Override
 	public int mostrarOpciones() {
@@ -67,11 +66,5 @@ public class Cliente extends Usuario {
 		}
 		return resp;
 	}
-
-	public String getNombre() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	
 }

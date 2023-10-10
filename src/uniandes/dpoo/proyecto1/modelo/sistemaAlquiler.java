@@ -161,9 +161,9 @@ public class sistemaAlquiler {
 			4.Crear una reserva 											check
 			5.Gestionar/eliminar reserva 									check
 			6.Añadir carro al inventario									check
-			7. Eliminar carro del inventario
+			7. Eliminar carro del inventario								check
 			8. Crear seguro 												check creo
-			9. crear empleado
+			9. crear empleado												
 			10. eliminar empleado
 			11. alquiler con reserva
 			12. alquiler sin reserva
@@ -222,10 +222,26 @@ public class sistemaAlquiler {
 				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM): ");
 				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA): ");
 				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM): ");
-				Reserva reserva = new Reserva (cliente,fechaini, horaini, fechafinal, horafinal,  sedeIn, sedeFin, categoria);
-				System.out.println(reserva.getinfo()); 
-				reserva.escribirTXT("./src/datos/Reservas.txt");
-				
+				ArrayList<String> segurosSeleccionados = new ArrayList<>();
+			    boolean seleccionandoSeguros = true;
+			    while (seleccionandoSeguros) {
+			        System.out.println("Seleccione un seguro por su ID, escriba 'terminar' para finalizar la selección:");
+					System.out.println("Nuestros seguros: \n"
+							+ "Protección completa contra accidentes (Seguro1)\r\n"
+							+ "Protección básica contra accidentes (Seguro2)\r\n"
+							+ "Protección contra daños a terceros (Seguro3)\r\n"
+							+ "Protección en caso de accidentes en viajes largos (Seguro4)\r\n"
+							+ "Protección en caso de robo del vehículo (Seguro5)\r\n");
+			        String seguro = input("Seguro: ");
+			        if (seguro.equalsIgnoreCase("terminar")) {
+			            seleccionandoSeguros = false;
+			        } else {
+			            segurosSeleccionados.add(seguro);
+			        }
+			    }
+			    Reserva reserva = new Reserva(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
+			    System.out.println(reserva.getinfo());
+			    reserva.escribirTXT("./src/datos/Reservas.txt");
 				
 			}
 			if (opcion == 5) {
@@ -241,7 +257,7 @@ public class sistemaAlquiler {
 					comparador = input("Escriba el identificador de su reserva");
 				}
 				BufferedReader br = new BufferedReader(new FileReader("./src/datos/Reservas.txt"));
-				
+
 				String linea = null;
 				Reserva reserva = null;
 				linea = br.readLine();
@@ -249,7 +265,7 @@ public class sistemaAlquiler {
 				while (linea!=null) {
 					boolean encontrar_reserva =linea.contains(comparador);
 					if (encontrar_reserva==true) {
-						
+
 						String inforeserva[]= linea.split(",");
 						String nombrecliente = inforeserva[1];
 						int categoria = Integer.parseInt(inforeserva[2]);
@@ -260,6 +276,12 @@ public class sistemaAlquiler {
 						String sedein = inforeserva[8];
 						String sedeout = inforeserva[9];
 						int ID = Integer.parseInt(inforeserva[0]);
+
+						ArrayList<String> seguros = new ArrayList<>();
+						for (int i = 10; i<15 && i < inforeserva.length; i++) {
+							seguros.add(inforeserva[i]);
+						}
+
 						BufferedReader lect_usuario = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
 						String linea_usuarios = null;
 						linea_usuarios= lect_usuario.readLine();
@@ -267,7 +289,7 @@ public class sistemaAlquiler {
 							String info[]= linea_usuarios.split(",");
 							String usuariocomp = info[0];
 							if (nombrecliente.equals(usuariocomp)) {
-								
+
 								String contraseña= info[1];
 								usuarioreal = new Cliente(nombrecliente, contraseña, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], Integer.parseInt(info[12]), info[13]);
 								break;
@@ -276,10 +298,10 @@ public class sistemaAlquiler {
 						}
 						lect_usuario.close();
 						Cliente cliente = (Cliente)usuarioreal;
-						reserva = new Reserva(ID,cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria);
+						reserva = new Reserva(ID,cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
 						System.out.println(reserva.getinfo());
 						break;
-						
+
 					}
 					linea=br.readLine();
 				}
@@ -312,8 +334,6 @@ public class sistemaAlquiler {
 					trasmision = "MANUAL";
 				}
 				String sede = input("¿En qué sede se encontrará el vehículo?");
-				String cliente = null;
-				String fechadev = null;
 				FileWriter output = new FileWriter("./src/datos/InventarioGENERAL.txt", true);
 				BufferedWriter br = new BufferedWriter(output);
 				br.append(placa+","+marca+","+modelo+","+categoriastr+","+color+","+trasmision+","+sede+",disponible"+"\n");

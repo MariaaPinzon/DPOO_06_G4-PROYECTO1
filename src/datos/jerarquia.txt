@@ -1,6 +1,6 @@
-1, economico, 200000
-2, estándar, 250000
-3, van, 280000
-4, SUV, 300000
-5, todoterreno, 320000
-6, lujo, 400000
+1,economico,200000
+2,estándar,250000
+3,van,280000
+4,SUV,300000
+5,todoterreno,320000
+6,lujo,400000

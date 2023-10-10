@@ -14,6 +14,7 @@ import uniandes.dpoo.proyecto1.consola.Cliente;
 import uniandes.dpoo.proyecto1.consola.Usuario;
 
 import uniandes.dpoo.proyecto1.consola.Empleado;
+import uniandes.dpoo.proyecto1.consola.AdministradorLocal;
 import uniandes.dpoo.proyecto1.consola.Inventario;
 import uniandes.dpoo.proyecto1.consola.InventarioSede;
 import uniandes.dpoo.proyecto1.consola.Reserva;
@@ -40,17 +41,21 @@ public class sistemaAlquiler {
 
                 if (usuario.equals(cuenta) && contra.equals(password)) {
                     if (jerarquia.equals("AG")) {
-                        usuarioreal = new Administrador(usuario, contra);
+                    	usuarioreal = new Administrador(usuario, contra, jerarquia, info[3], info[4], info[5], info[6], info[7]);
                         String nombrereal = info[3];
                         System.out.println("Hola "+nombrereal);
                         usuarioreal.getRol();
                     } 
-                    else if (jerarquia.equals("EAL") || jerarquia.equals("E")) {
-                        usuarioreal = new Empleado(usuario, contra);
+                    else if (jerarquia.equals("E")) {
+                        usuarioreal = new Empleado(usuario, contra, jerarquia, info[3], info[4], info[5], info[6], info[7]);
+                        usuarioreal.getRol();
+                    }
+                    else if (jerarquia.equals("AL")) {
+                        usuarioreal = new AdministradorLocal(usuario, contra, jerarquia, info[3], info[4], info[5], info[6], info[7], info[8]);
                         usuarioreal.getRol();
                     } 
                     else if (jerarquia.equals("C")) {
-                        usuarioreal = new Cliente(usuario, contra, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], Long.parseLong(info[12]), info[13]);
+                    	usuarioreal = new Cliente(usuario, contra, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], Long.parseLong(info[12]), info[13]);
                         usuarioreal.getRol();
                     }
 
@@ -65,18 +70,17 @@ public class sistemaAlquiler {
         }
         return usuarioreal;
     }
-	public void CargarUsuarios() {
-		
-		
-	}
+	
 	public Usuario CrearNuevoUsuario (String name) throws Exception {
 		Usuario returnfinal = null;
 		FileWriter output = new FileWriter(name, true);
 		BufferedWriter br = new BufferedWriter(output);
 		//br.newLine();
 		String usuario = input("ingrese su usuario: ");
-		//PARA HACER UN EMPLEADO SE TYPEA "secreto"
-		//PARA HACER UN ADMINISTRADOR SE TYPEA "secretoA"
+		//PARA HACER UN AG SE TYPEA "secreto"
+				//PARA HACER UN AL SE TYPEA "secretoA"
+
+				//CLIENTE:
 		if (!usuario.equals("secreto") && (!usuario.equals("secretoA"))) {
             String contra = input("ingrese su contraseña");
             String nombres = input("Ingrese sus nombres");
@@ -88,7 +92,7 @@ public class sistemaAlquiler {
             String paisExpedicionLicencia = "Colombia"; // Asumiendo que siempre es Colombia
             String fechaVencimientoLicencia = input("Ingrese la fecha de vencimiento de su licencia (dd/mm/yyyy): ");
             String tipoMedioDePago = input("Ingrese el tipo de medio de pago (ej. Tarjeta, Transferencia, etc.): ");
-            long numeroMedioDePago = Integer.parseInt(input("Ingrese el número de su medio de pago: "));
+            long numeroMedioDePago = Long.valueOf(input("Ingrese el número de su medio de pago: "));
             String fechaVencimientoMedioPago = input("Ingrese la fecha de vencimiento de su medio de pago (dd/mm/yyyy): ");
 
             br.write(usuario + "," + contra + ",C," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + numeroLicencia + "," + paisExpedicionLicencia + "," + fechaVencimientoLicencia + "," + tipoMedioDePago + "," + numeroMedioDePago + "," + fechaVencimientoMedioPago);
@@ -96,23 +100,38 @@ public class sistemaAlquiler {
             System.out.println("Hola "+nombres);
             returnfinal = new Cliente(usuario, contra, nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, numeroLicencia, paisExpedicionLicencia, fechaVencimientoLicencia, tipoMedioDePago, numeroMedioDePago, fechaVencimientoMedioPago);
         } 
-		else if(usuario.equals("secretoA")){
-			System.out.println("Hola admin");
-			String adminusuario = input("ingrese su usuario: ");
-			String contra = input("ingrese su contraseña: ");		
-			br.write("\n"+adminusuario+","+contra+",A");
-			br.close();
-			returnfinal = new Administrador (adminusuario, contra);
-		}
-		else { 
-			System.out.println("Hola empleado");
-			String empleusuario = input("ingrese su usuario: ");
-			String contra = input("ingrese su contraseña: ");
-			br.write("\n"+empleusuario+","+contra+",E");
-			br.close();
-			returnfinal = new Empleado (empleusuario, contra);
-			}
-		return returnfinal;
+		//EMPLEADO: ADMINISTRADOR GENERAL:
+
+	    else if (usuario.equals("secretoA")) {
+	        System.out.println("Hola admin general");
+	        String adminusuario = input("ingrese su usuario: ");
+	        String contra = input("ingrese su contraseña: ");
+	        String nombres = input("Ingrese sus nombres: ");
+	        String contacto = input("Ingrese su número de teléfono: ");
+	        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy): ");
+	        String nacionalidad = input("Ingrese su nacionalidad: ");
+	        String docIdentidad = input("Ingrese su documento de identidad: ");
+	        br.write("\n" + adminusuario + "," + contra + ",AG," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad);
+	        br.close();
+	        returnfinal = new Administrador(adminusuario, contra, "AG", nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad);
+
+	    //EMPLEADO: ADMINISTRADOR LOCAL
+
+	    } else {
+	        System.out.println("Hola admin local");
+	        String adminLocalUsuario = input("ingrese su usuario: ");
+	        String contra = input("ingrese su contraseña: ");
+	        String nombres = input("Ingrese sus nombres: ");
+	        String contacto = input("Ingrese su número de teléfono: ");
+	        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy): ");
+	        String nacionalidad = input("Ingrese su nacionalidad: ");
+	        String docIdentidad = input("Ingrese su documento de identidad: ");
+	        String sede = input("Ingrese la sede: ");
+	        br.write("\n" + adminLocalUsuario + "," + contra + ",AL," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + sede);
+	        br.close();
+	        returnfinal = new AdministradorLocal(adminLocalUsuario, contra, "AL", nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, sede);
+	    }
+	    return returnfinal;
 	}
 		
 		
@@ -407,7 +426,21 @@ public class sistemaAlquiler {
 				break;
 			}
 			if (opcion == 9) {
-				break;
+				AdministradorLocal admLocal = (AdministradorLocal)usuario; 
+				System.out.println(admLocal.getNombre()); 
+
+				String nombreUsuario = input("Escriba el nombre de usuario del empleado: ");
+				String contraseña = input("Escriba la constraseña del empleado: ");
+				String tipoUsuario = "E";
+				String nombres = input("Escriba el nombre y apellido del empleado: ");
+				String datosContacto = input("Escriba el numero de contacto del empleado): ");
+				String fechaNacimiento = input("Escriba la fecha de nacimiento del empleado (en formato DD/MM/AAAA) : ");
+				String nacionalidad = "Colombia";
+				String docIdentidad = input("Escriba el documento de identidad del empleado: ");
+
+			    Empleado empleado = new Empleado(nombreUsuario,contraseña,tipoUsuario,nombres,datosContacto,fechaNacimiento,nacionalidad,docIdentidad);
+			    empleado.escribirTXT("./src/datos/Usuarios.txt");
+			    System.out.println("Empleado creado");
 			}
 			if (opcion == 10) {
 				break;
@@ -680,7 +713,7 @@ public class sistemaAlquiler {
 							marca = informacion[1];
 							placa= informacion[0];
 							fechadev= reserva.getFechaFin();
-							lineareescribir =placa+","+marca+informacion[2]+","+informacion[3]
+							lineareescribir =placa+","+marca+","+informacion[2]+","+informacion[3]
 									+","+informacion[4]+","+informacion[5]+","+sedefin+","+nombreusuario+","+fechadev;
 						}
 						else {
@@ -826,6 +859,10 @@ public class sistemaAlquiler {
 				else {
 					System.out.println("No existe una reserva especial con esa identificación");
 				}
+				
+			}
+			if (opcion == 15) {
+				inventariogeneral.mostrarinventarioalquilado();
 				
 			}
 			if (opcion == 0) {

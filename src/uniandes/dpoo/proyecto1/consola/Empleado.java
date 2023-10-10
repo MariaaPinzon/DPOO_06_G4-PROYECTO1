@@ -3,11 +3,53 @@ package uniandes.dpoo.proyecto1.consola;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class Empleado extends Usuario {
-	public Empleado(String nombre, String contraseña) {
-		super(nombre, contraseña);
-		// TODO Auto-generated constructor stub
+	private String tipoUsuario;
+	private String nombres;
+    private String contacto;
+    private String fechaNacimiento;
+    private String nacionalidad;
+    private String docIdentidad;
+
+    public Empleado(String nombreUsuario, String contraseña, String tipoUsuario,String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String docIdentidad) {
+        super(nombreUsuario, contraseña); // llamada al constructor de la clase padre Usuario
+        this.tipoUsuario = tipoUsuario;
+        this.nombres = nombres;
+        this.contacto = datosContacto;
+        this.fechaNacimiento = fechaNacimiento;
+        this.nacionalidad = nacionalidad;
+        this.docIdentidad = docIdentidad;
+	}
+
+	public void escribirTXT(String enlace) throws Exception {
+		FileWriter output = new FileWriter(enlace, true);
+		BufferedWriter br = new BufferedWriter(output);
+
+	    br.write(getNombre() + "," + getContraseña() + "," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad +"\n");
+	    br.close();
+	}
+
+	public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+	public String getContacto() {
+		return contacto;
+	}
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+	public String getDocIdentidad() {
+		return docIdentidad;
 	}
 	public void getRol() {
 		System.out.println("Eres un empleado.");

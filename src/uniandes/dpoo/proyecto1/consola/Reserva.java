@@ -60,6 +60,7 @@ public class Reserva {
 		this.ID= crearID();
 	}
 	
+	
 	public int diferenciadias(String fechaIni, String fechaFin) {
 	//Se asume que todos los meses tienen 30 días
 	int diferencia = 0;

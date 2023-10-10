@@ -3,8 +3,32 @@ package uniandes.dpoo.proyecto1.consola;
 
 
 public class Administrador extends Empleado{
-	public Administrador(String nombre, String contraseña) {
-		super(nombre, contraseña);
+	private String tipoUsuario;
+	private String nombres;
+    private String contacto;
+    private String fechaNacimiento;
+    private String nacionalidad;
+    private String docIdentidad;
+    public Administrador(String nombreUsuario, String contraseña, String tipoUsuario,String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String docIdentidad){
+		super(nombreUsuario,contraseña,tipoUsuario,nombres,datosContacto,fechaNacimiento,nacionalidad,docIdentidad);
+	}
+    public String getTipoUsuario() {
+		return tipoUsuario;
+	}
+	public String getNombres() {
+		return nombres;
+	}
+	public String getContacto() {
+		return contacto;
+	}
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+	public String getDocIdentidad() {
+		return docIdentidad;
 	}
 	public void getRol() {
 		System.out.println("Eres un administrador.");

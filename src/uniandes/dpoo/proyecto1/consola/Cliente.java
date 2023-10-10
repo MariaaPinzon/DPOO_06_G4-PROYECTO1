@@ -18,13 +18,13 @@ public class Cliente extends Usuario{
     private long numeroMedioDePago;
     private String fechaVencimientoMedioPago;
     
-    public Cliente(String nombreUsuario, String contraseña, String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String imagenDocIdentidad, String numeroLicencia, String paisExpedicionLicencia, String fechaVencimientoLicencia, String tipoMedioDePago, long numeroMedioDePago, String fechaVencimientoMedioPago) {
+    public Cliente(String nombreUsuario, String contraseña, String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String docIdentidad, String numeroLicencia, String paisExpedicionLicencia, String fechaVencimientoLicencia, String tipoMedioDePago, long numeroMedioDePago, String fechaVencimientoMedioPago) {
         super(nombreUsuario, contraseña); // llamada al constructor de la clase padre Usuario
         this.nombres = nombres;
         this.contacto = datosContacto;
         this.fechaNacimiento = fechaNacimiento;
         this.nacionalidad = nacionalidad;
-        this.docIdentidad = imagenDocIdentidad;
+        this.docIdentidad = docIdentidad;
         this.numeroLicencia = numeroLicencia;
         this.paisExpedicionLicencia = paisExpedicionLicencia;
         this.fechaVencimientoLicencia = fechaVencimientoLicencia;

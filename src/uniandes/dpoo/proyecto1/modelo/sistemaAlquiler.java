@@ -16,6 +16,7 @@ import uniandes.dpoo.proyecto1.consola.Empleado;
 import uniandes.dpoo.proyecto1.consola.Inventario;
 import uniandes.dpoo.proyecto1.consola.InventarioSede;
 import uniandes.dpoo.proyecto1.consola.Reserva;
+import uniandes.dpoo.proyecto1.consola.Tarifa;
 
 public class sistemaAlquiler {
 	@SuppressWarnings("resource")
@@ -46,7 +47,7 @@ public class sistemaAlquiler {
                         usuarioreal.getRol();
                     } 
                     else if (jerarquia.equals("C")) {
-                        usuarioreal = new Cliente(usuario, contra, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], Integer.parseInt(info[12]), info[13]);
+                        usuarioreal = new Cliente(usuario, contra, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], Long.parseLong(info[12]), info[13]);
                         usuarioreal.getRol();
                     }
 
@@ -159,7 +160,7 @@ public class sistemaAlquiler {
 			2. revisar todos los carros disponibles 						check
 			3. revisar todos los carros disponibles de una sede. 			check
 			4.Crear una reserva 											check
-			5.Gestionar/eliminar reserva 									check
+			5.Gestionar/eliminar reserva 									puteado
 			6.Añadir carro al inventario									check
 			7. Eliminar carro del inventario								check
 			8. Crear seguro 												check creo
@@ -232,7 +233,7 @@ public class sistemaAlquiler {
 							+ "Protección contra daños a terceros (Seguro3)\r\n"
 							+ "Protección en caso de accidentes en viajes largos (Seguro4)\r\n"
 							+ "Protección en caso de robo del vehículo (Seguro5)\r\n");
-			        String seguro = input("Seguro: ");
+			        String seguro = input("Seguro");
 			        if (seguro.equalsIgnoreCase("terminar")) {
 			            seleccionandoSeguros = false;
 			        } else {
@@ -241,7 +242,7 @@ public class sistemaAlquiler {
 			    }
 			    Reserva reserva = new Reserva(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 			    System.out.println(reserva.getinfo());
-			    reserva.escribirTXT("./src/datos/Reservas.txt");
+			    reserva.escribirTXT("./src/datos/ListaReserva.txt");
 				
 			}
 			if (opcion == 5) {
@@ -256,11 +257,14 @@ public class sistemaAlquiler {
 				if (seleccion ==2) {
 					comparador = input("Escriba el identificador de su reserva");
 				}
-				BufferedReader br = new BufferedReader(new FileReader("./src/datos/Reservas.txt"));
+				BufferedReader br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
 
 				String linea = null;
 				Reserva reserva = null;
 				linea = br.readLine();
+				if (linea==null) {
+					linea = br.readLine();
+				}
 				Usuario usuarioreal = null;
 				while (linea!=null) {
 					boolean encontrar_reserva =linea.contains(comparador);
@@ -291,7 +295,7 @@ public class sistemaAlquiler {
 							if (nombrecliente.equals(usuariocomp)) {
 
 								String contraseña= info[1];
-								usuarioreal = new Cliente(nombrecliente, contraseña, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], Integer.parseInt(info[12]), info[13]);
+								usuarioreal = new Cliente(nombrecliente, contraseña, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], 1111, info[13]);
 								break;
 							}
 							linea_usuarios= lect_usuario.readLine();
@@ -300,6 +304,9 @@ public class sistemaAlquiler {
 						Cliente cliente = (Cliente)usuarioreal;
 						reserva = new Reserva(ID,cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
 						System.out.println(reserva.getinfo());
+						
+						Tarifa precio = new Tarifa(reserva);
+						
 						break;
 
 					}

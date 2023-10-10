@@ -32,6 +32,7 @@ public class Reserva {
 		this.diasAlquiler= diferenciadias(fechaIni,fechaFin);
 		this.categoria = categoria;
 		this.seguros = seguros;
+		this.ID= crearID();
 	}
 	public Reserva(int ID,Cliente pana, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria,ArrayList<String> seguros) {
 		this.cliente= pana;
@@ -81,7 +82,7 @@ public class Reserva {
 
 	    String segurosStr = String.join(";", seguros);  //  ';' para separar los seguros en la cadena
 
-	    br.write("\n" + ID + "," + nombrecliente + "," + categoria + "," + diasAlquiler + "," + fechaIni + "," + horaIni + "," + fechaFin + "," + horaFin + "," + sedeinicial + "," + sedefinal + "," + segurosStr);
+	    br.write(ID + "," + nombrecliente + "," + categoria + "," + diasAlquiler + "," + fechaIni + "," + horaIni + "," + fechaFin + "," + horaFin + "," + sedeinicial + "," + sedefinal + "," + segurosStr+"\n");
 	    br.close();
 	}
 	

@@ -160,14 +160,15 @@ public class sistemaAlquiler {
 			2. revisar todos los carros disponibles 						check
 			3. revisar todos los carros disponibles de una sede. 			check
 			4.Crear una reserva 											check
-			5.Gestionar/eliminar reserva 									puteado
+			5.Gestionar/eliminar reserva 									check
 			6.Añadir carro al inventario									check
 			7. Eliminar carro del inventario								check
-			8. Crear seguro 												check creo
+			8. Crear seguro 												check
 			9. crear empleado												
 			10. eliminar empleado
 			11. alquiler con reserva
 			12. alquiler sin reserva
+			tarifa por reserva y 30%										check
 
 
 		 */
@@ -242,7 +243,13 @@ public class sistemaAlquiler {
 			    }
 			    Reserva reserva = new Reserva(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 			    System.out.println(reserva.getinfo());
+			    Tarifa precio = new Tarifa(reserva);
+				long preciofinal = precio.calcularCostoFinal();
+				System.out.println("El precio total de la reserva es de: "+precio+" mil pesos");
+				long precio30 = (long) (preciofinal*0.3);
+				System.out.println("Pague ahora mismo el 30% del precio, el cual es: "+precio30);
 			    reserva.escribirTXT("./src/datos/ListaReserva.txt");
+			    
 				
 			}
 			if (opcion == 5) {
@@ -282,8 +289,11 @@ public class sistemaAlquiler {
 						int ID = Integer.parseInt(inforeserva[0]);
 
 						ArrayList<String> seguros = new ArrayList<>();
-						for (int i = 10; i<15 && i < inforeserva.length; i++) {
-							seguros.add(inforeserva[i]);
+						String segurosgrande = inforeserva[10];
+						String[]seguroslistagrande = segurosgrande.split(";");
+						
+						for (int i = 0; i<seguroslistagrande.length; i++) {
+							seguros.add(seguroslistagrande[i]);
 						}
 
 						BufferedReader lect_usuario = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
@@ -306,6 +316,8 @@ public class sistemaAlquiler {
 						System.out.println(reserva.getinfo());
 						
 						Tarifa precio = new Tarifa(reserva);
+						long preciofinal = precio.calcularCostoFinal();
+						System.out.println("El precio total de la reserva es de: "+preciofinal+" mil pesos");
 						
 						break;
 

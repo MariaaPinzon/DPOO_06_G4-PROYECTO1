@@ -8,43 +8,48 @@ import java.util.ArrayList;
 public class Tarifa {
 	
 	private Reserva reserva;
-    private double tarifaBase; //la tarifa base es la misma de cada categoria 
-    private HashMap <String, Double> tarifasSeguros;
+    private long tarifaBase; //la tarifa base es la misma de cada categoria 
+    private HashMap <String, Long> tarifasSeguros;
     private ArrayList<String>  segurosCliente;
     private HashMap <String, String> conductoresAdicionales;
     
     
     public Tarifa(Reserva reserva) throws IOException {
     	this.reserva = reserva; 
-    	HashMap<String, Double> tarifasBase = cargarTarifas("./src/datos/jerarquia.txt");
-        this.tarifaBase = tarifasBase.get(reserva.getCategoria());
-        HashMap <String, Double> tarifasSeguros = cargarTarifasSeguros("./src/datos/Seguros.txt");
+    	HashMap<String, Long> tarifasBase = cargarTarifas("./src/datos/jerarquia.txt");
+    	String categoriastr = reserva.findcategoria();
+        this.tarifaBase = tarifasBase.get(categoriastr);
         this.tarifasSeguros = cargarTarifasSeguros("./src/datos/Seguros.txt");
         this.segurosCliente =reserva.getSegurosCliente();
         this.conductoresAdicionales = cargarConductoresAdicionales("./src/datos/ConductoresAdicionales.txt");
     }
-    private HashMap<String,Double> cargarTarifas(String rutaArchivo) throws IOException{
-    	HashMap<String,Double> tarifas = new HashMap<>();
+    
+    private HashMap<String,Long> cargarTarifas(String rutaArchivo) throws IOException{
+    	HashMap<String,Long> tarifas = new HashMap<>();
     	BufferedReader  br = new BufferedReader (new FileReader(rutaArchivo));
     	String linea = "";
-    	while ((linea = br.readLine()) != null) {
-    		String[] partes = linea.split(", ");
-            String numeroCategoria = partes[0];
-            double tarifa = Double.parseDouble(partes[2]);
-            tarifas.put(numeroCategoria, tarifa);    		
+    	linea = br.readLine();
+    	while (linea  != null) {
+    		String[] partes = linea.split(",");
+            String nombre = partes[1];
+            long tarifa = Long.parseLong(partes[2]);
+            tarifas.put(nombre, tarifa); 
+            linea = br.readLine();
     	}
     	br.close();
         return tarifas;
     }
-    private HashMap<String, Double> cargarTarifasSeguros(String rutaArchivo) throws IOException {
-        HashMap<String, Double> tarifasSeguros = new HashMap<>();
+    private HashMap<String, Long> cargarTarifasSeguros(String rutaArchivo) throws IOException {
+        HashMap<String, Long> tarifasSeguros = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
         String linea;
-        while ((linea = br.readLine()) != null) {
+        linea = br.readLine();
+        while (linea != null) {
             String[] partes = linea.split(",");
             String nombreSeguro = partes[0];
-            double tarifaSeguro = Double.parseDouble(partes[2]);
+            long tarifaSeguro = Long.parseLong(partes[2]);
             tarifasSeguros.put(nombreSeguro, tarifaSeguro);
+            linea = br.readLine();
         }
         br.close();
         return tarifasSeguros;
@@ -53,18 +58,20 @@ public class Tarifa {
         HashMap<String, String> conductoresAdicionales = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
         String linea;
-        while ((linea = br.readLine()) != null) {
+        linea = br.readLine();
+        while (linea != null) {
             String[] partes = linea.split(",");
             String idReserva = partes[0];
             String licenciaConductor = partes[3];
             conductoresAdicionales.put(idReserva, licenciaConductor);
+            linea = br.readLine();
         }
         br.close();
         return conductoresAdicionales;
     }
 
-	    public double modificarTarifaBase() {
-	        double tarifaModificada = this.tarifaBase;
+	    public long modificarTarifaBase() {
+	        long tarifaModificada = this.tarifaBase;
 	        if (reserva.esTemporadaAlta()) {
 	            tarifaModificada += (tarifaBase * 0.2);
 	        }
@@ -74,18 +81,21 @@ public class Tarifa {
 	        return tarifaModificada;
 	    }
 
-    public double calcularCostoTotalSeguros() {
-        double costoTotal = 0;
-        for (String seguro : segurosCliente) {
-            Double costo = tarifasSeguros.get(seguro);
-            if (costo != null){
+    public long calcularCostoTotalSeguros() {
+        long costoTotal = 0;
+        for (int i=0; i<segurosCliente.size(); i++) {
+        	String seguro = segurosCliente.get(i);
+        	System.out.println(seguro);
+            long costo = 0;
+            costo = tarifasSeguros.get(seguro);
+            if (costo != 0){
                 costoTotal += costo;
             }
         }
         return costoTotal * reserva.getDiasAlquiler(); 
     }
-    public double calcularCostoConductoresAd() {
-        double costo = 0;
+    public long calcularCostoConductoresAd() {
+        long costo = 0;
         for (String idReserva : conductoresAdicionales.keySet()) {
         	String idrevisar = String.valueOf(reserva.getID());
             if (idReserva.equals(idrevisar)) {
@@ -96,10 +106,10 @@ public class Tarifa {
 
     }
 
-    public double calcularCostoFinal() {
-        double costoTotalSeguros = calcularCostoTotalSeguros();
-        double costoTarifaBaseModificada = modificarTarifaBase() * reserva.getDiasAlquiler();
-        double costoConductoresAdicionales = calcularCostoConductoresAd();
+    public long calcularCostoFinal() {
+        long costoTotalSeguros = calcularCostoTotalSeguros();
+        long costoTarifaBaseModificada = modificarTarifaBase() * reserva.getDiasAlquiler();
+        long costoConductoresAdicionales = calcularCostoConductoresAd();
         return costoTarifaBaseModificada + costoTotalSeguros + costoConductoresAdicionales;
     }
 

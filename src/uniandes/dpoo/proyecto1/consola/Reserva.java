@@ -133,7 +133,7 @@ public class Reserva {
 	public String findcategoria() {
 		String resp = "";
 		if (categoria==1) {
-			resp = "económico";
+			resp = "economico";
 		}
 		if (categoria==2) {
 			resp = "estándar";

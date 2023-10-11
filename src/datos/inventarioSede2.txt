@@ -1,1 +1,1 @@
-JHB387,Kia Rio,2015,economico,verde,MANUAL,s2,disponible
+JHB387,Kia Rio,2015,economico,verde,MANUAL,s2,limpieza

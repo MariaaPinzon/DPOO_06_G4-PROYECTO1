@@ -198,7 +198,7 @@ public class sistemaAlquiler {
 			16. mandar un automovil a mantenimiento							check	Revisado
 			17.devolver auto de limpieza o mantenimiento					check	Revisado
 			tarifa por reserva y 30%										check	Revisado
-			+buscar mejor carro si no hay de la categoria en alq
+			+buscar mejor carro si no hay de la categoria en alq			check	Revisado
 			+revisar horarios de sede
 			+añadir conductores en alquiler
 			+costos por rango categoria (idk???)
@@ -456,7 +456,7 @@ public class sistemaAlquiler {
 				break;
 			}
 			if (opcion == 9) {
-				AdministradorLocal admLocal = (AdministradorLocal)usuario; 
+				//AdministradorLocal admLocal = (AdministradorLocal)usuario; 
 				
 
 				String nombreUsuario = input("Escriba el nombre de usuario del empleado");
@@ -517,9 +517,20 @@ public class sistemaAlquiler {
 				if (seleccion ==2) {
 					comparador = input("Escriba el identificador de su reserva");
 				}
+				String nombrecliente = null;
+				int categoria = 0;
+				String fechaIni = null;
+				String horaIni = null;
+				String fechaFin = null;
+				String horafin = null;
+				String sedein = null;
+				String sedeout = null;
 				BufferedReader br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
 				String linea = null;
 				Reserva reserva = null;
+				Cliente cliente = null;
+				ArrayList<String> seguros = new ArrayList<>();
+				int ID = 0;
 				linea = br.readLine();
 				if (linea==null) {
 					linea = br.readLine();
@@ -530,17 +541,17 @@ public class sistemaAlquiler {
 					if (encontrar_reserva==true) {
 
 						String inforeserva[]= linea.split(",");
-						String nombrecliente = inforeserva[1];
-						int categoria = Integer.parseInt(inforeserva[2]);
-						String fechaIni = inforeserva[4];
-						String horaIni = inforeserva[5];
-						String fechaFin = inforeserva[6];
-						String horafin = inforeserva[7];
-						String sedein = inforeserva[8];
-						String sedeout = inforeserva[9];
-						int ID = Integer.parseInt(inforeserva[0]);
+						nombrecliente = inforeserva[1];
+						categoria = Integer.parseInt(inforeserva[2]);
+						fechaIni = inforeserva[4];
+						horaIni = inforeserva[5];
+						fechaFin = inforeserva[6];
+						horafin = inforeserva[7];
+						sedein = inforeserva[8];
+						sedeout = inforeserva[9];
+						ID = Integer.parseInt(inforeserva[0]);
 
-						ArrayList<String> seguros = new ArrayList<>();
+						
 						String segurosgrande = inforeserva[10];
 						String[]seguroslistagrande = segurosgrande.split(";");
 						
@@ -563,14 +574,14 @@ public class sistemaAlquiler {
 							linea_usuarios= lect_usuario.readLine();
 						}
 						lect_usuario.close();
-						Cliente cliente = (Cliente)usuarioreal;
+						cliente = (Cliente)usuarioreal;
 						reserva = new Reserva(ID,cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
 					} 
 					linea=br.readLine();
 				}
 				br.close();
 				BufferedReader lect_usuario = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
-				String ID = String.valueOf(reserva.getID()) ;
+				String IDorigin = String.valueOf(reserva.getID()) ;
 				String linearev = null;
 				linearev= lect_usuario.readLine();
 				ArrayList<String> templista = new ArrayList<>();
@@ -578,7 +589,7 @@ public class sistemaAlquiler {
 				while (linearev!=null) {
 					String separar[]= linearev.split(",");
 					String IDcomparar = separar[0];
-					if (!ID.equals(IDcomparar)) {
+					if (!IDorigin.equals(IDcomparar)) {
 						templista.add(linearev);
 					}
 					else {
@@ -588,6 +599,9 @@ public class sistemaAlquiler {
 				}
 				lect_usuario.close();
 				if (encontro_reserva) {
+					categoria = reserva.getCategoria();
+					boolean buscar_de_nuevo = true;
+					while (buscar_de_nuevo ==true && categoria<=6) {
 					FileWriter eliminarreserva = new FileWriter("./src/datos/ListaReserva.txt");
 					for (int i=0;i<templista.size();i++) {
 						eliminarreserva.write(templista.get(i)+"\n");
@@ -600,7 +614,7 @@ public class sistemaAlquiler {
 					String marca = "";
 					String placa = "";
 					String fechadev= "";
-					String categoria = findcategoria(reserva.getCategoria());
+					String categoriastr = findcategoria(categoria);
 					String sedeorigen = reserva.getSedeinicial();
 					String sedefin = reserva.getSedefinal();
 					String nombreusuario= (reserva.getCliente()).getNombre();
@@ -615,10 +629,11 @@ public class sistemaAlquiler {
 						String sedecomp = info[6];
 						
 						String es_disponible = info[7];
-						if ((!categoriacomp.equals(categoria))||(!sedecomp.equals(sedeorigen))||(encontrar_auto==true)){
+						if ((!categoriacomp.equals(categoriastr))||(!sedecomp.equals(sedeorigen))||(encontrar_auto==true)){
 							listaInventario.add(lineainv);	
 						}
 						else if (es_disponible.equals("disponible")){
+							
 							encontrar_auto=true;
 							String informacion[]=lineainv.split(",");
 							marca = informacion[1];
@@ -637,6 +652,7 @@ public class sistemaAlquiler {
 						}
 						brinventario.close();
 						if (encontrar_auto==true) {
+							buscar_de_nuevo= false;
 							FileWriter escritura = new FileWriter("./src/datos/InventarioGENERAL.txt");
 							for (int i=0; i<listaInventario.size(); i++) {
 								String dato = listaInventario.get(i);
@@ -645,6 +661,7 @@ public class sistemaAlquiler {
 						
 							if (lineareescribir!=null) {
 								escritura.append(lineareescribir+"\n");
+								reserva = new Reserva(ID,cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
 								Tarifa tarifa = new Tarifa(reserva);
 								long total = tarifa.calcularCostoFinal();
 								long total70= (long) (total*0.7);
@@ -654,8 +671,11 @@ public class sistemaAlquiler {
 							escritura.close();
 						}
 						else {
-							System.out.println("No se encontró el carro");
+							categoria ++;
+							String categorianueva = findcategoria(categoria);
+							System.out.println("No se encontró ningún carro "+categoriastr+" en la sede "+sedeorigen+". se intentará buscar un vehículo de la clase "+categorianueva);
 						}
+					}
 				}
 				else {
 					System.out.println("No se encontró la reserva.");
@@ -674,12 +694,23 @@ public class sistemaAlquiler {
 				System.out.println("2. El cliente tiene que crear su cuenta");
 				String inpu = input("Seleccione");
 				Usuario usuariotemp = null;
+				String sedeIn = null;
+				String sedeFin = null;
+				String fechaini = null;
+				String horaini = null;
+				String fechafinal = null;
+				String horafinal = null;
+				ArrayList<String> segurosSeleccionados = null;
 				if (inpu.equals("1")) {
 					usuariotemp = sistema.IniciarSesion();
 				}
 				else if (inpu.equals("2")) {
 					usuariotemp = sistema.CrearNuevoUsuario("./src/datos/Usuarios.txt");
 				}
+				else {
+					System.out.println("escriba bien no joda");
+				}
+				if (usuariotemp !=null) {
 				Cliente cliente =(Cliente)usuariotemp;
 				System.out.println("Estos son los tipos de carros disponibles actualmente: \n"
 						+ "1.economico\r\n"
@@ -693,13 +724,13 @@ public class sistemaAlquiler {
 						+ "Sede 1 (s1)\r\n"
 						+ "Sede 2 (s2)\r\n"
 						+ "Sede 3 (s3)\r\n");
-				String sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil: ");
-				String sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil: ");
-				String fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA): ");
-				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM): ");
-				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA): ");
-				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM): ");
-				ArrayList<String> segurosSeleccionados = new ArrayList<>();
+				 sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil: ");
+				 sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil: ");
+				 fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA): ");
+				 horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM): ");
+				 fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA): ");
+				 horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM): ");
+				segurosSeleccionados = new ArrayList<>();
 			    boolean seleccionandoSeguros = true;
 			    while (seleccionandoSeguros) {
 			        System.out.println("Seleccione un seguro por su ID, escriba 'terminar' para finalizar la selección:");
@@ -718,12 +749,15 @@ public class sistemaAlquiler {
 			    }
 			    Reserva reserva = new Reserva(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 			    reserva.escribirTXT("./src/datos/ListaReserva.txt");
+			    
 			    Tarifa precio = new Tarifa(reserva);
 			    long costoreal = precio.calcularCostoFinal();
-			    System.out.println("El precio de este alquiler es de: "+costoreal+"  mil pesos");
+			    
 			    
 			    BufferedReader lect_usuario = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
-				String ID = String.valueOf(reserva.getID()) ;
+			    int ID = reserva.getID();
+			   
+				String IDorigin = String.valueOf(reserva.getID()) ;
 				String linearev = null;
 				linearev= lect_usuario.readLine();
 				ArrayList<String> templista = new ArrayList<>();
@@ -731,7 +765,7 @@ public class sistemaAlquiler {
 				while (linearev!=null) {
 					String separar[]= linearev.split(",");
 					String IDcomparar = separar[0];
-					if (!ID.equals(IDcomparar)) {
+					if (!IDorigin.equals(IDcomparar)) {
 						templista.add(linearev);
 					}
 					else {
@@ -741,6 +775,9 @@ public class sistemaAlquiler {
 				}
 				lect_usuario.close();
 				if (encontro_reserva) {
+					categoria = reserva.getCategoria();
+					boolean buscar_de_nuevo = true;
+					while (buscar_de_nuevo ==true && categoria<=6) {
 					FileWriter eliminarreserva = new FileWriter("./src/datos/ListaReserva.txt");
 					for (int i=0;i<templista.size();i++) {
 						eliminarreserva.write(templista.get(i)+"\n");
@@ -753,7 +790,7 @@ public class sistemaAlquiler {
 					String marca = "";
 					String placa = "";
 					String fechadev= "";
-					String categoriaReserva = findcategoria(reserva.getCategoria());
+					String categoriastr = findcategoria(categoria);
 					String sedeorigen = reserva.getSedeinicial();
 					String sedefin = reserva.getSedefinal();
 					String nombreusuario= (reserva.getCliente()).getNombre();
@@ -768,10 +805,11 @@ public class sistemaAlquiler {
 						String sedecomp = info[6];
 						
 						String es_disponible = info[7];
-						if ((!categoriacomp.equals(categoriaReserva))||(!sedecomp.equals(sedeorigen))||(encontrar_auto==true)){
+						if ((!categoriacomp.equals(categoriastr))||(!sedecomp.equals(sedeorigen))||(encontrar_auto==true)){
 							listaInventario.add(lineainv);	
 						}
 						else if (es_disponible.equals("disponible")){
+							
 							encontrar_auto=true;
 							String informacion[]=lineainv.split(",");
 							marca = informacion[1];
@@ -790,6 +828,7 @@ public class sistemaAlquiler {
 						}
 						brinventario.close();
 						if (encontrar_auto==true) {
+							buscar_de_nuevo= false;
 							FileWriter escritura = new FileWriter("./src/datos/InventarioGENERAL.txt");
 							for (int i=0; i<listaInventario.size(); i++) {
 								String dato = listaInventario.get(i);
@@ -798,14 +837,29 @@ public class sistemaAlquiler {
 						
 							if (lineareescribir!=null) {
 								escritura.append(lineareescribir+"\n");
+								reserva = new Reserva(ID,cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
+								Tarifa tarifa = new Tarifa(reserva);
+								long total = tarifa.calcularCostoFinal();
+								long total70= (long) (total*0.7);
+								System.out.println("Pague el 70% restante del alquiler, el cual es "+total70+" mil pesos");
 								System.out.println("El vehiculo "+marca +" con las placas "+placa+" fue alquilado a "+nombreusuario+" con éxito");
 							}
 							escritura.close();
 						}
 						else {
-							System.out.println("No se encontró el carro");
+							categoria ++;
+							String categorianueva = findcategoria(categoria);
+							System.out.println("No se encontró ningún carro "+categoriastr+" en la sede "+sedeorigen+". se intentará buscar un vehículo de la clase "+categorianueva);
 						}
+					}
 				}
+				else {
+					System.out.println("No se encontró la reserva.");
+				}
+				
+			}
+				
+				
 			}
 			
 			

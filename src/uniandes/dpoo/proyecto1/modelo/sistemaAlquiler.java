@@ -199,8 +199,8 @@ public class sistemaAlquiler {
 			17.devolver auto de limpieza o mantenimiento					check	Revisado
 			tarifa por reserva y 30%										check	Revisado
 			+buscar mejor carro si no hay de la categoria en alq			check	Revisado
-			+revisar horarios de sede
-			+añadir conductores en alquiler
+			+revisar horarios de sede										yeah fuck this
+			+añadir conductores en alquiler									check (no commiteado)
 			+costos por rango categoria (idk???)
 
 
@@ -749,10 +749,6 @@ public class sistemaAlquiler {
 			    }
 			    Reserva reserva = new Reserva(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 			    reserva.escribirTXT("./src/datos/ListaReserva.txt");
-			    
-			    Tarifa precio = new Tarifa(reserva);
-			    long costoreal = precio.calcularCostoFinal();
-			    
 			    
 			    BufferedReader lect_usuario = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
 			    int ID = reserva.getID();

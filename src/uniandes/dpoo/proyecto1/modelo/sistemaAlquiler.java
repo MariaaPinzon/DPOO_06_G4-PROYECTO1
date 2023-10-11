@@ -30,8 +30,8 @@ public class sistemaAlquiler {
         Usuario usuarioreal = null;
 
         while (revisar == false) {
-            String usuario = input("ingrese su usuario: ");
-            String contra = input("ingrese su contraseña: ");
+            String usuario = input("ingrese su usuario");
+            String contra = input("ingrese su contraseña");
 
             while (linea != null) {
                 String[] info = linea.split(",");
@@ -51,12 +51,14 @@ public class sistemaAlquiler {
                         usuarioreal.getRol();
                     }
                     else if (jerarquia.equals("AL")) {
-                        usuarioreal = new AdministradorLocal(usuario, contra, jerarquia, info[3], info[4], info[5], info[6], info[7], info[8]);
+                        usuarioreal = new AdministradorLocal(usuario, contra, jerarquia, info[3], info[4], info[5], info[6], info[7], info[12]);
                         usuarioreal.getRol();
                     } 
                     else if (jerarquia.equals("C")) {
                     	usuarioreal = new Cliente(usuario, contra, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], Long.parseLong(info[12]), info[13]);
                         usuarioreal.getRol();
+                        
+                        
                     }
 
                     revisar = true;
@@ -77,41 +79,41 @@ public class sistemaAlquiler {
 		BufferedWriter br = new BufferedWriter(output);
 		//br.newLine();
 		String usuario = input("ingrese su usuario: ");
-		//PARA HACER UN AG SE TYPEA "secreto"
-				//PARA HACER UN AL SE TYPEA "secretoA"
+		//PARA HACER UN AG SE TYPEA "secretoAG"
+		//PARA HACER UN AL SE TYPEA "secretoAL"
 
-				//CLIENTE:
-		if (!usuario.equals("secreto") && (!usuario.equals("secretoA"))) {
-            String contra = input("ingrese su contraseña");
-            String nombres = input("Ingrese sus nombres");
-            String contacto = input("Ingrese su número de teléfono: ");
-            String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy): ");
-            String nacionalidad = input("Ingrese su nacionalidad: ");
-            String docIdentidad = input("Ingrese su documento de identidad: ");
-            String numeroLicencia = input("Ingrese su número de licencia (12 dígitos): ");
-            String paisExpedicionLicencia = "Colombia"; // Asumiendo que siempre es Colombia
-            String fechaVencimientoLicencia = input("Ingrese la fecha de vencimiento de su licencia (dd/mm/yyyy): ");
-            String tipoMedioDePago = input("Ingrese el tipo de medio de pago (ej. Tarjeta, Transferencia, etc.): ");
-            long numeroMedioDePago = Long.valueOf(input("Ingrese el número de su medio de pago: "));
-            String fechaVencimientoMedioPago = input("Ingrese la fecha de vencimiento de su medio de pago (dd/mm/yyyy): ");
+				
+		if (!usuario.equals("secretoAG") && (!usuario.equals("secretoAL"))) {
+            String contra = input("ingrese su contraseña ");
+            String nombres = input("Ingrese sus nombres ");
+            String contacto = input("Ingrese su número de teléfono ");
+            String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy) ");
+            String nacionalidad = input("Escriba su pais de nacionalidad");
+            String docIdentidad = input("Ingrese su documento de identidad ");
+            String numeroLicencia = input("Ingrese su número de licencia (9 dígitos) ");
+            String paisExpedicionLicencia = input("Escriba el pais de expedicion de su licencia "); 
+            String fechaVencimientoLicencia = input("Ingrese la fecha de vencimiento de su licencia (dd/mm/yyyy) ");
+            String tipoMedioDePago = input("Ingrese el tipo de medio de pago (ej. Tarjeta, Transferencia, etc.) ");
+            long numeroMedioDePago = Long.parseLong(input("Ingrese el número de su medio de pago "));
+            String fechaVencimientoMedioPago = input("Ingrese la fecha de vencimiento de su medio de pago (dd/mm/yyyy) ");
 
-            br.write(usuario + "," + contra + ",C," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + numeroLicencia + "," + paisExpedicionLicencia + "," + fechaVencimientoLicencia + "," + tipoMedioDePago + "," + numeroMedioDePago + "," + fechaVencimientoMedioPago);
+            br.write(usuario + "," + contra + ",C," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + numeroLicencia + "," + paisExpedicionLicencia + "," + fechaVencimientoLicencia + "," + tipoMedioDePago + "," + numeroMedioDePago + "," + fechaVencimientoMedioPago+"\n");
             br.close();
             System.out.println("Hola "+nombres);
             returnfinal = new Cliente(usuario, contra, nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, numeroLicencia, paisExpedicionLicencia, fechaVencimientoLicencia, tipoMedioDePago, numeroMedioDePago, fechaVencimientoMedioPago);
         } 
 		//EMPLEADO: ADMINISTRADOR GENERAL:
 
-	    else if (usuario.equals("secretoA")) {
+		else if (usuario.equals("secretoAG")) {
 	        System.out.println("Hola admin general");
-	        String adminusuario = input("ingrese su usuario: ");
-	        String contra = input("ingrese su contraseña: ");
-	        String nombres = input("Ingrese sus nombres: ");
-	        String contacto = input("Ingrese su número de teléfono: ");
-	        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy): ");
-	        String nacionalidad = input("Ingrese su nacionalidad: ");
-	        String docIdentidad = input("Ingrese su documento de identidad: ");
-	        br.write("\n" + adminusuario + "," + contra + ",AG," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad);
+	        String adminusuario = input("ingrese su usuario");
+	        String contra = input("ingrese su contraseña");
+	        String nombres = input("Ingrese sus nombres");
+	        String contacto = input("Ingrese su número de teléfono");
+	        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy)");
+	        String nacionalidad = input("Ingrese su nacionalidad");
+	        String docIdentidad = input("Ingrese su documento de identidad");
+	        br.write( adminusuario + "," + contra + ",AG," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+"\n" );
 	        br.close();
 	        returnfinal = new Administrador(adminusuario, contra, "AG", nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad);
 
@@ -127,7 +129,7 @@ public class sistemaAlquiler {
 	        String nacionalidad = input("Ingrese su nacionalidad: ");
 	        String docIdentidad = input("Ingrese su documento de identidad: ");
 	        String sede = input("Ingrese la sede: ");
-	        br.write("\n" + adminLocalUsuario + "," + contra + ",AL," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + sede);
+	        br.write( adminLocalUsuario + "," + contra + ",AL," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA" +"," + sede+"\n");
 	        br.close();
 	        returnfinal = new AdministradorLocal(adminLocalUsuario, contra, "AL", nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, sede);
 	    }
@@ -178,24 +180,28 @@ public class sistemaAlquiler {
 		
 		/*TOTAL DE OPCIONES:
 		  	0.cerrar
-			1. revisar los carros del inventario general 					check
-			2. revisar todos los carros disponibles 						check
-			3. revisar todos los carros disponibles de una sede. 			check
-			4.Crear una reserva 											check
-			5.Gestionar/eliminar reserva 									check
-			6.Añadir carro al inventario									check
-			7. Eliminar carro del inventario								check
-			8. Crear seguro 												check
-			9. crear empleado												check	
-			10. eliminar empleado
-			11. alquiler con reserva										check
-			12. alquiler sin reserva										check
-			13. reserva especial											check
-			14. alquiler especial											check
-			15.recibir un automovil (ponerlo en limpieza)
-			16. mandar un automovil a mantenimiento
-			17.devolver auto de limpieza o mantenimiento
-			tarifa por reserva y 30%										check
+			1. revisar los carros del inventario general 					check	Revisado
+			2. revisar todos los carros disponibles 						check	Revisado
+			3. revisar todos los carros disponibles de una sede. 			check	Revisado
+			4.Crear una reserva 											check	Revisado
+			5.Gestionar/eliminar reserva 									check	Revisado
+			6.Añadir carro al inventario									check	Revisado
+			7. Eliminar carro del inventario								check	Revisado
+			8. Crear seguro 												
+			9. crear empleado												check	Revisado
+			10. eliminar empleado											check	Revisado		
+			11. alquiler con reserva										check	Revisado
+			12. alquiler sin reserva										check	Revisado
+			13. reserva especial											check	Revisado
+			14. alquiler especial											check	Revisado
+			15.recibir un automovil (ponerlo en limpieza)					check	Revisado
+			16. mandar un automovil a mantenimiento							check	Revisado
+			17.devolver auto de limpieza o mantenimiento					check	Revisado
+			tarifa por reserva y 30%										check	Revisado
+			+buscar mejor carro si no hay de la categoria en alq
+			+revisar horarios de sede
+			+añadir conductores en alquiler
+			+costos por rango categoria (idk???)
 
 
 		 */
@@ -206,9 +212,20 @@ public class sistemaAlquiler {
 			if (opcion == 1) {
 				inventariogeneral.mostrarinventariototal();
 			}
+			
+			
+			
+			
+			
 			if (opcion == 2) {
 				inventariogeneral.mostrarinventariodisponible();
 			}
+			
+			
+			
+			
+			
+			
 			if (opcion == 3) {
 				
 				InventarioSede inventariosede = null;
@@ -229,6 +246,13 @@ public class sistemaAlquiler {
 				inventariosede.mostrarinventariodisponible();
 				
 			}
+			
+			
+			
+			
+			
+			
+			
 			if (opcion == 4) {
 				Cliente cliente = (Cliente)usuario;
 				System.out.println(cliente.getNombre()); 
@@ -256,11 +280,11 @@ public class sistemaAlquiler {
 			    while (seleccionandoSeguros) {
 			        System.out.println("Seleccione un seguro por su ID, escriba 'terminar' para finalizar la selección:");
 					System.out.println("Nuestros seguros: \n"
-							+ "Protección completa contra accidentes (Seguro1)\r\n"
-							+ "Protección básica contra accidentes (Seguro2)\r\n"
-							+ "Protección contra daños a terceros (Seguro3)\r\n"
-							+ "Protección en caso de accidentes en viajes largos (Seguro4)\r\n"
-							+ "Protección en caso de robo del vehículo (Seguro5)\r\n");
+							+ "Protección completa contra accidentes (Seguro1): $150000 por día\r\n"
+							+ "Protección básica contra accidentes (Seguro2): $50000 por día\r\n"
+							+ "Protección contra daños a terceros (Seguro3): $80000 por día\r\n"
+							+ "Protección en caso de accidentes en viajes largos (Seguro4): $100000 por día\r\n"
+							+ "Protección en caso de robo del vehículo (Seguro5): $120000 por día\r\n");
 			        String seguro = input("Seguro");
 			        if (seguro.equalsIgnoreCase("terminar")) {
 			            seleccionandoSeguros = false;
@@ -272,13 +296,16 @@ public class sistemaAlquiler {
 			    System.out.println(reserva.getinfo());
 			    Tarifa precio = new Tarifa(reserva);
 				long preciofinal = precio.calcularCostoFinal();
-				System.out.println("El precio total de la reserva es de: "+precio+" mil pesos");
+				String preciofin = Long.toString(preciofinal);
+				System.out.println("El precio total de la reserva es de: "+preciofin+" mil pesos");
 				long precio30 = (long) (preciofinal*0.3);
 				System.out.println("Pague ahora mismo el 30% del precio, el cual es: "+precio30);
-			    reserva.escribirTXT("./src/datos/ListaReserva.txt");
-			    
-				
+			    reserva.escribirTXT("./src/datos/ListaReserva.txt");	
 			}
+			
+			
+			
+			
 			if (opcion == 5) {
 				System.out.println("\nOpciones para buscar la reserva\n");
 				System.out.println("1. Por nombre de quien generó la reserva.");
@@ -352,9 +379,12 @@ public class sistemaAlquiler {
 					linea=br.readLine();
 				}
 				br.close();
-				
-				
 			}
+			
+			
+			
+			
+			
 			if (opcion == 6) {
 				String placa = input("Escriba la placa del vehículo");
 				String marca = input("Escriba la marca del vehículo");
@@ -427,23 +457,53 @@ public class sistemaAlquiler {
 			}
 			if (opcion == 9) {
 				AdministradorLocal admLocal = (AdministradorLocal)usuario; 
-				System.out.println(admLocal.getNombre()); 
+				
 
-				String nombreUsuario = input("Escriba el nombre de usuario del empleado: ");
-				String contraseña = input("Escriba la constraseña del empleado: ");
+				String nombreUsuario = input("Escriba el nombre de usuario del empleado");
+				String contraseña = input("Escriba la constraseña del empleado");
 				String tipoUsuario = "E";
-				String nombres = input("Escriba el nombre y apellido del empleado: ");
-				String datosContacto = input("Escriba el numero de contacto del empleado): ");
-				String fechaNacimiento = input("Escriba la fecha de nacimiento del empleado (en formato DD/MM/AAAA) : ");
+				String nombres = input("Escriba el nombre y apellido del empleado");
+				String datosContacto = input("Escriba el numero de contacto del empleado)");
+				String fechaNacimiento = input("Escriba la fecha de nacimiento del empleado (en formato DD/MM/AAAA)");
 				String nacionalidad = "Colombia";
-				String docIdentidad = input("Escriba el documento de identidad del empleado: ");
+				String docIdentidad = input("Escriba el documento de identidad del empleado");
 
 			    Empleado empleado = new Empleado(nombreUsuario,contraseña,tipoUsuario,nombres,datosContacto,fechaNacimiento,nacionalidad,docIdentidad);
 			    empleado.escribirTXT("./src/datos/Usuarios.txt");
 			    System.out.println("Empleado creado");
 			}
 			if (opcion == 10) {
-				break;
+				String usuarioempleado = input("Escriba el usuario del empleado que desea eliminar");
+				BufferedReader br = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
+				String linea = null;
+				linea=br.readLine();
+				ArrayList<String> usuarios= new ArrayList<>();
+				boolean usuario_eliminado= false;
+				while (linea!=null) {
+					String informacion[]= linea.split(",");
+					String usuariocomp = informacion[0];
+					if (!usuariocomp.equals(usuarioempleado)) {
+						usuarios.add(linea);
+					}
+					else if (informacion[2].equals("E")){
+						usuario_eliminado=true;
+					}
+					linea=br.readLine();
+				}
+				br.close();
+				if (usuario_eliminado==true) {
+				FileWriter elimusuario = new FileWriter("./src/datos/Usuarios.txt");
+				for (int i=0;i<usuarios.size();i++) {
+					elimusuario.append(usuarios.get(i)+"\n");
+					}
+				System.out.println("El empleado "+usuarioempleado+" ha sido eliminado.");
+				elimusuario.close();
+				}
+				else {
+					System.out.println("No se encontró el empleado");
+				}
+				
+				
 			}
 			if (opcion == 11) {
 				System.out.println("\nOpciones para buscar la reserva\n");
@@ -585,6 +645,10 @@ public class sistemaAlquiler {
 						
 							if (lineareescribir!=null) {
 								escritura.append(lineareescribir+"\n");
+								Tarifa tarifa = new Tarifa(reserva);
+								long total = tarifa.calcularCostoFinal();
+								long total70= (long) (total*0.7);
+								System.out.println("Pague el 70% restante del alquiler, el cual es "+total70+" mil pesos");
 								System.out.println("El vehiculo "+marca +" con las placas "+placa+" fue alquilado a "+nombreusuario+" con éxito");
 							}
 							escritura.close();
@@ -861,10 +925,156 @@ public class sistemaAlquiler {
 				}
 				
 			}
+			
+			
+			
+			
+			
+			
+			
+			
 			if (opcion == 15) {
-				inventariogeneral.mostrarinventarioalquilado();
-				
+				ArrayList<String> inventalquilado = inventariogeneral.mostrarinventarioalquilado();
+				String placa= input("¿cual vehículo fue entregado?");
+				boolean carroalquilado = false;
+				for (int i=0;i<inventalquilado.size();i++) {
+					String linea = inventalquilado.get(i);
+					String lineaarr[] = linea.split(",");
+					String placacomp = lineaarr[0];
+					if (placa.equals(placacomp)) {
+						carroalquilado = true;	
+					}
+				BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
+				String linealect = null;
+				linealect = brinventario.readLine();
+				ArrayList<String> inventalleno = new ArrayList<>();
+				String cambioinfo = null;
+				String marca = null;
+				while (linealect!=null) {
+					String info[] = linealect.split(",");
+					String placacomp2 = info[0];
+					if (!placa.equals(placacomp2)) {
+						inventalleno.add(linealect);
+					}
+					else {
+						cambioinfo= info[0]+","+info[1]+","+info[2]+","+info[3]+","+info[4]+","+info[5]+","+info[6]+","+"limpieza";
+						marca = info[1];
+					}
+					linealect = brinventario.readLine();
+				}
+				if (carroalquilado) {
+				FileWriter fw = new FileWriter("./src/datos/InventarioGENERAL.txt");
+				for (int b=0;b<inventalleno.size();b++) {
+					String dato = inventalleno.get(b);
+					fw.write(dato+"\n");
+				}
+				fw.write(cambioinfo);
+				fw.close();
+				System.out.println("Se envió a lavar al "+marca+" de placa "+placa);
+				}
+				else {
+					System.out.println("No se encontró ningun vehiculo alquilado con esa placa");
+				}
+				brinventario.close();
+				}
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			if (opcion == 16) {
+				String placa = input("Ingrese la placa del vehículo que tiene que ser mandado a mantenimiento (tiene que estar disponible actualmente)");
+				
+				boolean revisar_carro = false;
+				BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
+				String linealect = null;
+				linealect = brinventario.readLine();
+				ArrayList<String> inventalleno = new ArrayList<>();
+				String cambioinfo = null;
+				String marca = null;
+				while (linealect!=null) {
+					String info[] = linealect.split(",");
+					String placacomp2 = info[0];
+					String disponible = info[7];
+					if (!placa.equals(placacomp2)) {
+						inventalleno.add(linealect);
+					}
+					else if (disponible.equals("disponible")){
+						revisar_carro= true;
+						cambioinfo= info[0]+","+info[1]+","+info[2]+","+info[3]+","+info[4]+","+info[5]+","+info[6]+","+"mantenimiento";
+						marca = info[1];
+					}
+					linealect = brinventario.readLine();
+				}
+				brinventario.close();
+				if (revisar_carro) {
+				FileWriter fw = new FileWriter("./src/datos/InventarioGENERAL.txt");
+				for (int b=0;b<inventalleno.size();b++) {
+					String dato = inventalleno.get(b);
+					fw.write(dato+"\n");
+				}
+				fw.write(cambioinfo);
+				fw.close();
+				System.out.println("Se envió al mecánico el "+marca+" de placa "+placa);
+				}
+				else {
+					System.out.println("No se encontró ningun vehiculo alquilado con esa placa");
+				}
+				brinventario.close();
+				}
+			
+			
+			
+			
+			if (opcion == 17) {
+				String placa = input("Ingrese la placa del vehículo que desea regresar");
+				boolean revisar_carro = false;
+				BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
+				String linealect = null;
+				linealect = brinventario.readLine();
+				ArrayList<String> inventalleno = new ArrayList<>();
+				String cambioinfo = null;
+				String marca = null;
+				String sede = null;
+				while (linealect!=null) {
+					String info[] = linealect.split(",");
+					String placacomp2 = info[0];
+					String disponible = info[7];
+					if (!placa.equals(placacomp2)) {
+						inventalleno.add(linealect);
+					}
+					else if (disponible.equals("mantenimiento")||disponible.equals("limpieza")){
+						revisar_carro= true;
+						cambioinfo= info[0]+","+info[1]+","+info[2]+","+info[3]+","+info[4]+","+info[5]+","+info[6]+","+"disponible";
+						marca = info[1];
+						sede=info[6];
+					}
+					linealect = brinventario.readLine();
+				}
+				brinventario.close();
+				if (revisar_carro) {
+				FileWriter fw = new FileWriter("./src/datos/InventarioGENERAL.txt");
+				for (int b=0;b<inventalleno.size();b++) {
+					String dato = inventalleno.get(b);
+					fw.write(dato+"\n");
+				}
+				fw.write(cambioinfo);
+				fw.close();
+				System.out.println("Ya se regresó el "+marca+" de placa "+placa+" a la sede "+sede);
+				}
+				else {
+					System.out.println("El vehículo no existe o ya está disponible");
+				}
+				brinventario.close();
+			}
+			
+			
 			if (opcion == 0) {
 				revision_opciones = false;
 			}

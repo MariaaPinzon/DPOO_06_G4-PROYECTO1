@@ -1,3 +1,5 @@
 GTR873,Chevrolet Spark,2018,economico,negro,MANUAL,s3,disponible
 IOP575,Toyota Corolla,2017,estándar,gris,MANUAL,s3,disponible
 HNB333,Ford Focus,2020,economico,rojo,MANUAL,s3,Camilo,10/06/2023
+HMU321,Ford Escape,2020,todoterreno,gris,AUTOMATICO,s3,MariaL,14/10/24
+JSH892,Toyota RAV4,2021,todoterreno,azul,AUTOMATICO,s3,Chape,20/10/24

@@ -11,6 +11,7 @@ public class Vehiculo {
 	private String disponible;
 	private String cliente;
 	private String fechaDev;
+	private String sedefinal;
 	
 	public Vehiculo(String placa,String marca,int modelo,String categoria, String color, String transmision,String sede,String disponible ) {
 		this.placa = placa;

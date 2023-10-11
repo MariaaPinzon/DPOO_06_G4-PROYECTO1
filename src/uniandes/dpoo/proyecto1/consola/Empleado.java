@@ -28,7 +28,7 @@ public class Empleado extends Usuario {
 		FileWriter output = new FileWriter(enlace, true);
 		BufferedWriter br = new BufferedWriter(output);
 
-	    br.write(getNombre() + "," + getContraseña() + "," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad +"\n");
+	    br.write(getNombre() + "," + getContraseña()+",E" + "," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+"\n");
 	    br.close();
 	}
 
@@ -64,7 +64,10 @@ public class Empleado extends Usuario {
 		System.out.println("5. Revisar todos los carros de una sede específica");
 		System.out.println("6. Reserva especial (traslado de carro entre sedes)");
 		System.out.println("7. Alquilar el carro (trasladarlo entre sede)");
-		System.out.println("8. Salir.");
+		System.out.println("8. Recibir un auto alquilado (mandarlo a lavar)");
+		System.out.println("9. Enviar un vehículo a mantenimiento");
+		System.out.println("10. Regresar un vehículo de mantenimiento o lavado");
+		System.out.println("11. Salir.");
 		int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
 		int resp = 0;
 		if (opcion_seleccionada==(1)) {
@@ -89,8 +92,23 @@ public class Empleado extends Usuario {
 			resp =14;
 		}
 		if (opcion_seleccionada==(8)) {
+			resp =15;
+		}
+		if (opcion_seleccionada==(9)) {
+			resp =16;
+		}
+		if (opcion_seleccionada==(10)) {
+			resp =17;
+		}
+		if (opcion_seleccionada==(11)) {
 			resp =0;
 		}
 		return resp;
+	}
+
+	@Override
+	public String getFechaVencimientoMedioPago() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

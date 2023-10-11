@@ -30,7 +30,7 @@ public class Cliente extends Usuario{
         this.fechaVencimientoLicencia = fechaVencimientoLicencia;
         this.tipoMedioDePago = tipoMedioDePago;
         this.numeroMedioDePago = numeroMedioDePago;
-        this.fechaVencimientoMedioPago = fechaVencimientoMedioPago;
+        this.setFechaVencimientoMedioPago(fechaVencimientoMedioPago);
     }
 
 	@Override
@@ -65,6 +65,14 @@ public class Cliente extends Usuario{
 			resp =0;
 		}
 		return resp;
+	}
+	@Override
+	public String getFechaVencimientoMedioPago() {
+		return fechaVencimientoMedioPago;
+	}
+
+	public void setFechaVencimientoMedioPago(String fechaVencimientoMedioPago) {
+		this.fechaVencimientoMedioPago = fechaVencimientoMedioPago;
 	}
 	
 }

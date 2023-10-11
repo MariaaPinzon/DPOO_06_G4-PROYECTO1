@@ -66,5 +66,9 @@ public class Cliente extends Usuario{
 		}
 		return resp;
 	}
+
+	public String getNumeroLicencia() {
+		return numeroLicencia;
+	}
 	
 }

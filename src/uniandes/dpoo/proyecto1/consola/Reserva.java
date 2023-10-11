@@ -94,7 +94,7 @@ public class Reserva {
 
 	    String segurosStr = String.join(";", seguros);  //  ';' para separar los seguros en la cadena
 
-	    br.write(ID + "," + nombrecliente + "," + categoria + "," + diasAlquiler + "," + fechaIni + "," + horaIni + "," + fechaFin + "," + horaFin + "," + sedeinicial + "," + sedefinal + "," + segurosStr+"\n");
+	    br.write("\n"+ID + "," + nombrecliente + "," + categoria + "," + diasAlquiler + "," + fechaIni + "," + horaIni + "," + fechaFin + "," + horaFin + "," + sedeinicial + "," + sedefinal + "," + segurosStr);
 	    br.close();
 	}
 	public Cliente getCliente() {
@@ -108,7 +108,7 @@ public class Reserva {
 		BufferedWriter br = new BufferedWriter(output);
 		String nombreempleado = empleado.getNombre();
 
-	    br.write(ID + "," + nombreempleado + "," + categoria + "," + diasAlquiler + "," + fechaIni + ","+ fechaFin + ","+ sedeinicial + "," + sedefinal +",ESPECIAL"+"\n");
+	    br.write("\n"+ID + "," + nombreempleado + "," + categoria + "," + diasAlquiler + "," + fechaIni + ","+ fechaFin + ","+ sedeinicial + "," + sedefinal +",ESPECIAL");
 	    br.close();
 	}
 	

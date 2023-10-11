@@ -6,11 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.io.FileWriter;
 
 import uniandes.dpoo.proyecto1.consola.Administrador;
 import uniandes.dpoo.proyecto1.consola.Cliente;
+import uniandes.dpoo.proyecto1.consola.Conductor;
 import uniandes.dpoo.proyecto1.consola.Usuario;
 
 import uniandes.dpoo.proyecto1.consola.Empleado;
@@ -94,7 +95,7 @@ public class sistemaAlquiler {
             long numeroMedioDePago = Long.parseLong(input("Ingrese el número de su medio de pago "));
             String fechaVencimientoMedioPago = input("Ingrese la fecha de vencimiento de su medio de pago (dd/mm/yyyy) ");
 
-            br.write(usuario + "," + contra + ",C," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + numeroLicencia + "," + paisExpedicionLicencia + "," + fechaVencimientoLicencia + "," + tipoMedioDePago + "," + numeroMedioDePago + "," + fechaVencimientoMedioPago+"\n");
+            br.write(usuario + "," + contra + ",C," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + numeroLicencia + "," + paisExpedicionLicencia + "," + fechaVencimientoLicencia + "," + tipoMedioDePago + "," + numeroMedioDePago + "," + fechaVencimientoMedioPago+"," + "NA");
             br.close();
             System.out.println("Hola "+nombres);
             returnfinal = new Cliente(usuario, contra, nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, numeroLicencia, paisExpedicionLicencia, fechaVencimientoLicencia, tipoMedioDePago, numeroMedioDePago, fechaVencimientoMedioPago);
@@ -110,7 +111,7 @@ public class sistemaAlquiler {
 	        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy) ");
 	        String nacionalidad = input("Ingrese su nacionalidad ");
 	        String docIdentidad = input("Ingrese su documento de identidad ");
-	        br.write( adminusuario + "," + contra + ",AG," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+"\n" );	        br.close();
+	        br.write( "\n"+adminusuario + "," + contra + ",AG," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA" +"," + "NA");  br.close();
 	        returnfinal = new Administrador(adminusuario, contra, "AG", nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad);
 
 	    //EMPLEADO: ADMINISTRADOR LOCAL
@@ -125,7 +126,7 @@ public class sistemaAlquiler {
 	        String nacionalidad = input("Ingrese su nacionalidad ");
 	        String docIdentidad = input("Ingrese su documento de identidad ");
 	        String sede = input("Ingrese la sede ");
-	        br.write( adminLocalUsuario + "," + contra + ",AL," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA" +"," + sede+"\n");	        br.close();
+	        br.write( "\n"+adminLocalUsuario + "," + contra + ",AL," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA" +"," + sede);	br.close();
 	        returnfinal = new AdministradorLocal(adminLocalUsuario, contra, "AL", nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, sede);
 	    }
 	    return returnfinal;
@@ -182,7 +183,7 @@ public class sistemaAlquiler {
 			5.Gestionar/eliminar reserva 									check
 			6.Añadir carro al inventario									check
 			7. Eliminar carro del inventario								check
-			8. Crear seguro 												check
+			8. Crear seguro 												
 			9. crear empleado												check	
 			10. eliminar empleado
 			11. alquiler con reserva										check
@@ -251,7 +252,7 @@ public class sistemaAlquiler {
 				ArrayList<String> segurosSeleccionados = new ArrayList<>();
 			    boolean seleccionandoSeguros = true;
 			    while (seleccionandoSeguros) {
-			        System.out.println("Seleccione un seguro por su ID, escriba 'terminar' para finalizar la selección:");
+			        System.out.println("Seleccione un seguro por su ID, escriba 'terminarSeguros' para finalizar la selección:");
 					System.out.println("Nuestros seguros: \n"
 							+ "Protección completa contra accidentes $ 150000 (Seguro1)\r\n"
 							+ "Protección básica contra accidentes $50000 (Seguro2)\r\n"
@@ -259,7 +260,7 @@ public class sistemaAlquiler {
 							+ "Protección en caso de accidentes en viajes largos $100000 (Seguro4)\r\n"
 							+ "Protección en caso de robo del vehículo 120000 (Seguro5)\r\n");
 			        String seguro = input("Seguro");
-			        if (seguro.equalsIgnoreCase("terminar")) {
+			        if (seguro.equalsIgnoreCase("terminarSeguros")) {
 			            seleccionandoSeguros = false;
 			        } else {
 			            segurosSeleccionados.add(seguro);
@@ -625,16 +626,16 @@ public class sistemaAlquiler {
 						+ "Sede 1 (s1)\r\n"
 						+ "Sede 2 (s2)\r\n"
 						+ "Sede 3 (s3)\r\n");
-				String sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil: ");
-				String sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil: ");
-				String fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA): ");
-				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM): ");
-				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA): ");
-				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM): ");
+				String sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil ");
+				String sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil ");
+				String fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA)");
+				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM) ");
+				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA) ");
+				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM) ");
 				ArrayList<String> segurosSeleccionados = new ArrayList<>();
 			    boolean seleccionandoSeguros = true;
 			    while (seleccionandoSeguros) {
-			        System.out.println("Seleccione un seguro por su ID, escriba 'terminar' para finalizar la selección:");
+			        System.out.println("Seleccione un seguro por su ID, escriba 'terminarSeguros' para finalizar la selección");
 					System.out.println("Nuestros seguros: \n"
 							+ "Protección completa contra accidentes (Seguro1)\r\n"
 							+ "Protección básica contra accidentes (Seguro2)\r\n"
@@ -642,12 +643,35 @@ public class sistemaAlquiler {
 							+ "Protección en caso de accidentes en viajes largos (Seguro4)\r\n"
 							+ "Protección en caso de robo del vehículo (Seguro5)\r\n");
 			        String seguro = input("Seguro");
-			        if (seguro.equalsIgnoreCase("terminar")) {
+			        if (seguro.equalsIgnoreCase("terminarSeguros")) {
 			            seleccionandoSeguros = false;
 			        } else {
 			            segurosSeleccionados.add(seguro);
 			        }
 			    }
+			    
+			    HashMap<String, ArrayList<String>> conductoresAdicionales = new HashMap<>();
+		        ArrayList<String> licenciasAdicionales = new ArrayList<>();
+			    boolean añadiendoConductor = true;
+			    while(añadiendoConductor) {
+			        String decision = input("escriba 'continuar' para agregar un conductor nuevo, de lo contrario escriba terminarConductores");
+				    int numeroConductor= 1;
+			        if (decision.equalsIgnoreCase("continuar")) {
+				        System.out.println("Escriba la informacion del conductor adicional #"+numeroConductor);
+				    	 String nombres = input("Escriba los nombres del conductor adicional ");
+				         String numeroLicencia = input("Escriba el numero de licencia del conductor adicional ");
+				         String paisExpedicionLicencia = input("Escriba el pais de expedicion de la licencia del conductor adicional");
+				         String fechaVencimientoLicencia = input("Ecriba la fecha de vecimiento de la licencia del conductor adicional (en formato(DD/MM/AAAA))");
+				         Conductor conductor = new Conductor(nombres,numeroLicencia,paisExpedicionLicencia,fechaVencimientoLicencia);
+				         licenciasAdicionales.add(conductor.getNumeroLicencia());
+				         
+				         numeroConductor++; // 
+				     } else if (decision.equalsIgnoreCase("terminarConductores")) {
+				         añadiendoConductor = false;
+				     }
+			    }
+			    conductoresAdicionales.put(cliente.getNumeroLicencia(), licenciasAdicionales);
+			    
 			    Reserva reserva = new Reserva(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 			    reserva.escribirTXT("./src/datos/ListaReserva.txt");
 			    Tarifa precio = new Tarifa(reserva);

@@ -85,7 +85,7 @@ public class Tarifa {
         long costoTotal = 0;
         for (int i=0; i<segurosCliente.size(); i++) {
         	String seguro = segurosCliente.get(i);
-        	System.out.println(seguro);
+        	
             long costo = 0;
             costo = tarifasSeguros.get(seguro);
             if (costo != 0){

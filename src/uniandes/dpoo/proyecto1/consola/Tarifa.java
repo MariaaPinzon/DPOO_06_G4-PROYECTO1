@@ -11,7 +11,7 @@ public class Tarifa {
     private long tarifaBase; //la tarifa base es la misma de cada categoria 
     private HashMap <String, ArrayList<String>> tarifasSeguros;
     private ArrayList<String>  segurosCliente;
-    private HashMap <String, String> conductoresAdicionales;
+    private HashMap<String, ArrayList<String>> conductoresAdicionales;
     
     
     public Tarifa(Reserva reserva) throws IOException {
@@ -56,16 +56,21 @@ public class Tarifa {
         br.close();
         return tarifasSeguros;
     }
-    private HashMap<String, String> cargarConductoresAdicionales(String rutaArchivo) throws IOException {
-        HashMap<String, String> conductoresAdicionales = new HashMap<>();
+    private HashMap<String, ArrayList<String>> cargarConductoresAdicionales(String rutaArchivo) throws IOException {
+        HashMap<String, ArrayList<String>> conductoresAdicionales = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
         String linea;
         linea = br.readLine();
         while (linea != null) {
             String[] partes = linea.split(",");
-            String idReserva = partes[0];
-            String licenciaConductor = partes[3];
-            conductoresAdicionales.put(idReserva, licenciaConductor);
+            String licenciaCliente = partes[0];
+            String licenciaConductor = partes[2];
+            ArrayList<String> conductores = conductoresAdicionales.get(licenciaCliente);
+            if (conductores == null) {
+                conductores = new ArrayList<>();
+                conductoresAdicionales.put(licenciaCliente, conductores);
+            }
+            conductores.add(licenciaConductor);
             linea = br.readLine();
         }
         br.close();
@@ -89,7 +94,7 @@ public class Tarifa {
 	            String idSeguro = segurosCliente.get(i);
 	            ArrayList<String> datosSeguro = tarifasSeguros.get(idSeguro);
 	            if (datosSeguro != null && datosSeguro.size() > 1) {
-	                long costo = Long.parseLong(datosSeguro.get(1)); // Obtiene el costo que es el segundo elemento del ArrayList
+	                long costo = Long.parseLong(datosSeguro.get(1)); //  El costo que es el segundo elemento  ArrayList
 	                costoTotal += costo;
 	            }
 	        }
@@ -97,11 +102,10 @@ public class Tarifa {
 	    }
     public long calcularCostoConductoresAd() {
         long costo = 0;
-        for (String licenciaCliente : conductoresAdicionales.keySet()) {
-        	String licenciaClienteRevisar = String.valueOf(reserva.getID());
-            if (licenciaCliente.equals(licenciaClienteRevisar)) {
-                costo += 50000;
-            }
+    	String licenciaClienteRevisar = reserva.getCliente().getNumeroLicencia();
+        ArrayList<String> conductores = conductoresAdicionales.get(licenciaClienteRevisar);
+        if (conductores != null) {
+            costo = conductores.size() * 50000;
         }
         return costo;
 

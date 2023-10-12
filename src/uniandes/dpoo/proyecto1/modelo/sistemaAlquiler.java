@@ -90,7 +90,7 @@ public class sistemaAlquiler {
             String nombres = input("Ingrese sus nombres ");
             String contacto = input("Ingrese su número de teléfono ");
             String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy) ");
-            String nacionalidad = input("Escriba su pais de nacionalidad");
+            String nacionalidad = input("Escriba su pais de nacionalidad ");
             String docIdentidad = input("Ingrese su documento de identidad ");
             String numeroLicencia = input("Ingrese su número de licencia (9 dígitos) ");
             String paisExpedicionLicencia = input("Escriba el pais de expedicion de su licencia "); 
@@ -123,14 +123,14 @@ public class sistemaAlquiler {
 
 	    } else {
 	        System.out.println("Hola admin local");
-	        String adminLocalUsuario = input("ingrese su usuario: ");
-	        String contra = input("ingrese su contraseña: ");
-	        String nombres = input("Ingrese sus nombres: ");
-	        String contacto = input("Ingrese su número de teléfono: ");
-	        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy): ");
+	        String adminLocalUsuario = input("ingrese su usuario ");
+	        String contra = input("ingrese su contraseña ");
+	        String nombres = input("Ingrese sus nombres ");
+	        String contacto = input("Ingrese su número de teléfono ");
+	        String fechaNacimiento = input("Ingrese su fecha de nacimiento (dd/mm/yyyy) ");
 	        String nacionalidad = input("Ingrese su nacionalidad: ");
-	        String docIdentidad = input("Ingrese su documento de identidad: ");
-	        String sede = input("Ingrese la sede: ");
+	        String docIdentidad = input("Ingrese su documento de identidad ");
+	        String sede = input("Ingrese la sede, ej. (s1) ");
 	        br.write( adminLocalUsuario + "," + contra + ",AL," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad + "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA" +"," + sede+"\n");
 	        br.close();
 	        returnfinal = new AdministradorLocal(adminLocalUsuario, contra, "AL", nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, sede);
@@ -138,23 +138,7 @@ public class sistemaAlquiler {
 	    return returnfinal;
 	}
 		
-		
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -200,10 +184,8 @@ public class sistemaAlquiler {
 			16. mandar un automovil a mantenimiento							check	Revisado
 			17.devolver auto de limpieza o mantenimiento					check	Revisado
 			tarifa por reserva y 30%										check	Revisado
-			+buscar mejor carro si no hay de la categoria en alq			check	Revisado
-			+revisar horarios de sede										yeah fuck this
-			+añadir conductores en alquiler									check   Revisado -> pero ajustar precio alquiler
-			+costos por rango categoria (idk???)                            se lograra pronto 
+			+buscar mejor carro si no hay de la categoria en alq			check	Revisado								 
+			+añadir conductores en alquiler									check   Revisado
 
 
 		 */
@@ -250,33 +232,29 @@ public class sistemaAlquiler {
 			}
 			
 			
-			
-			
-			
-			
-			
+	
 			if (opcion == 4) {
 				Cliente cliente = (Cliente)usuario;
 				System.out.println(cliente.getNombre()); 
 				
 				System.out.println("Estos son los tipos de carros disponibles actualmente: \n"
-						+ "1.economico\r\n"
-						+ "2.estándar\r\n"
-						+ "3.van\r\n"
-						+ "4.SUV\r\n"
-						+ "5.todoterreno\r\n"
-						+ "6.lujo");
-				int categoria = Integer.parseInt(input("Seleccione una categoría"));
+						+ "1.economico, costo: 200000 \r\n"
+						+ "2.estándar, costo: 250000 \r\n"
+						+ "3.van,costo: 280000 \r\n"
+						+ "4.SUV, costo: 300000\r\n"
+						+ "5.todoterreno, costo: 320000 \r\n"
+						+ "6.lujo, costo: 400000 ");
+				int categoria = Integer.parseInt(input("Seleccione una categoría de acuerdo a su numero, ej. (1)"));
 				System.out.println("Nuestras sedes: \n"
 						+ "Sede 1 (s1)\r\n"
 						+ "Sede 2 (s2)\r\n"
 						+ "Sede 3 (s3)\r\n");
-				String sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil: ");
-				String sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil: ");
-				String fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA): ");
-				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM): ");
-				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA): ");
-				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM): ");
+				String sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil, ej. (s1) ");
+				String sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil, ej. (s1) ");
+				String fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA) ");
+				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM) ");
+				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA) ");
+				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM) ");
 				ArrayList<String> segurosSeleccionados = new ArrayList<>();
 			    boolean seleccionandoSeguros = true;
 			    while (seleccionandoSeguros) {
@@ -382,23 +360,20 @@ public class sistemaAlquiler {
 				}
 				br.close();
 			}
-			
-			
-			
-			
+					
 			
 			if (opcion == 6) {
 				String placa = input("Escriba la placa del vehículo");
 				String marca = input("Escriba la marca del vehículo");
 				int modelo = Integer.parseInt(input("Escriba el modelo de vehículo"));
 				System.out.println("Estos son los tipos de carros disponibles actualmente: \n"
-						+ "1.economico\r\n"
-						+ "2.estándar\r\n"
-						+ "3.van\r\n"
-						+ "4.SUV\r\n"
-						+ "5.todoterreno\r\n"
-						+ "6.lujo");
-				int categoria = Integer.parseInt(input("Seleccione una categoría"));
+						+ "1.economico, costo: 200000 \r\n"
+						+ "2.estándar, costo: 250000 \r\n"
+						+ "3.van,costo: 280000 \r\n"
+						+ "4.SUV, costo: 300000\r\n"
+						+ "5.todoterreno, costo: 320000 \r\n"
+						+ "6.lujo, costo: 400000 ");
+				int categoria = Integer.parseInt(input("Seleccione una categoría de acuerdo a su numero, ej. (1)"));
 				String categoriastr = findcategoria(categoria);
 				String color = input("Escriba el color del vehículo");
 				System.out.println("\n1. Automático");
@@ -749,24 +724,24 @@ public class sistemaAlquiler {
 					usuariotemp = sistema.CrearNuevoUsuario("./src/datos/Usuarios.txt");
 				}
 				else {
-					System.out.println("escriba bien no joda");
+					System.out.println("escribe bien chique");
 				}
 				if (usuariotemp !=null) {
 				Cliente cliente =(Cliente)usuariotemp;
 				System.out.println("Estos son los tipos de carros disponibles actualmente: \n"
-						+ "1.economico\r\n"
-						+ "2.estándar\r\n"
-						+ "3.van\r\n"
-						+ "4.SUV\r\n"
-						+ "5.todoterreno\r\n"
-						+ "6.lujo");
-				int categoria = Integer.parseInt(input("Seleccione una categoría"));
+						+ "1.economico, costo: 200000 \r\n"
+						+ "2.estándar, costo: 250000 \r\n"
+						+ "3.van,costo: 280000 \r\n"
+						+ "4.SUV, costo: 300000\r\n"
+						+ "5.todoterreno, costo: 320000 \r\n"
+						+ "6.lujo, costo: 400000 ");
+				int categoria = Integer.parseInt(input("Seleccione una categoría de acuerdo a su numero, ej. (1)"));
 				System.out.println("Nuestras sedes: \n"
 						+ "Sede 1 (s1)\r\n"
 						+ "Sede 2 (s2)\r\n"
 						+ "Sede 3 (s3)\r\n");
-				 sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil ");
-				 sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil ");
+				 sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil, ej. (s1) ");
+				 sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil, ej. (s1) ");
 				 fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA) ");
 				 horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM): ");
 				 fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA) ");
@@ -777,7 +752,7 @@ public class sistemaAlquiler {
 			    boolean seleccionandoSeguros = true;
 			    
 			    while (seleccionandoSeguros) {
-			        System.out.println("Seleccione un seguro por su ID, escriba 'terminar' para finalizar la selección");
+			        System.out.println("Seleccione un seguro por su ID, ej. (Seguto1) .Escriba 'terminar' para finalizar la selección");
 			        
 			        int numero = 1;
 			        for (String idSeguro: segurosDisponibles.keySet()) {
@@ -893,8 +868,7 @@ public class sistemaAlquiler {
 								reserva = new Reserva(ID,cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 								Tarifa tarifa = new Tarifa(reserva);
 								long total = tarifa.calcularCostoFinal();
-								long total70= (long) (total*0.7);
-								System.out.println("Pague el 70% restante del alquiler, el cual es "+total70+" mil pesos");
+								System.out.println("Pague el alquiler, el cual tiene un costo de "+total+" mil pesos");
 								System.out.println("El vehiculo "+marca +" con las placas "+placa+" fue alquilado a "+nombreusuario+" con éxito");
 							}
 							escritura.close();
@@ -932,9 +906,8 @@ public class sistemaAlquiler {
 		            conductoresAdicionales.put(cliente.getNumeroLicencia(), licenciasAdicionales);
 		            Tarifa tarifa = new Tarifa(reserva);
 					long total = tarifa.calcularCostoFinal();
-					long total70= (long) (total*0.7);
 		            long costoCondAd = tarifa.calcularCostoConductoresAd();
-		            long costoFinal = total70 + costoCondAd;
+		            long costoFinal = total + costoCondAd;
 		            System.out.println("El costo total con los conductores adicionales es: " + costoFinal + " mil pesos.");
 		        }
 				
@@ -951,14 +924,14 @@ public class sistemaAlquiler {
 			
 			
 			if (opcion == 13) {
-				System.out.println("\n"
-						+ "1.economico\r\n"
-						+ "2.estándar\r\n"
-						+ "3.van\r\n"
-						+ "4.SUV\r\n"
-						+ "5.todoterreno\r\n"
-						+ "6.lujo\r\n");
-				int categoria = Integer.parseInt(input("Seleccione una categoría"));
+				System.out.println("Estos son los tipos de carros disponibles actualmente: \n"
+						+ "1.economico, costo: 200000 \r\n"
+						+ "2.estándar, costo: 250000 \r\n"
+						+ "3.van,costo: 280000 \r\n"
+						+ "4.SUV, costo: 300000\r\n"
+						+ "5.todoterreno, costo: 320000 \r\n"
+						+ "6.lujo, costo: 400000 ");
+				int categoria = Integer.parseInt(input("Seleccione una categoría de acuerdo a su numero, ej. (1)"));
 				String fechaini = input("Escriba qué día va a desplazar el vehículo (en formato DD/MM/AA)");
 				String sedein = input("Escriba de qué sede vendrá el vehiculo");
 				String sedeout = input("Escriba a qué sede irá el vehiculo");
@@ -1067,11 +1040,7 @@ public class sistemaAlquiler {
 			}
 			
 			
-			
-			
-			
-			
-			
+
 			
 			if (opcion == 15) {
 				ArrayList<String> inventalquilado = inventariogeneral.mostrarinventarioalquilado();
@@ -1120,13 +1089,7 @@ public class sistemaAlquiler {
 			}
 			
 			
-			
-			
-			
-			
-			
-			
-			
+				
 			
 			if (opcion == 16) {
 				String placa = input("Ingrese la placa del vehículo que tiene que ser mandado a mantenimiento (tiene que estar disponible actualmente)");

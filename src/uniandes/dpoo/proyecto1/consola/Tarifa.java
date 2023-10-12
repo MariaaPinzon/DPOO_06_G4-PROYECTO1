@@ -9,7 +9,7 @@ public class Tarifa {
 	
 	private Reserva reserva;
     private long tarifaBase; //la tarifa base es la misma de cada categoria 
-    private HashMap <String, Long> tarifasSeguros;
+    private HashMap <String, ArrayList<String>> tarifasSeguros;
     private ArrayList<String>  segurosCliente;
     private HashMap <String, String> conductoresAdicionales;
     
@@ -39,16 +39,18 @@ public class Tarifa {
     	br.close();
         return tarifas;
     }
-    private HashMap<String, Long> cargarTarifasSeguros(String rutaArchivo) throws IOException {
-        HashMap<String, Long> tarifasSeguros = new HashMap<>();
+    public static HashMap<String, ArrayList<String>> cargarTarifasSeguros(String rutaArchivo) throws IOException {
+        HashMap<String, ArrayList<String>> tarifasSeguros = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
         String linea;
         linea = br.readLine();
         while (linea != null) {
             String[] partes = linea.split(",");
-            String nombreSeguro = partes[0];
-            long tarifaSeguro = Long.parseLong(partes[2]);
-            tarifasSeguros.put(nombreSeguro, tarifaSeguro);
+            String idSeguro = partes[0];
+            ArrayList<String> datosSeguro = new ArrayList<>();
+            datosSeguro.add(partes[1]); // Descripción seguro
+            datosSeguro.add(partes[2]); // Costo seguro
+            tarifasSeguros.put(idSeguro, datosSeguro);
             linea = br.readLine();
         }
         br.close();
@@ -81,24 +83,23 @@ public class Tarifa {
 	        return tarifaModificada;
 	    }
 
-    public long calcularCostoTotalSeguros() {
-        long costoTotal = 0;
-        for (int i=0; i<segurosCliente.size(); i++) {
-        	String seguro = segurosCliente.get(i);
-        	
-            long costo = 0;
-            costo = tarifasSeguros.get(seguro);
-            if (costo != 0){
-                costoTotal += costo;
-            }
-        }
-        return costoTotal * reserva.getDiasAlquiler(); 
-    }
+	    public long calcularCostoTotalSeguros() {
+	        long costoTotal = 0;
+	        for (int i = 0; i < segurosCliente.size(); i++) {
+	            String idSeguro = segurosCliente.get(i);
+	            ArrayList<String> datosSeguro = tarifasSeguros.get(idSeguro);
+	            if (datosSeguro != null && datosSeguro.size() > 1) {
+	                long costo = Long.parseLong(datosSeguro.get(1)); // Obtiene el costo que es el segundo elemento del ArrayList
+	                costoTotal += costo;
+	            }
+	        }
+	        return costoTotal * reserva.getDiasAlquiler();
+	    }
     public long calcularCostoConductoresAd() {
         long costo = 0;
-        for (String idReserva : conductoresAdicionales.keySet()) {
-        	String idrevisar = String.valueOf(reserva.getID());
-            if (idReserva.equals(idrevisar)) {
+        for (String licenciaCliente : conductoresAdicionales.keySet()) {
+        	String licenciaClienteRevisar = String.valueOf(reserva.getID());
+            if (licenciaCliente.equals(licenciaClienteRevisar)) {
                 costo += 50000;
             }
         }
@@ -109,9 +110,13 @@ public class Tarifa {
     public long calcularCostoFinal() {
         long costoTotalSeguros = calcularCostoTotalSeguros();
         long costoTarifaBaseModificada = modificarTarifaBase() * reserva.getDiasAlquiler();
-        long costoConductoresAdicionales = calcularCostoConductoresAd();
-        return costoTarifaBaseModificada + costoTotalSeguros + costoConductoresAdicionales;
+        return costoTarifaBaseModificada + costoTotalSeguros ;
     }
 
+    public long calcularCostoFinalCondAd() {
+        long costorimerTarifa = calcularCostoFinal();
+        long costoConductoresAdicionales = calcularCostoConductoresAd();
+        return  costorimerTarifa  + costoConductoresAdicionales;
+    }
 
 }

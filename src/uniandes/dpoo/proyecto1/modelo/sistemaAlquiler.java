@@ -6,11 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.io.FileWriter;
 
 import uniandes.dpoo.proyecto1.consola.Administrador;
 import uniandes.dpoo.proyecto1.consola.Cliente;
+import uniandes.dpoo.proyecto1.consola.Conductor;
 import uniandes.dpoo.proyecto1.consola.Usuario;
 
 import uniandes.dpoo.proyecto1.consola.Empleado;
@@ -18,6 +19,7 @@ import uniandes.dpoo.proyecto1.consola.AdministradorLocal;
 import uniandes.dpoo.proyecto1.consola.Inventario;
 import uniandes.dpoo.proyecto1.consola.InventarioSede;
 import uniandes.dpoo.proyecto1.consola.Reserva;
+import uniandes.dpoo.proyecto1.consola.Seguro;
 import uniandes.dpoo.proyecto1.consola.Tarifa;
 
 public class sistemaAlquiler {
@@ -187,7 +189,7 @@ public class sistemaAlquiler {
 			5.Gestionar/eliminar reserva 									check	Revisado
 			6.Añadir carro al inventario									check	Revisado
 			7. Eliminar carro del inventario								check	Revisado
-			8. Crear seguro 												
+			8. Crear seguro 												check   Revisado
 			9. crear empleado												check	Revisado
 			10. eliminar empleado											check	Revisado		
 			11. alquiler con reserva										check	Revisado
@@ -200,8 +202,8 @@ public class sistemaAlquiler {
 			tarifa por reserva y 30%										check	Revisado
 			+buscar mejor carro si no hay de la categoria en alq			check	Revisado
 			+revisar horarios de sede										yeah fuck this
-			+añadir conductores en alquiler									check (no commiteado)
-			+costos por rango categoria (idk???)
+			+añadir conductores en alquiler									check   Revisado -> pero ajustar precio alquiler
+			+costos por rango categoria (idk???)                            se lograra pronto 
 
 
 		 */
@@ -453,12 +455,17 @@ public class sistemaAlquiler {
 				
 			}
 			if (opcion == 8) {
-				break;
+				//Administrador general hace esto 
+				
+				String idSeguro = input("Escriba el id del seguro que va a crear (Seguro#)");
+				String descripcionSeguro = input("Escriba una descripcion de este seguro ");
+				String costoSeguro = input("Escriba el costo de este seguro ");
+				Seguro seguro= new Seguro(idSeguro,descripcionSeguro,costoSeguro);
+				seguro.escribirTXT("./src/datos/Seguros.txt");
 			}
 			if (opcion == 9) {
-				//AdministradorLocal admLocal = (AdministradorLocal)usuario; 
+				//AdministradorLocal hace esto
 				
-
 				String nombreUsuario = input("Escriba el nombre de usuario del empleado");
 				String contraseña = input("Escriba la constraseña del empleado");
 				String tipoUsuario = "E";
@@ -677,6 +684,37 @@ public class sistemaAlquiler {
 						}
 					}
 				}
+				
+		        String decisionConductor = input("¿Desea agregar conductores adicionales? (si/no)");
+		        if (decisionConductor.equalsIgnoreCase("si")) {
+		            HashMap<String, ArrayList<String>> conductoresAdicionales = new HashMap<>();
+		            ArrayList<String> licenciasAdicionales = new ArrayList<>();
+		            boolean añadiendoConductor = true;
+		            int numeroConductor = 1;
+		            while (añadiendoConductor) {
+		                String decision = input("Escriba 'continuar' para agregar un conductor nuevo, de lo contrario escriba 'terminarConductores'");
+		                if (decision.equalsIgnoreCase("continuar")) {
+		                    System.out.println("Escriba la informacion del conductor adicional #" + numeroConductor);
+		                    String nombres = input("Escriba los nombres del conductor adicional ");
+		                    String numeroLicencia = input("Escriba el numero de licencia del conductor adicional ");
+		                    String paisExpedicionLicencia = input("Escriba el pais de expedicion de la licencia del conductor adicional");
+		                    String fechaVencimientoLicencia = input("Ecriba la fecha de vecimiento de la licencia del conductor adicional (en formato(DD/MM/AAAA))");
+		                    Conductor conductor = new Conductor(cliente.getNumeroLicencia(), nombres, numeroLicencia, paisExpedicionLicencia, fechaVencimientoLicencia);
+		                    licenciasAdicionales.add(conductor.getNumeroLicencia());
+		                    conductor.escribirTXT("./src/datos/ConductoresAdicionales.txt");
+		                    numeroConductor++;
+		                } else if (decision.equalsIgnoreCase("terminarConductores")) {
+		                    añadiendoConductor = false;
+		                }
+		            }
+		            conductoresAdicionales.put(cliente.getNumeroLicencia(), licenciasAdicionales);
+		            Tarifa tarifa = new Tarifa(reserva);
+		            long nuevoCosto = tarifa.calcularCostoFinalCondAd();
+		            System.out.println("El costo total con los conductores adicionales es: " + nuevoCosto + " mil pesos.");
+		        }
+		        
+				
+				
 				else {
 					System.out.println("No se encontró la reserva.");
 				}
@@ -724,28 +762,44 @@ public class sistemaAlquiler {
 						+ "Sede 1 (s1)\r\n"
 						+ "Sede 2 (s2)\r\n"
 						+ "Sede 3 (s3)\r\n");
-				 sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil: ");
-				 sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil: ");
-				 fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA): ");
+				 sedeIn = input("Escriba el nombre de la sede de la cual quiere recoger el automóvil ");
+				 sedeFin = input("Escriba el nombre de la sede en la cual va a devolver el automóvil ");
+				 fechaini = input("Escriba qué día quiere recoger el vehículo (en formato DD/MM/AA) ");
 				 horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM): ");
-				 fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA): ");
-				 horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM): ");
+				 fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA) ");
+				 horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM) ");
+				 
 				segurosSeleccionados = new ArrayList<>();
+			    HashMap<String, ArrayList<String>> segurosDisponibles = Tarifa.cargarTarifasSeguros("./src/datos/Seguros.txt");
 			    boolean seleccionandoSeguros = true;
+			    
 			    while (seleccionandoSeguros) {
-			        System.out.println("Seleccione un seguro por su ID, escriba 'terminar' para finalizar la selección:");
-					System.out.println("Nuestros seguros: \n"
-							+ "Protección completa contra accidentes (Seguro1)\r\n"
-							+ "Protección básica contra accidentes (Seguro2)\r\n"
-							+ "Protección contra daños a terceros (Seguro3)\r\n"
-							+ "Protección en caso de accidentes en viajes largos (Seguro4)\r\n"
-							+ "Protección en caso de robo del vehículo (Seguro5)\r\n");
-			        String seguro = input("Seguro");
-			        if (seguro.equalsIgnoreCase("terminar")) {
-			            seleccionandoSeguros = false;
-			        } else {
-			            segurosSeleccionados.add(seguro);
-			        }
+			        System.out.println("Seleccione un seguro por su ID, escriba 'terminar' para finalizar la selección");
+			        
+			        int numero = 1;
+			        for (String idSeguro: segurosDisponibles.keySet()) {
+			            ArrayList<String> datosSeguro = segurosDisponibles.get(idSeguro);
+			            if (datosSeguro != null && datosSeguro.size() > 1) {
+			                String descripcion = datosSeguro.get(0);
+			                String costo = datosSeguro.get(1);
+			                System.out.println(numero + ". " + "("+idSeguro +")"+"  " + descripcion + ",Costo:  " + costo );
+			                numero++;
+			            }
+			        
+					}
+					String seguro = input("Seguro: ");
+				    if (seguro.equalsIgnoreCase("terminar")) {
+				    	   seleccionandoSeguros = false;
+				    }
+				    
+				    else if (segurosDisponibles.containsKey(seguro)){
+				    	segurosSeleccionados.add(seguro);
+				    }
+				    
+				    else {
+				        System.out.println("ID de seguro no válido. Intente nuevamente.");
+				    	}
+    
 			    }
 			    Reserva reserva = new Reserva(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 			    reserva.escribirTXT("./src/datos/ListaReserva.txt");
@@ -849,6 +903,35 @@ public class sistemaAlquiler {
 						}
 					}
 				}
+				
+		        String decisionConductor = input("¿Desea agregar conductores adicionales? (si/no)");
+		        if (decisionConductor.equalsIgnoreCase("si")) {
+		            HashMap<String, ArrayList<String>> conductoresAdicionales = new HashMap<>();
+		            ArrayList<String> licenciasAdicionales = new ArrayList<>();
+		            boolean añadiendoConductor = true;
+		            int numeroConductor = 1;
+		            while (añadiendoConductor) {
+		                String decision = input("Escriba 'continuar' para agregar un conductor nuevo, de lo contrario escriba 'terminarConductores'");
+		                if (decision.equalsIgnoreCase("continuar")) {
+		                    System.out.println("Escriba la informacion del conductor adicional #" + numeroConductor);
+		                    String nombres = input("Escriba los nombres del conductor adicional ");
+		                    String numeroLicencia = input("Escriba el numero de licencia del conductor adicional ");
+		                    String paisExpedicionLicencia = input("Escriba el pais de expedicion de la licencia del conductor adicional");
+		                    String fechaVencimientoLicencia = input("Ecriba la fecha de vecimiento de la licencia del conductor adicional (en formato(DD/MM/AAAA))");
+		                    Conductor conductor = new Conductor(cliente.getNumeroLicencia(), nombres, numeroLicencia, paisExpedicionLicencia, fechaVencimientoLicencia);
+		                    licenciasAdicionales.add(conductor.getNumeroLicencia());
+		                    conductor.escribirTXT("./src/datos/ConductoresAdicionales.txt");
+		                    numeroConductor++;
+		                } else if (decision.equalsIgnoreCase("terminarConductores")) {
+		                    añadiendoConductor = false;
+		                }
+		            }
+		            conductoresAdicionales.put(cliente.getNumeroLicencia(), licenciasAdicionales);
+		            Tarifa tarifa = new Tarifa(reserva);
+		            long nuevoCosto = tarifa.calcularCostoFinalCondAd();
+		            System.out.println("El costo total con los conductores adicionales es: " + nuevoCosto + " mil pesos."); // aca como le hago el 70% que me esta cogiendo la tarifa original , no la que es 70
+		        }
+				
 				else {
 					System.out.println("No se encontró la reserva.");
 				}
@@ -969,6 +1052,7 @@ public class sistemaAlquiler {
 						System.out.println("No se encontró el carro");
 					}
 				}
+				
 				
 				else {
 					System.out.println("No existe una reserva especial con esa identificación");

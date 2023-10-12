@@ -74,5 +74,9 @@ public class Cliente extends Usuario{
 	public void setFechaVencimientoMedioPago(String fechaVencimientoMedioPago) {
 		this.fechaVencimientoMedioPago = fechaVencimientoMedioPago;
 	}
+
+	public String getNumeroLicencia() {
+		return numeroLicencia;
+	}
 	
 }

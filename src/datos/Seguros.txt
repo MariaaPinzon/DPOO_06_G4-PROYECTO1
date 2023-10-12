@@ -4,4 +4,3 @@ Seguro3,Protección contra daños a terceros,80000
 Seguro4,Protección en caso de accidentes en viajes largos,100000
 Seguro5,Protección en caso de robo del vehículo,120000
 Seguro6,Protección en caso de accidente menor,10000
-Seguro6,Proteccion contra accidentes minimos,15000

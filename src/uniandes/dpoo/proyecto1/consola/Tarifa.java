@@ -113,10 +113,5 @@ public class Tarifa {
         return costoTarifaBaseModificada + costoTotalSeguros ;
     }
 
-    public long calcularCostoFinalCondAd() {
-        long costorimerTarifa = calcularCostoFinal();
-        long costoConductoresAdicionales = calcularCostoConductoresAd();
-        return  costorimerTarifa  + costoConductoresAdicionales;
-    }
 
 }

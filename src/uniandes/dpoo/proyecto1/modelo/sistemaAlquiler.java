@@ -709,8 +709,11 @@ public class sistemaAlquiler {
 		            }
 		            conductoresAdicionales.put(cliente.getNumeroLicencia(), licenciasAdicionales);
 		            Tarifa tarifa = new Tarifa(reserva);
-		            long nuevoCosto = tarifa.calcularCostoFinalCondAd();
-		            System.out.println("El costo total con los conductores adicionales es: " + nuevoCosto + " mil pesos.");
+					long total = tarifa.calcularCostoFinal();
+					long total70= (long) (total*0.7);
+		            long costoCondAd = tarifa.calcularCostoConductoresAd();
+		            long costoFinal = total70 + costoCondAd;
+		            System.out.println("El costo total con los conductores adicionales es: " + costoFinal + " mil pesos.");
 		        }
 		        
 				
@@ -928,8 +931,11 @@ public class sistemaAlquiler {
 		            }
 		            conductoresAdicionales.put(cliente.getNumeroLicencia(), licenciasAdicionales);
 		            Tarifa tarifa = new Tarifa(reserva);
-		            long nuevoCosto = tarifa.calcularCostoFinalCondAd();
-		            System.out.println("El costo total con los conductores adicionales es: " + nuevoCosto + " mil pesos."); // aca como le hago el 70% que me esta cogiendo la tarifa original , no la que es 70
+					long total = tarifa.calcularCostoFinal();
+					long total70= (long) (total*0.7);
+		            long costoCondAd = tarifa.calcularCostoConductoresAd();
+		            long costoFinal = total70 + costoCondAd;
+		            System.out.println("El costo total con los conductores adicionales es: " + costoFinal + " mil pesos.");
 		        }
 				
 				else {

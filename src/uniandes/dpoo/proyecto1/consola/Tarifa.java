@@ -61,8 +61,13 @@ public class Tarifa {
         BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
         String linea;
         linea = br.readLine();
+        int numeroLinea = 1;
         while (linea != null) {
             String[] partes = linea.split(",");
+            if (partes.length < 3) {
+                System.out.println("Error en la línea " + numeroLinea + ": " + linea); // Mensaje de depuración
+                continue; 
+            }
             String licenciaCliente = partes[0];
             String licenciaConductor = partes[2];
             ArrayList<String> conductores = conductoresAdicionales.get(licenciaCliente);

@@ -7,5 +7,5 @@ MPI800,Hyundai Elantra,2020,estándar,blanco,MANUAL,s2,disponible
 JHB387,Kia Rio,2015,economico,verde,MANUAL,s2,limpieza
 HMU321,Ford Escape,2020,todoterreno,gris,AUTOMATICO,s3,MariaL,14/10/24
 JSH892,Toyota RAV4,2021,todoterreno,azul,AUTOMATICO,s3,Chape,20/10/24
+HSG345,Chevrolet Express,2016,van,negro,AUTOMATICO,s1,disponible
 KMJ765,Chevrolet Beat,2019,estándar,rojo,MANUAL,s2,Camilo,22/10/23
-HSG345,Chevrolet Express,2016,van,negro,AUTOMATICO,s1,Luise,25/11/23

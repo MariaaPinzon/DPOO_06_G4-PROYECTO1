@@ -52,3 +52,13 @@ Fecha en la que el cliente devuelve el vehiculo : 14/11/23
 Hora en la que el cliente devuelve el vehiculo: 12:00
 Costo total: 1070000
 --------------------------------------------------
+
+Placa del vehiculo: HSG345
+Marca del vehiculo: Chevrolet Express
+Nombre del cliente: Luise
+Fecha en la que el cliente recoge el vehiculo : 23/11/23
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 25/11/23
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 1508000
+--------------------------------------------------

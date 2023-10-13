@@ -642,6 +642,8 @@ public class sistemaAlquiler {
 						brinventario.close();
 						
 						AlquilerVehiculo alquiler = new AlquilerVehiculo();
+						reserva = new Reserva(ID,cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
+
 						Tarifa tarifa = new Tarifa(reserva);
 						long total = tarifa.calcularCostoFinal();
 						long totalFinal= (long) (total*0.7);
@@ -669,7 +671,7 @@ public class sistemaAlquiler {
 						
 						String decisionConductor = input("¿Desea agregar conductores adicionales? (si/no)");
 						if (decisionConductor.equalsIgnoreCase("si")) {
-							HashMap<String, ArrayList<String>> conductoresAdicionales = new HashMap<>();
+
 							ArrayList<String> licenciasAdicionales = new ArrayList<>();
 							boolean añadiendoConductor = true;
 							int numeroConductor = 1;
@@ -861,6 +863,7 @@ public class sistemaAlquiler {
 							}
 							brinventario.close();
 							AlquilerVehiculo alquiler = new AlquilerVehiculo();
+							reserva = new Reserva(ID,cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 							Tarifa tarifa = new Tarifa(reserva);
 							long totalFinal = tarifa.calcularCostoFinal();
 							
@@ -909,7 +912,7 @@ public class sistemaAlquiler {
 										long costoCondAd = tarifa.calcularCostoConductoresAd();
 										totalFinal += costoCondAd;
 										System.out.println("El costo total con los conductores adicionales es: " + totalFinal + " mil pesos.");
-										alquiler.escribirLog(placa, marca, categoriastr, nombreusuario, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, totalFinal);
+
 									} else if (decision.equalsIgnoreCase("terminarConductores")) {
 										añadiendoConductor = false;
 									}

@@ -1246,7 +1246,7 @@ public class sistemaAlquiler {
 		}
 		return resp;
 	}
-
+ 
 
 	public static String input(String mensaje)
 	{

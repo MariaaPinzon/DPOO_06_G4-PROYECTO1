@@ -487,7 +487,6 @@ public class sistemaAlquiler {
 					System.out.println("No se encontró el empleado");
 				}
 
-
 			}
 			if (opcion == 11) {
 				System.out.println("\nOpciones para buscar la reserva\n");

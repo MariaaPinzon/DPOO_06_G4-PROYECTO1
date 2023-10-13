@@ -2,7 +2,6 @@ package uniandes.dpoo.proyecto1.consola;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 

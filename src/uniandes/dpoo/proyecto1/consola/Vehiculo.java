@@ -101,5 +101,11 @@ public class Vehiculo {
 	public void setFechaDev(String fechaDev) {
 		this.fechaDev = fechaDev;
 	}
+	public String getSedefinal() {
+		return sedefinal;
+	}
+	public void setSedefinal(String sedefinal) {
+		this.sedefinal = sedefinal;
+	}
 
 }

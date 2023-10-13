@@ -1,8 +1,6 @@
 package uniandes.dpoo.proyecto1.consola;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
 
 public class Cliente extends Usuario{
 	private String nombres;
@@ -20,16 +18,16 @@ public class Cliente extends Usuario{
     
     public Cliente(String nombreUsuario, String contraseña, String nombres, String datosContacto, String fechaNacimiento, String nacionalidad, String docIdentidad, String numeroLicencia, String paisExpedicionLicencia, String fechaVencimientoLicencia, String tipoMedioDePago, long numeroMedioDePago, String fechaVencimientoMedioPago) {
         super(nombreUsuario, contraseña); // llamada al constructor de la clase padre Usuario
-        this.nombres = nombres;
-        this.contacto = datosContacto;
-        this.fechaNacimiento = fechaNacimiento;
-        this.nacionalidad = nacionalidad;
-        this.docIdentidad = docIdentidad;
-        this.numeroLicencia = numeroLicencia;
-        this.paisExpedicionLicencia = paisExpedicionLicencia;
-        this.fechaVencimientoLicencia = fechaVencimientoLicencia;
-        this.tipoMedioDePago = tipoMedioDePago;
-        this.numeroMedioDePago = numeroMedioDePago;
+        this.setNombres(nombres);
+        this.setContacto(datosContacto);
+        this.setFechaNacimiento(fechaNacimiento);
+        this.setNacionalidad(nacionalidad);
+        this.setDocIdentidad(docIdentidad);
+        this.setNumeroLicencia(numeroLicencia);
+        this.setPaisExpedicionLicencia(paisExpedicionLicencia);
+        this.setFechaVencimientoLicencia(fechaVencimientoLicencia);
+        this.setTipoMedioDePago(tipoMedioDePago);
+        this.setNumeroMedioDePago(numeroMedioDePago);
         this.setFechaVencimientoMedioPago(fechaVencimientoMedioPago);
     }
 
@@ -73,6 +71,94 @@ public class Cliente extends Usuario{
 
 	public void setFechaVencimientoMedioPago(String fechaVencimientoMedioPago) {
 		this.fechaVencimientoMedioPago = fechaVencimientoMedioPago;
+	}
+
+	public String getPaisExpedicionLicencia() {
+		return paisExpedicionLicencia;
+	}
+
+	public void setPaisExpedicionLicencia(String paisExpedicionLicencia) {
+		this.paisExpedicionLicencia = paisExpedicionLicencia;
+	}
+
+	public String getNombres() {
+		return nombres;
+	}
+
+	public void setNombres(String nombres) {
+		this.nombres = nombres;
+	}
+
+	public String getContacto() {
+		return contacto;
+	}
+
+	public void setContacto(String contacto) {
+		this.contacto = contacto;
+	}
+
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
+	public String getNacionalidad() {
+		return nacionalidad;
+	}
+
+	public void setNacionalidad(String nacionalidad) {
+		this.nacionalidad = nacionalidad;
+	}
+
+	public String getDocIdentidad() {
+		return docIdentidad;
+	}
+
+	public void setDocIdentidad(String docIdentidad) {
+		this.docIdentidad = docIdentidad;
+	}
+
+	public String getNumeroLicencia() {
+		return numeroLicencia;
+	}
+
+	public void setNumeroLicencia(String numeroLicencia) {
+		this.numeroLicencia = numeroLicencia;
+	}
+
+	public String getFechaVencimientoLicencia() {
+		return fechaVencimientoLicencia;
+	}
+
+	public void setFechaVencimientoLicencia(String fechaVencimientoLicencia) {
+		this.fechaVencimientoLicencia = fechaVencimientoLicencia;
+	}
+
+	public String getImagenLicencia() {
+		return imagenLicencia;
+	}
+
+	public void setImagenLicencia(String imagenLicencia) {
+		this.imagenLicencia = imagenLicencia;
+	}
+
+	public long getNumeroMedioDePago() {
+		return numeroMedioDePago;
+	}
+
+	public void setNumeroMedioDePago(long numeroMedioDePago) {
+		this.numeroMedioDePago = numeroMedioDePago;
+	}
+
+	public String getTipoMedioDePago() {
+		return tipoMedioDePago;
+	}
+
+	public void setTipoMedioDePago(String tipoMedioDePago) {
+		this.tipoMedioDePago = tipoMedioDePago;
 	}
 	
 }

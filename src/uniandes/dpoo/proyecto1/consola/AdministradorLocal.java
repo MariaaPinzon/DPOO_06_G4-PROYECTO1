@@ -1,8 +1,6 @@
 package uniandes.dpoo.proyecto1.consola;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
 
 public class AdministradorLocal extends Administrador{
 	private String tipoUsuario;

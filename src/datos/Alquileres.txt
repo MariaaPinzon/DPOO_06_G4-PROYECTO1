@@ -1,0 +1,18 @@
+Placa del vehiculo: GTR873
+Marca del vehiculo: Chevrolet Spark
+Nombre del cliente: Luise
+Fecha en la que el cliente recoge el vehiculo : 12/11/23
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 17/11/23
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 1740000
+--------------------------------------------------
+Placa del vehiculo: MBV456
+Marca del vehiculo: Ford Taurus
+Nombre del cliente: Tomas
+Fecha en la que el cliente recoge el vehiculo : 20/10/24
+Hora en la que el cliente recoge el vehiculo : 12:00
+Fecha en la que el cliente devuelve el vehiculo : 22/10/24
+Hora en la que el cliente devuelve el vehiculo: 14:00
+Costo total: 1860000
+--------------------------------------------------

@@ -6,6 +6,6 @@ JHB387,Kia Rio,2015,economico,verde,MANUAL,s2,limpieza
 HMU321,Ford Escape,2020,todoterreno,gris,AUTOMATICO,s3,MariaL,14/10/24
 JSH892,Toyota RAV4,2021,todoterreno,azul,AUTOMATICO,s3,Chape,20/10/24
 KMJ765,Chevrolet Beat,2019,estándar,rojo,MANUAL,s2,Camilo,22/10/23
-GTR873,Chevrolet Spark,2018,economico,negro,MANUAL,s3,Luise,17/10/23
-HSG345,Chevrolet Express,2016,van,negro,AUTOMATICO,s1,Luise,17/10/23
-MBV456,Ford Taurus2022,lujo,negro,AUTOMATICO,s2,Luisa,20/10/23
+HSG345,Chevrolet Express,2016,van,negro,AUTOMATICO,s3,MariaL,19/10/24
+GTR873,Chevrolet Spark,2018,economico,negro,MANUAL,s3,Luise,17/11/23
+MBV456,Ford Taurus,2022,lujo,negro,AUTOMATICO,s2,Tomas,22/10/24

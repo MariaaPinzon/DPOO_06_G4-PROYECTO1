@@ -40,7 +40,8 @@ public class Administrador extends Empleado{
 		System.out.println("2. Eliminar un carro del inventario");
 		System.out.println("3. Crear nuevos seguros");
 		System.out.println("4. Revisar todos los carros");
-		System.out.println("5. Salir.");
+		System.out.println("5. Mostrar el historial de un vehiculo");
+		System.out.println("6. Salir.");
 		int opcion_seleccionada = Integer.parseInt(input("Por favor seleccione una opción"));
 		int resp = 0;
 		if (opcion_seleccionada==(1)) {
@@ -55,7 +56,10 @@ public class Administrador extends Empleado{
 		if (opcion_seleccionada==(4)) {
 			resp =1;
 		}
-		if (opcion_seleccionada==(5)) {
+		if (opcion_seleccionada==(4)) {
+			resp =18;
+		}
+		if (opcion_seleccionada==(6)) {
 			resp =0;
 		}
 		return resp;

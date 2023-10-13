@@ -1,0 +1,9 @@
+Placa del vehiculo: HSG345
+Marca del vehiculo: Chevrolet Express
+Nombre del cliente: MariaL
+Fecha en la que el cliente recoge el vehiculo : 17/10/24
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 19/10/24
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 1884000
+--------------------------------------------------

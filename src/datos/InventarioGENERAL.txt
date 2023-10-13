@@ -1,3 +1,4 @@
+GTR873,Chevrolet Spark,2018,economico,negro,MANUAL,s3,disponible
 CCD243,Toyota Sienna,2019,van,gris,AUTOMATICO,s1,MariaL,9/06/2023
 IOP575,Toyota Corolla,2017,estándar,gris,MANUAL,s3,disponible
 HNB333,Ford Focus,2020,economico,rojo,MANUAL,s3,Camilo,10/06/2023
@@ -5,7 +6,6 @@ MPI800,Hyundai Elantra,2020,estándar,blanco,MANUAL,s2,disponible
 JHB387,Kia Rio,2015,economico,verde,MANUAL,s2,limpieza
 HMU321,Ford Escape,2020,todoterreno,gris,AUTOMATICO,s3,MariaL,14/10/24
 JSH892,Toyota RAV4,2021,todoterreno,azul,AUTOMATICO,s3,Chape,20/10/24
+HSG345,Chevrolet Express,2016,van,negro,AUTOMATICO,s1,disponible
 KMJ765,Chevrolet Beat,2019,estándar,rojo,MANUAL,s2,Camilo,22/10/23
-HSG345,Chevrolet Express,2016,van,negro,AUTOMATICO,s3,MariaL,19/10/24
-GTR873,Chevrolet Spark,2018,economico,negro,MANUAL,s3,Luise,17/11/23
-MBV456,Ford Taurus,2022,lujo,negro,AUTOMATICO,s2,Tomas,22/10/24
+MBV456,Ford Taurus,2022,lujo,negro,AUTOMATICO,s2,Camilo,12/12/24

@@ -56,7 +56,7 @@ public class Administrador extends Empleado{
 		if (opcion_seleccionada==(4)) {
 			resp =1;
 		}
-		if (opcion_seleccionada==(4)) {
+		if (opcion_seleccionada==(5)) {
 			resp =18;
 		}
 		if (opcion_seleccionada==(6)) {

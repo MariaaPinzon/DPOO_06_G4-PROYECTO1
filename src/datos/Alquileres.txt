@@ -16,3 +16,39 @@ Fecha en la que el cliente devuelve el vehiculo : 22/10/24
 Hora en la que el cliente devuelve el vehiculo: 14:00
 Costo total: 1860000
 --------------------------------------------------
+Placa del vehiculo: IOP575
+Marca del vehiculo: Toyota Corolla
+Nombre del cliente: Luise
+Fecha en la que el cliente recoge el vehiculo : 10/11/23
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 13/11/23
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 1720000
+--------------------------------------------------
+Placa del vehiculo: MBV456
+Marca del vehiculo: Ford Taurus
+Nombre del cliente: Camilo
+Fecha en la que el cliente recoge el vehiculo : 13/11/24
+Hora en la que el cliente recoge el vehiculo : 13:00
+Fecha en la que el cliente devuelve el vehiculo : 12/12/24
+Hora en la que el cliente devuelve el vehiculo: 16:00
+Costo total: 16219999
+--------------------------------------------------
+Placa del vehiculo: GTR873
+Marca del vehiculo: Chevrolet Spark
+Nombre del cliente: Luise
+Fecha en la que el cliente recoge el vehiculo : 12/11/23
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 14/11/23
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 1020000
+--------------------------------------------------
+Placa del vehiculo: GTR873
+Marca del vehiculo: Chevrolet Spark
+Nombre del cliente: MariaL
+Fecha en la que el cliente recoge el vehiculo : 12/11/23
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 14/11/23
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 1070000
+--------------------------------------------------

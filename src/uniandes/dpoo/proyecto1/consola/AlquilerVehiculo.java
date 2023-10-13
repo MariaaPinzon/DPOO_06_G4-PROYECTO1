@@ -23,9 +23,11 @@ public class AlquilerVehiculo {
 	private String sedefinal;
 	private long costoTotal;
 
-	public AlquilerVehiculo() {
-		// TODO Auto-generated constructor stub
-	}
+
+		public AlquilerVehiculo() {
+			// TODO Auto-generated constructor stub
+		}
+
 
 	public AlquilerVehiculo(String placa, String marca, int modelo, String categoria, String clienteAlquiler,
 			String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeinicial, String sedefinal, long costoTotal) {
@@ -64,41 +66,154 @@ public class AlquilerVehiculo {
 	    }
 	}
 
-	public HashMap<String, ArrayList<HashMap<String, String>>> cargarLogAlquileres(){
-		
-        HashMap<String, ArrayList<HashMap<String, String>>> historialesAlquileres = new HashMap<>();
+	public HashMap<String, ArrayList<AlquilerVehiculo>> cargarLogAlquileres() {
+	    HashMap<String, ArrayList<AlquilerVehiculo>> historialesAlquileres = new HashMap<>();
 
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("./src/datos/Alquileres.txt"));
-            String linea;
-            String placa = "";
-            ArrayList<HashMap<String, String>> alquileres = new ArrayList<>();
+	    try {
+	        BufferedReader br = new BufferedReader(new FileReader("./src/datos/Alquileres.txt"));
+	        String linea;
+	        AlquilerVehiculo alquilerActual = null;
+	        ArrayList<AlquilerVehiculo> alquileres = null;
+	        String placaActual = "";
 
-            while ((linea = br.readLine()) != null) {
-                if (linea.startsWith("Placa del vehiculo: ")) {
-                    if (!placa.isEmpty()) {
-                        historialesAlquileres.put(placa, alquileres);
-                        alquileres = new ArrayList<>();
-                    }
-                    placa = linea.split(": ")[1];
-                } 
-                else 
-                {
-                    HashMap<String, String> alquiler = new HashMap<>();
-                    alquiler.put(linea.split(": ")[0], linea.split(": ")[1]);
-                    alquileres.add(alquiler);
-                }
-            }
+	        while ((linea = br.readLine()) != null) {
+	            if (linea.startsWith("Placa del vehiculo: ")) {
+	                if (alquilerActual != null && !placaActual.isEmpty()) {
+	                    if (!historialesAlquileres.containsKey(placaActual)) {
+	                        historialesAlquileres.put(placaActual, new ArrayList<>());
+	                    }
+	                    historialesAlquileres.get(placaActual).add(alquilerActual);
+	                }
+	                placaActual = linea.split(": ")[1];
+	                alquilerActual = new AlquilerVehiculo(placaActual, placaActual, modelo, placaActual, placaActual, placaActual, placaActual, placaActual, placaActual, placaActual, placaActual, costoTotal);
+	                alquilerActual.setPlaca(placaActual);
+	            } else if (linea.startsWith("Marca del vehiculo: ")) {
+	                alquilerActual.setMarca(linea.split(": ")[1]);
+	            } else if (linea.startsWith("Nombre del cliente: ")) {
+	                alquilerActual.setClienteAlquiler(linea.split(": ")[1]);
+	            } else if (linea.startsWith("Fecha en la que el cliente recoge el vehiculo : ")) {
+	                alquilerActual.setFechaIni(linea.split(": ")[1]);
+	            } else if (linea.startsWith("Hora en la que el cliente recoge el vehiculo : ")) {
+	                alquilerActual.setHoraIni(linea.split(": ")[1]);
+	            } else if (linea.startsWith("Fecha en la que el cliente devuelve el vehiculo : ")) {
+	                alquilerActual.setFechaFin(linea.split(": ")[1]);
+	            } else if (linea.startsWith("Hora en la que el cliente devuelve el vehiculo: ")) {
+	                alquilerActual.setHoraFin(linea.split(": ")[1]);
+	            } else if (linea.startsWith("Costo total: ")) {
+	                alquilerActual.setCostoTotal(Long.parseLong(linea.split(": ")[1]));
+	            }
+	        }
 
-            if (!placa.isEmpty()) {
-                historialesAlquileres.put(placa, alquileres);
-            }
+	        // Aca ya llegamos al ultimo alquiler
+	        if (alquilerActual != null && !placaActual.isEmpty()) {
+	            if (!historialesAlquileres.containsKey(placaActual)) {
+	                historialesAlquileres.put(placaActual, new ArrayList<>());
+	            }
+	            historialesAlquileres.get(placaActual).add(alquilerActual);
+	        }
 
-            br.close();
-        } catch (IOException e) {
-            System.out.println("Error al leer el archivo log: " + e.getMessage());
-        }
+	        br.close();
+	    } catch (IOException e) {
+	        System.out.println("Error al leer el archivo log: " + e.getMessage());
+	    }
 
-        return historialesAlquileres;
-    }
+	    return historialesAlquileres;
+	}
+	
+	public String getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public int getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(int modelo) {
+		this.modelo = modelo;
+	}
+
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
+	public String getClienteAlquiler() {
+		return clienteAlquiler;
+	}
+
+	public void setClienteAlquiler(String clienteAlquiler) {
+		this.clienteAlquiler = clienteAlquiler;
+	}
+
+	public String getFechaIni() {
+		return fechaIni;
+	}
+
+	public void setFechaIni(String fechaIni) {
+		this.fechaIni = fechaIni;
+	}
+
+	public String getHoraIni() {
+		return horaIni;
+	}
+
+	public void setHoraIni(String horaIni) {
+		this.horaIni = horaIni;
+	}
+
+	public String getFechaFin() {
+		return fechaFin;
+	}
+
+	public void setFechaFin(String fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public String getHoraFin() {
+		return horaFin;
+	}
+
+	public void setHoraFin(String horaFin) {
+		this.horaFin = horaFin;
+	}
+
+	public String getSedeinicial() {
+		return sedeinicial;
+	}
+
+	public void setSedeinicial(String sedeinicial) {
+		this.sedeinicial = sedeinicial;
+	}
+
+	public String getSedefinal() {
+		return sedefinal;
+	}
+
+	public void setSedefinal(String sedefinal) {
+		this.sedefinal = sedefinal;
+	}
+
+	public long getCostoTotal() {
+		return costoTotal;
+	}
+
+	public void setCostoTotal(long costoTotal) {
+		this.costoTotal = costoTotal;
+	}
 }
+

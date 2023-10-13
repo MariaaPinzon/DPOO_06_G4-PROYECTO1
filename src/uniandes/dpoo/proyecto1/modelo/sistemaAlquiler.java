@@ -564,6 +564,7 @@ public class sistemaAlquiler {
 					linea=br.readLine();
 				}
 				br.close();
+				
 				BufferedReader lect_usuario = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
 				String IDorigin = String.valueOf(reserva.getID()) ;
 				String linearev = null;
@@ -582,7 +583,10 @@ public class sistemaAlquiler {
 					linearev= lect_usuario.readLine();
 				}
 				lect_usuario.close();
-				AlquilerVehiculo alquiler = new AlquilerVehiculo();
+				
+				
+
+				
 				if (encontro_reserva) {
 					categoria = reserva.getCategoria();
 					boolean buscar_de_nuevo = true;
@@ -636,6 +640,12 @@ public class sistemaAlquiler {
 
 						}
 						brinventario.close();
+						
+						AlquilerVehiculo alquiler = new AlquilerVehiculo();
+						Tarifa tarifa = new Tarifa(reserva);
+						long total = tarifa.calcularCostoFinal();
+						long totalFinal= (long) (total*0.7);
+						
 						if (encontrar_auto==true) {
 							buscar_de_nuevo= false;
 							FileWriter escritura = new FileWriter("./src/datos/InventarioGENERAL.txt");
@@ -646,13 +656,8 @@ public class sistemaAlquiler {
 
 							if (lineareescribir!=null) {
 								escritura.append(lineareescribir+"\n");
-								reserva = new Reserva(ID,cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
-								Tarifa tarifa = new Tarifa(reserva);
-								long total = tarifa.calcularCostoFinal();
-								long total70= (long) (total*0.7);
-								System.out.println("Pague el 70% restante del alquiler, el cual es "+total70+" mil pesos");
+								System.out.println("Pague el 70% restante del alquiler, el cual es "+totalFinal+" mil pesos");
 								System.out.println("El vehiculo "+marca +" con las placas "+placa+" fue alquilado a "+nombreusuario+" con éxito");
-								alquiler.escribirLog(placa, marca, categoriastr, nombrecliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedefin, total);
 							}
 							escritura.close();
 						}
@@ -680,20 +685,16 @@ public class sistemaAlquiler {
 									licenciasAdicionales.add(conductor.getNumeroLicencia());
 									conductor.escribirTXT("./src/datos/ConductoresAdicionales.txt");
 									numeroConductor++;
+									long costoCondAd = tarifa.calcularCostoConductoresAd();
+									totalFinal += costoCondAd;
+									System.out.println("El costo total con los conductores adicionales es: " + totalFinal + " mil pesos.");
 								} else if (decision.equalsIgnoreCase("terminarConductores")) {
 									añadiendoConductor = false;
 								}
 							}
-							conductoresAdicionales.put(cliente.getNumeroLicencia(), licenciasAdicionales);
-							Tarifa tarifa = new Tarifa(reserva);
-							long total = tarifa.calcularCostoFinal();
-							long total70= (long) (total*0.7);
-							long costoCondAd = tarifa.calcularCostoConductoresAd();
-							long costoFinal = total70 + costoCondAd;
-							System.out.println("El costo total con los conductores adicionales es: " + costoFinal + " mil pesos.");
-							alquiler.escribirLog(placa, marca, categoriastr, nombrecliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedefin, costoFinal);
 
 						}
+						alquiler.escribirLog(placa, marca, categoriastr, nombrecliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedefin, totalFinal);
 
 
 					}
@@ -860,7 +861,9 @@ public class sistemaAlquiler {
 							}
 							brinventario.close();
 							AlquilerVehiculo alquiler = new AlquilerVehiculo();
-
+							Tarifa tarifa = new Tarifa(reserva);
+							long totalFinal = tarifa.calcularCostoFinal();
+							
 							if (encontrar_auto==true) {
 								buscar_de_nuevo= false;
 								FileWriter escritura = new FileWriter("./src/datos/InventarioGENERAL.txt");
@@ -872,12 +875,8 @@ public class sistemaAlquiler {
 								if (lineareescribir!=null) {
 									escritura.append(lineareescribir+"\n");
 									reserva = new Reserva(ID,cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
-									Tarifa tarifa = new Tarifa(reserva);
-									long total = tarifa.calcularCostoFinal();
-									System.out.println("Pague el alquiler, el cual tiene un costo de "+total+" mil pesos");
-
+									System.out.println("Pague el alquiler, el cual tiene un costo de "+totalFinal+" mil pesos");
 									System.out.println("El vehiculo "+marca +" con las placas "+placa+" fue alquilado a "+nombreusuario+" con éxito");
-									alquiler.escribirLog(placa, marca, categoriastr, nombreusuario, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, total);
 
 								}
 								escritura.close();
@@ -906,24 +905,24 @@ public class sistemaAlquiler {
 										licenciasAdicionales.add(conductor.getNumeroLicencia());
 										conductor.escribirTXT("./src/datos/ConductoresAdicionales.txt");
 										numeroConductor++;
+										conductoresAdicionales.put(cliente.getNumeroLicencia(), licenciasAdicionales);
+										long costoCondAd = tarifa.calcularCostoConductoresAd();
+										totalFinal += costoCondAd;
+										System.out.println("El costo total con los conductores adicionales es: " + totalFinal + " mil pesos.");
+										alquiler.escribirLog(placa, marca, categoriastr, nombreusuario, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, totalFinal);
 									} else if (decision.equalsIgnoreCase("terminarConductores")) {
 										añadiendoConductor = false;
 									}
 								}
-								conductoresAdicionales.put(cliente.getNumeroLicencia(), licenciasAdicionales);
-								Tarifa tarifa = new Tarifa(reserva);
-								long total = tarifa.calcularCostoFinal();
-								long costoCondAd = tarifa.calcularCostoConductoresAd();
-								long costoFinal = total + costoCondAd;
-								System.out.println("El costo total con los conductores adicionales es: " + costoFinal + " mil pesos.");
-								alquiler.escribirLog(placa, marca, categoriastr, nombreusuario, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, total);
+
 							}
+							alquiler.escribirLog(placa, marca, categoriastr, nombreusuario, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, totalFinal);
 
 						}
 					}
 
 					else {
-						System.out.println("No se encontró la reserva.");
+						System.out.println("No se encontró la reserva.");  // esto si va aca?
 					}
 
 				}
@@ -1191,16 +1190,21 @@ public class sistemaAlquiler {
 
 			if (opcion == 18) {
 			    String placa = input("Ingrese la placa del vehículo para el cual desea revisar su historial de alquiler ");
-			    AlquilerVehiculo alquiler = new AlquilerVehiculo();
-			    HashMap<String, ArrayList<HashMap<String, String>>> historialesAlquileres = alquiler.cargarLogAlquileres();
+			    AlquilerVehiculo alquiler = new AlquilerVehiculo(placa, placa, opcion, placa, placa, placa, placa, placa, placa, placa, placa, opcion);
+			    HashMap<String, ArrayList<AlquilerVehiculo>> historialesAlquileres = alquiler.cargarLogAlquileres();
 
 			    if (historialesAlquileres.containsKey(placa)) {
 			        System.out.println("Historial de alquileres para el vehículo con placa " + placa + ":");
-			        ArrayList<HashMap<String, String>> alquileres = historialesAlquileres.get(placa);
-			        for (HashMap<String, String> datosAlquilerInd : alquileres) {
-			            for (Map.Entry<String, String> entry : datosAlquilerInd.entrySet()) {
-			                System.out.println(entry.getKey() + ": " + entry.getValue());
-			            }
+			        ArrayList<AlquilerVehiculo> alquileres = historialesAlquileres.get(placa);
+			        for (AlquilerVehiculo indiceAlquiler : alquileres) {
+			            System.out.println("Placa del vehiculo: " + indiceAlquiler.getPlaca());
+			            System.out.println("Marca del vehiculo: " + indiceAlquiler.getMarca());
+			            System.out.println("Nombre del cliente: " + indiceAlquiler.getClienteAlquiler());
+			            System.out.println("Fecha en la que el cliente recoge el vehiculo : " + indiceAlquiler.getFechaIni());
+			            System.out.println("Hora en la que el cliente recoge el vehiculo : " + indiceAlquiler.getHoraIni());
+			            System.out.println("Fecha en la que el cliente devuelve el vehiculo : " + indiceAlquiler.getFechaFin());
+			            System.out.println("Hora en la que el cliente devuelve el vehiculo: " + indiceAlquiler.getHoraFin());
+			            System.out.println("Costo total: " + indiceAlquiler.getCostoTotal());
 			            System.out.println("--------------------------------------------------");
 			        }
 			    } else {

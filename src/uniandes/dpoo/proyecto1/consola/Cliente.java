@@ -1,6 +1,7 @@
 package uniandes.dpoo.proyecto1.consola;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -66,6 +67,22 @@ public class Cliente extends Usuario{
 		}
 		return resp;
 	}
+	
+	public static Cliente encontrarClientePorNombre(String rutaArchivo, String nombreCliente) throws IOException {
+	    BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
+	    String linea = br.readLine();
+	    while (linea != null) {
+	        String[] info = linea.split(",");
+	        if (nombreCliente.equals(info[0])) {
+	            br.close();
+	            return new Cliente(info[0], info[1], info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], 1111, info[13]);
+	        }
+	        linea = br.readLine();
+	    }
+	    br.close();
+	    return null;
+	}
+	
 	@Override
 	public String getFechaVencimientoMedioPago() {
 		return fechaVencimientoMedioPago;

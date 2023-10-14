@@ -65,6 +65,19 @@ public class InventarioSede extends Inventario {
 		
 	}
 	
+	public static InventarioSede crearInventarioPorSede(String opcionSede) throws Exception {
+	    switch (opcionSede) {
+	        case "1":
+	            return new InventarioSede("./src/datos/InventarioGENERAL.txt", "s1", "./src/datos/inventarioSede1.txt");
+	        case "2":
+	            return new InventarioSede("./src/datos/InventarioGENERAL.txt", "s2", "./src/datos/inventarioSede2.txt");
+	        case "3":
+	            return new InventarioSede("./src/datos/InventarioGENERAL.txt", "s3", "./src/datos/inventarioSede3.txt");
+	        default:
+	            throw new IllegalArgumentException("Opción de sede no válida");
+	    }
+	}
+	
 	@Override
 	public void mostrarinventariodisponible () {
 		for (int i=0; i<catalogo.size(); i++) {

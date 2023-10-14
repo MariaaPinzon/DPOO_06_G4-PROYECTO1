@@ -83,6 +83,7 @@ public class sistemaAlquiler {
 		BufferedWriter br = new BufferedWriter(output);
 		//br.newLine();
 		String usuario = input("ingrese su usuario: ");
+		
 		//PARA HACER UN AG SE TYPEA "secretoAG"
 		//PARA HACER UN AL SE TYPEA "secretoAL"
 
@@ -140,10 +141,6 @@ public class sistemaAlquiler {
 		return returnfinal;
 	}
 
-
-
-
-
 	public static void main(String[] args) throws Exception {
 
 		sistemaAlquiler sistema = new sistemaAlquiler();
@@ -168,11 +165,11 @@ public class sistemaAlquiler {
 
 		/*TOTAL DE OPCIONES:
 		  	0.cerrar
-			1. revisar los carros del inventario general 					check	Revisado
-			2. revisar todos los carros disponibles 						check	Revisado
-			3. revisar todos los carros disponibles de una sede. 			check	Revisado
-			4.Crear una reserva 											check	Revisado
-			5.Gestionar/eliminar reserva 									check	Revisado
+			1. revisar los carros del inventario general 					check	Revisado    bonito
+			2. revisar todos los carros disponibles 						check	Revisado    bonito 
+			3. revisar todos los carros disponibles de una sede. 			check	Revisado    bonito
+			4.Crear una reserva 											check	Revisado    bonito
+			5.Gestionar/eliminar reserva 									check	Revisado	bonito pero hay algo con ese 70%
 			6.Añadir carro al inventario									check	Revisado
 			7. Eliminar carro del inventario								check	Revisado
 			8. Crear seguro 												check   Revisado
@@ -188,65 +185,48 @@ public class sistemaAlquiler {
 			tarifa por reserva y 30%										check	Revisado
 			+buscar mejor carro si no hay de la categoria en alq			check	Revisado								 
 			+añadir conductores en alquiler									check   Revisado
-
-
 		 */
+		
 		Boolean revision_opciones = true;
 		while (revision_opciones == true){
 			int opcion = usuario.mostrarOpciones();
 
+//  1. revisar los carros del inventario general.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+			
 			if (opcion == 1) {
 				inventariogeneral.mostrarinventariototal();
 			}
 
-
-
+// 2. revisar todos los carros disponibles.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 			if (opcion == 2) {
 				inventariogeneral.mostrarinventariodisponible();
 			}
 
-
-
-
-
-
+// 3. revisar todos los carros disponibles de una sede.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 			if (opcion == 3) {
 
-				InventarioSede inventariosede = null;
 				System.out.println("1. Sede 1");
 				System.out.println("2. Sede 2");
 				System.out.println("3. Sede 3");;
-				String opcionsede = input("Seleccione una sede");
-				System.out.println(opcionsede);
-				if (opcionsede.equals("1")) {
-					inventariosede = new InventarioSede("./src/datos/InventarioGENERAL.txt", "s1","./src/datos/inventarioSede1.txt");
-				}
-				else if (opcionsede.equals("2")) {
-					inventariosede = new InventarioSede("./src/datos/InventarioGENERAL.txt", "s2","./src/datos/inventarioSede2.txt");
-				}
-				else if (opcionsede.equals("3")) {
-					inventariosede = new InventarioSede("./src/datos/InventarioGENERAL.txt", "s3","./src/datos/inventarioSede3.txt");
-				}
-				inventariosede.mostrarinventariodisponible();
-
+				String opcionSede = input("Seleccione una sede");
+			    try {
+			        InventarioSede inventarioSede = InventarioSede.crearInventarioPorSede(opcionSede);
+			        inventarioSede.mostrarinventariodisponible();
+			    } catch (IllegalArgumentException e) {
+			        System.out.println(e.getMessage());
+			    }
 			}
-
-
-
+		
+// 4.Crear una reserva ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+			
 			if (opcion == 4) {
 				Cliente cliente = (Cliente)usuario;
 				System.out.println(cliente.getNombre()); 
-
-				System.out.println("Estos son los tipos de carros disponibles actualmente: \n"
-						+ "1.economico, costo: 200000 \r\n"
-						+ "2.estándar, costo: 250000 \r\n"
-						+ "3.van,costo: 280000 \r\n"
-						+ "4.SUV, costo: 300000\r\n"
-						+ "5.todoterreno, costo: 320000 \r\n"
-						+ "6.lujo, costo: 400000 ");
-				int categoria = Integer.parseInt(input("Seleccione una categoría de acuerdo a su numero, ej. (1)"));
+				
+				int categoria = seleccionarCategoria();
+				
 				System.out.println("Nuestras sedes: \n"
 						+ "Sede 1 (s1)\r\n"
 						+ "Sede 2 (s2)\r\n"
@@ -257,112 +237,43 @@ public class sistemaAlquiler {
 				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM) ");
 				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA) ");
 				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM) ");
-				ArrayList<String> segurosSeleccionados = new ArrayList<>();
-				boolean seleccionandoSeguros = true;
-				while (seleccionandoSeguros) {
-					System.out.println("Seleccione un seguro por su ID, escriba 'terminar' para finalizar la selección:");
-					System.out.println("Nuestros seguros: \n"
-							+ "Protección completa contra accidentes (Seguro1): $150000 por día\r\n"
-							+ "Protección básica contra accidentes (Seguro2): $50000 por día\r\n"
-							+ "Protección contra daños a terceros (Seguro3): $80000 por día\r\n"
-							+ "Protección en caso de accidentes en viajes largos (Seguro4): $100000 por día\r\n"
-							+ "Protección en caso de robo del vehículo (Seguro5): $120000 por día\r\n");
-					String seguro = input("Seguro");
-					if (seguro.equalsIgnoreCase("terminar")) {
-						seleccionandoSeguros = false;
-					} else {
-						segurosSeleccionados.add(seguro);
-					}
-				}
+				
+				ArrayList<String> segurosSeleccionados = seleccionarSeguros();
+						
 				Reserva reserva = new Reserva(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 				System.out.println(reserva.getinfo());
 				Tarifa precio = new Tarifa(reserva);
-				long preciofinal = precio.calcularCostoFinal();
-				String preciofin = Long.toString(preciofinal);
-				System.out.println("El precio total de la reserva es de: "+preciofin+" mil pesos");
-				long precio30 = (long) (preciofinal*0.3);
-				System.out.println("Pague ahora mismo el 30% del precio, el cual es: "+precio30);
+				precio.calcularCosto30P();
 				reserva.escribirTXT("./src/datos/ListaReserva.txt");	
 			}
 
-
-
+// 5.Gestionar/eliminar reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			if (opcion == 5) {
 				System.out.println("\nOpciones para buscar la reserva\n");
 				System.out.println("1. Por nombre de quien generó la reserva.");
 				System.out.println("2. Por identificador de la reserva");
 				int seleccion = Integer.parseInt(input("Seleccione una opción"));
-				String comparador = "";
-				if (seleccion ==1) {
-					comparador = input("Escriba el nombre de quien generó la reserva");
-				}
-				if (seleccion ==2) {
-					comparador = input("Escriba el identificador de su reserva");
-				}
-				BufferedReader br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
-
-				String linea = null;
+				
 				Reserva reserva = null;
-				linea = br.readLine();
-				if (linea==null) {
-					linea = br.readLine();
+				
+				if (seleccion ==1) {
+					String nombreComparador = input("Escriba el nombre de quien generó la reserva");
+			        reserva = Reserva.encontrarReservaPorNombre("./src/datos/Usuarios.txt", nombreComparador);
 				}
-				Usuario usuarioreal = null;
-				while (linea!=null) {
-					boolean encontrar_reserva =linea.contains(comparador);
-					if (encontrar_reserva==true) {
-
-						String inforeserva[]= linea.split(",");
-						String nombrecliente = inforeserva[1];
-						int categoria = Integer.parseInt(inforeserva[2]);
-						String fechaIni = inforeserva[4];
-						String horaIni = inforeserva[5];
-						String fechaFin = inforeserva[6];
-						String horafin = inforeserva[7];
-						String sedein = inforeserva[8];
-						String sedeout = inforeserva[9];
-						int ID = Integer.parseInt(inforeserva[0]);
-
-						ArrayList<String> seguros = new ArrayList<>();
-						String segurosgrande = inforeserva[10];
-						String[]seguroslistagrande = segurosgrande.split(";");
-
-						for (int i = 0; i<seguroslistagrande.length; i++) {
-							seguros.add(seguroslistagrande[i]);
-						}
-
-						BufferedReader lect_usuario = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
-						String linea_usuarios = null;
-						linea_usuarios= lect_usuario.readLine();
-						while (linea_usuarios!=null) {
-							String info[]= linea_usuarios.split(",");
-							String usuariocomp = info[0];
-							if (nombrecliente.equals(usuariocomp)) {
-
-								String contraseña= info[1];
-								usuarioreal = new Cliente(nombrecliente, contraseña, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], 1111, info[13]);
-								break;
-							}
-							linea_usuarios= lect_usuario.readLine();
-						}
-						lect_usuario.close();
-						Cliente cliente = (Cliente)usuarioreal;
-						reserva = new Reserva(ID,cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
-						System.out.println(reserva.getinfo());
-
-						Tarifa precio = new Tarifa(reserva);
-						long preciofinal = precio.calcularCostoFinal();
-						System.out.println("El precio total de la reserva es de: "+preciofinal+" mil pesos");
-
-						break;
-
-					}
-					linea=br.readLine();
-				}
-				br.close();
+				else if (seleccion ==2) {
+					int idComparador = Integer.parseInt(input("Escriba el identificador de su reserva"));
+					 Reserva.encontrarReservaPorID( "./src/datos/ListaReserva.txt", idComparador);
+					 }
+			    if (reserva != null) {
+			        System.out.println(reserva.getinfo());
+			        Tarifa precio = new Tarifa(reserva);
+			        long preciofinal = precio.calcularCostoFinal();
+			        System.out.println("El precio total de la reserva es de: " + preciofinal + " mil pesos");
+			    } else {
+			        System.out.println("No se encontró la reserva.");
+			    }
 			}
-
 
 			if (opcion == 6) {
 				String placa = input("Escriba la placa del vehículo");
@@ -1221,9 +1132,6 @@ public class sistemaAlquiler {
 
 	}
 
-
-
-
 	public static String findcategoria(int categoria) {
 		String resp = "";
 		if (categoria==1) {
@@ -1246,8 +1154,53 @@ public class sistemaAlquiler {
 		}
 		return resp;
 	}
- 
+	
+    
+    public static int seleccionarCategoria() {
+        System.out.println("Estos son los tipos de carros disponibles actualmente: \n"
+                + "1.economico, costo: 200000 \r\n"
+                + "2.estándar, costo: 250000 \r\n"
+                + "3.van,costo: 280000 \r\n"
+                + "4.SUV, costo: 300000\r\n"
+                + "5.todoterreno, costo: 320000 \r\n"
+                + "6.lujo, costo: 400000 ");
+        return Integer.parseInt(input("Seleccione una categoría de acuerdo a su numero, ej. (1)"));
 
+    }
+
+    public static ArrayList<String> seleccionarSeguros() throws IOException {
+        ArrayList<String> segurosSeleccionados = new ArrayList<>();
+        HashMap<String, ArrayList<String>> segurosDisponibles = Tarifa.cargarTarifasSeguros("./src/datos/Seguros.txt");
+        boolean seleccionandoSeguros = true;
+
+        while (seleccionandoSeguros) {
+            System.out.println("Seleccione un seguro por su ID, ej. (Seguro1). Escriba 'terminar' para finalizar la selección.");
+
+            int numero = 1;
+            for (String idSeguro : segurosDisponibles.keySet()) {
+                ArrayList<String> datosSeguro = segurosDisponibles.get(idSeguro);
+                if (datosSeguro != null && datosSeguro.size() > 1) {
+                    String descripcion = datosSeguro.get(0);
+                    String costo = datosSeguro.get(1);
+                    System.out.println(numero + ". " + "(" + idSeguro + ")" + "  " + descripcion + ", Costo:  " + costo);
+                    numero++;
+                }
+            }
+
+            String seguro = input("Seguro: ");
+            if (seguro.equalsIgnoreCase("terminar")) {
+                seleccionandoSeguros = false;
+            } else if (segurosDisponibles.containsKey(seguro)) {
+                segurosSeleccionados.add(seguro);
+            } else {
+                System.out.println("ID de seguro no válido. Intente nuevamente.");
+            }
+        }
+
+        return segurosSeleccionados;
+    }    
+    
+    
 	public static String input(String mensaje)
 	{
 		try

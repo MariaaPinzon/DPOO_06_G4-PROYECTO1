@@ -61,13 +61,9 @@ public class Tarifa {
         BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
         String linea;
         linea = br.readLine();
-        int numeroLinea = 1;
         while (linea != null) {
             String[] partes = linea.split(",");
-            if (partes.length < 3) {
-                System.out.println("Error en la línea " + numeroLinea + ": " + linea); // Mensaje de depuración
-                continue; 
-            }
+
             String licenciaCliente = partes[0];
             String licenciaConductor = partes[2];
             ArrayList<String> conductores = conductoresAdicionales.get(licenciaCliente);
@@ -120,6 +116,14 @@ public class Tarifa {
         long costoTotalSeguros = calcularCostoTotalSeguros();
         long costoTarifaBaseModificada = modificarTarifaBase() * reserva.getDiasAlquiler();
         return costoTarifaBaseModificada + costoTotalSeguros ;
+    }
+    
+    public void calcularCosto30P() {
+		long preciofinal = calcularCostoFinal();
+		String preciofin = Long.toString(preciofinal);
+		System.out.println("El precio total de la reserva es de: "+preciofin+" mil pesos");
+		long precio30 = (long) (preciofinal*0.3);
+		System.out.println("Pague ahora mismo el 30% del precio, el cual es: "+precio30);
     }
 
 

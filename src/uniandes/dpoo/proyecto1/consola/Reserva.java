@@ -1,6 +1,8 @@
 package uniandes.dpoo.proyecto1.consola;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -176,6 +178,85 @@ public class Reserva {
 		}
 		return esOtraSede;
 	}
+	
+	public static Reserva encontrarReservaPorID(String rutaArchivoReserva, int idComparador) throws IOException {
+	    BufferedReader br = new BufferedReader(new FileReader(rutaArchivoReserva));
+	    String linea = br.readLine();
+	    while (linea != null) {
+	        String[] inforeserva = linea.split(",");
+	        int ID = Integer.parseInt(inforeserva[0]);
+	        if (ID == idComparador) {
+	            String nombrecliente = inforeserva[1];
+	            int categoria = Integer.parseInt(inforeserva[2]);
+	            String fechaIni = inforeserva[4];
+	            String horaIni = inforeserva[5];
+	            String fechaFin = inforeserva[6];
+	            String horafin = inforeserva[7];
+	            String sedein = inforeserva[8];
+	            String sedeout = inforeserva[9];
+	            
+	            ArrayList<String> seguros = new ArrayList<>();
+	            String segurosgrande = inforeserva[10];
+	            String[] seguroslistagrande = segurosgrande.split(";");
+	            for (int i = 0; i < seguroslistagrande.length; i++) {
+	                seguros.add(seguroslistagrande[i]);
+	            }
+
+	            Cliente cliente = Cliente.encontrarClientePorNombre("./src/datos/Usuarios.txt", nombrecliente);
+	            if (cliente == null) {
+	                br.close();
+	                throw new IOException("Cliente no encontrado");
+	            }
+
+	            Reserva reserva = new Reserva(ID, cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
+	            br.close();
+	            return reserva; 
+	        }
+	        linea = br.readLine();
+	    }
+	    br.close();
+	    return null; 
+	}
+	
+	public static Reserva encontrarReservaPorNombre(String rutaArchivoUsuario, String nombreClienteComparador) throws IOException {
+	    BufferedReader br = new BufferedReader(new FileReader(rutaArchivoUsuario));
+	    String linea = br.readLine();
+	    while (linea != null) {
+	        String[] inforeserva = linea.split(",");
+	        String nombre = inforeserva[1];
+	        if (nombre.equals(nombreClienteComparador)) {
+	            int ID = Integer.parseInt(inforeserva[0]);
+	            int categoria = Integer.parseInt(inforeserva[2]);
+	            String fechaIni = inforeserva[4];
+	            String horaIni = inforeserva[5];
+	            String fechaFin = inforeserva[6];
+	            String horafin = inforeserva[7];
+	            String sedein = inforeserva[8];
+	            String sedeout = inforeserva[9];
+	            
+	            ArrayList<String> seguros = new ArrayList<>();
+	            String segurosgrande = inforeserva[10];
+	            String[] seguroslistagrande = segurosgrande.split(";");
+	            for (int i = 0; i < seguroslistagrande.length; i++) {
+	                seguros.add(seguroslistagrande[i]);
+	            }
+
+	            Cliente cliente = Cliente.encontrarClientePorNombre("./src/datos/Usuarios.txt", nombreClienteComparador);
+	            if (cliente == null) {
+	                br.close();
+	                throw new IOException("Cliente no encontrado");
+	            }
+
+	            Reserva reserva = new Reserva(ID, cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
+	            br.close();
+	            return reserva; 
+	        }
+	        linea = br.readLine();
+	    }
+	    br.close();
+	    return null; 
+	}
+	
 	public String getFechaIni() {
 		return fechaIni;
 	}

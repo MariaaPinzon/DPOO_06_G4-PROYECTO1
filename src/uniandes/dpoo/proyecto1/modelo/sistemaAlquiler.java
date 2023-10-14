@@ -169,7 +169,7 @@ public class sistemaAlquiler {
 			2. revisar todos los carros disponibles 						check	Revisado    bonito 
 			3. revisar todos los carros disponibles de una sede. 			check	Revisado    bonito
 			4.Crear una reserva 											check	Revisado    bonito
-			5.Gestionar/eliminar reserva 									check	Revisado	bonito pero hay algo con ese 70%
+			5.Gestionar/eliminar reserva 									check	Revisado	bonito pero hay algo con ese 70% pero no es aca 
 			6.Añadir carro al inventario									check	Revisado
 			7. Eliminar carro del inventario								check	Revisado
 			8. Crear seguro 												check   Revisado

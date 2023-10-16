@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AlquilerVehiculo {
+public class AlquilerVehiculo implements Tarifable{
 	private Cliente cliente;
 	private String placa;
 	private String marca;
@@ -25,12 +25,12 @@ public class AlquilerVehiculo {
 	private ArrayList<String> seguros; 
 
 
-		public AlquilerVehiculo() {
-			// TODO Auto-generated constructor stub
-		}
+	public AlquilerVehiculo() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public AlquilerVehiculo(Cliente cliente, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeinicial, String sedefinal, int categoria, ArrayList<String> seguros) {
-		this.cliente = cliente;
+		this.setCliente(cliente);
 		this.fechaIni = fechaIni;
 		this.horaIni = horaIni;
 		this.fechaFin = fechaFin;
@@ -38,7 +38,7 @@ public class AlquilerVehiculo {
 		this.sedeinicial = sedeinicial;
 		this.sedefinal = sedefinal;
 		this.categoria = categoria;
-		this.seguros = seguros;
+		this.setSeguros(seguros);
 	}
 
 	public AlquilerVehiculo(String placa, String marca, int modelo, int categoria, String clienteAlquiler,
@@ -101,8 +101,13 @@ public class AlquilerVehiculo {
 	 * 			El formato del archivo de log debe seguir las pautas establecidas para los registros de alquiler.
 	 * postcond: Se cargan y organizan los registros de alquileres en un HashMap donde la llave es la placa del vehículo y el valor es una lista de objetos AlquilerVehiculo.
 	 * @param N/A 
+	 * @return Un HashMap que contiene los registros de alquileres organizados por placa de vehículo.
 	 * @throws IOException Si ocurre un error al leer el archivo de log, como problemas de acceso al archivo.
 	 * @throws NumberFormatException Si ocurre un error al convertir la información del costo total a un número.
+	 */
+	/**
+	 * 
+	 * @return
 	 */
 	public HashMap<String, ArrayList<AlquilerVehiculo>> cargarLogAlquileres() {
 	    HashMap<String, ArrayList<AlquilerVehiculo>> historialesAlquileres = new HashMap<>();
@@ -182,10 +187,11 @@ public class AlquilerVehiculo {
 		this.modelo = modelo;
 	}
 
+	@Override
 	public int getCategoria() {
 		return categoria;
 	}
-
+	
 	public void setCategoria(int categoria) {
 		this.categoria = categoria;
 	}
@@ -197,7 +203,7 @@ public class AlquilerVehiculo {
 	public void setClienteAlquiler(String clienteAlquiler) {
 		this.clienteAlquiler = clienteAlquiler;
 	}
-
+	@Override
 	public String getFechaIni() {
 		return fechaIni;
 	}
@@ -213,7 +219,7 @@ public class AlquilerVehiculo {
 	public void setHoraIni(String horaIni) {
 		this.horaIni = horaIni;
 	}
-
+	@Override
 	public String getFechaFin() {
 		return fechaFin;
 	}
@@ -221,7 +227,7 @@ public class AlquilerVehiculo {
 	public void setFechaFin(String fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-
+	@Override
 	public String getHoraFin() {
 		return horaFin;
 	}
@@ -230,6 +236,7 @@ public class AlquilerVehiculo {
 		this.horaFin = horaFin;
 	}
 
+	@Override
 	public String getSedeinicial() {
 		return sedeinicial;
 	}
@@ -237,7 +244,7 @@ public class AlquilerVehiculo {
 	public void setSedeinicial(String sedeinicial) {
 		this.sedeinicial = sedeinicial;
 	}
-
+	@Override
 	public String getSedefinal() {
 		return sedefinal;
 	}
@@ -253,5 +260,125 @@ public class AlquilerVehiculo {
 	public void setCostoTotal(long costoTotal) {
 		this.costoTotal = costoTotal;
 	}
-}
+	@Override
+	public Cliente getCliente() {
+		return cliente;
+	}
 
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	@Override
+	public ArrayList<String> getSegurosCliente() {
+        return seguros;
+    }
+
+	public void setSeguros(ArrayList<String> seguros) {
+		this.seguros = seguros;
+	}
+
+	/**
+	 * Modifica la tarifa base del sistema y devuelve la nueva tarifa base resultante.
+	 * precond: Los datos necesarios para calcular la nueva tarifa deben estar disponibles y correctos en el sistema.
+	 * 			Se debe tener acceso a la clase Tarifa.
+	 * postcond: Se modifica la tarifa base del sistema.
+	 * @param N/A
+	 * @return En un long, la nueva tarifa base del sistema después de la modificación.
+	 * @throws IOException Si ocurre un error durante la modificación de la tarifa base, como problemas de acceso a los datos necesarios.
+ 	 */
+	@Override
+	public long modificarTarifaBase() throws IOException {
+        Tarifa tarifa = new Tarifa(this); 
+        return tarifa.modificarTarifaBase();
+	}
+
+	/**
+	 * Calcula el costo adicional por conductores y devuelve el resultado.
+	 * precond: Los datos necesarios para calcular el costo adicional deben estar disponibles y correctos en el sistema, incluyendo la información del vehículo y los conductores adicionales.
+	 * 			El sistema debe tener acceso a la clase Tarifa para realizar el cálculo.
+	 * 			El vehículo debe estar reservado y sus detalles deben estar registrados en el sistema.
+	 * 			Los conductores adicionales asociados al vehículo deben estar registrados y sus detalles deben estar disponibles.
+	 * postcond: Se calcula exitosamente el costo adicional por conductores adicional.
+	 * @param N/A
+	 * @return En un long, el costo adicional por conductores adicional.
+	 * @throws IOException Si ocurre un error durante el cálculo del costo adicional, como problemas de acceso a los datos necesarios.
+ 	 */
+	@Override
+	public long calcularCostoConductoresAd() throws IOException {
+        Tarifa tarifa = new Tarifa(this);
+        return tarifa.calcularCostoConductoresAd();
+	}
+
+	/**
+	 * Calcula el costo adicional de 
+	 */
+	@Override
+	public long calcularCosto70P() throws IOException {
+        Tarifa tarifa = new Tarifa(this);
+        return tarifa.calcularCosto70P();
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public boolean esTemporadaAlta() {
+	    String[] fechaIniParts = fechaIni.split("/");
+	    int mesFechaIni = Integer.parseInt(fechaIniParts[1]);
+	    String[] fechaFinParts = fechaFin.split("/");
+	    int mesFechaFin = Integer.parseInt(fechaFinParts[1]);
+		boolean  esAlta = false;
+
+	    for (int mes = mesFechaIni; mes <= mesFechaFin; mes++) { // de junio (6) a diciembre (12) es alta
+	        if (mes >= 6 && mes <= 12) {
+	            esAlta = true;
+	        }
+	    }
+		return esAlta;
+		}
+	
+	/**
+	 * 
+	 */
+	@Override
+	public boolean esEntregaOtraSede() {
+		String sedeInicial = getSedeinicial();
+		String sedeFinal = getSedefinal();
+		boolean esOtraSede = true;
+		if (sedeInicial.equals(sedeFinal)) {
+			esOtraSede = false;
+		}
+		return esOtraSede;
+	}
+
+	@Override
+	public int getDiasAlquiler() {
+		return diferenciadias( fechaIni,  fechaFin);
+	}
+
+	/**
+	 * 
+	 */
+	@Override
+	public int diferenciadias(String fechaIni, String fechaFin) {
+	//Se asume que todos los meses tienen 30 días
+	int diferencia = 0;
+	String inicio[] = fechaIni.split("/");
+	int diainicio = Integer.parseInt(inicio[0]);
+	int mesinicio = Integer.parseInt(inicio[1]);
+	String fin[] = fechaFin.split("/");
+	int diafin = Integer.parseInt(fin[0]);
+	int mesfin = Integer.parseInt(fin[1]);
+	if (mesinicio!=mesfin) {
+		int diferenciames = (mesfin-mesinicio)-1;
+		int dias_para_acabar_mes_inicial = 30-diainicio;
+		diferencia = (30*diferenciames)+dias_para_acabar_mes_inicial+diafin;
+	}
+	else {
+		diferencia = diafin-diainicio;
+	}
+	
+	return diferencia+1;
+	}
+}

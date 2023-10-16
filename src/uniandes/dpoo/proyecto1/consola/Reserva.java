@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Reserva {
+public class Reserva implements Tarifable {
 	private Cliente cliente;
 	private String fechaIni;
 	private String horaIni;
@@ -63,7 +63,7 @@ public class Reserva {
 		this.ID= crearID();
 	}
 	
-	
+	@Override
 	public int diferenciadias(String fechaIni, String fechaFin) {
 	//Se asume que todos los meses tienen 30 días
 	int diferencia = 0;
@@ -100,6 +100,7 @@ public class Reserva {
 	    br.write(ID + "," + nombrecliente + "," + categoria + "," + diasAlquiler + "," + fechaIni + "," + horaIni + "," + fechaFin + "," + horaFin + "," + sedeinicial + "," + sedefinal + "," + segurosStr+"\n");
 	    br.close();
 	}
+	@Override
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -155,6 +156,7 @@ public class Reserva {
 		}
 		return resp;
 	}
+	@Override
 	public boolean esTemporadaAlta() {
 	    String[] fechaIniParts = fechaIni.split("/");
 	    int mesFechaIni = Integer.parseInt(fechaIniParts[1]);
@@ -169,7 +171,7 @@ public class Reserva {
 	    }
 		return esAlta;
 		}
-
+	@Override
 	public boolean esEntregaOtraSede() {
 		String sedeInicial = getSedeinicial();
 		String sedeFinal = getSedefinal();
@@ -296,31 +298,38 @@ public class Reserva {
             output.close();
         }
     }
-	
+    
+	@Override
 	public String getFechaIni() {
 		return fechaIni;
 	}
 	public String getHoraIni() {
 		return horaIni;
 	}
+	@Override
 	public String getFechaFin() {
 		return fechaFin;
 	}
+	@Override
 	public String getHoraFin() {
 		return horaFin;
 	}
+	@Override
 	public int getDiasAlquiler() {
 		return diasAlquiler;
 	}
+	@Override
 	public String getSedeinicial() {
 		return sedeinicial;
 	}
+	@Override
 	public String getSedefinal() {
 		return sedefinal;
 	}
 	public int getID() {
 		return ID;
 	}
+	@Override
 	public int getCategoria() {
 		return categoria;
 	}
@@ -328,12 +337,32 @@ public class Reserva {
 	public void setCategoria(int categoria) {
 		this.categoria = categoria;
 	}
-	
+	@Override
 	public ArrayList<String> getSegurosCliente() {
         return seguros;
     }
 	public Empleado getEmpleado() {
 		return empleado;
 	}
+
+	@Override
+	public long modificarTarifaBase() throws IOException {
+        Tarifa tarifa = new Tarifa(this); 
+        return tarifa.modificarTarifaBase();
+	}
+
+	@Override
+	public long calcularCostoConductoresAd() throws IOException {
+        Tarifa tarifa = new Tarifa(this);
+        return tarifa.calcularCostoConductoresAd();
+	}
+
+	@Override
+	public long calcularCosto70P() throws IOException {
+        Tarifa tarifa = new Tarifa(this);
+        return tarifa.calcularCosto70P();
+	}
+
+
 
 }

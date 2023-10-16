@@ -51,6 +51,7 @@ public class Cliente extends Usuario{
 	*         - 4 para "Revisar todos los carros disponibles"
 	*         - 0 para "Salir"
 	*@param N/A
+	*@return Un entero que representa la opción seleccionada por el cliente.
 	*@throws N/A
 	*/
 	@Override
@@ -88,9 +89,9 @@ public class Cliente extends Usuario{
 	 * 			 Si no se encuentra un cliente con el nombre especificado, se devuelve null.
 	 * @param rutaArchivoLa ruta del archivo que contiene los datos de los clientes.
 	 * @param nombreCliente El nombre del cliente que se desea encontrar.
+	 * @return Un objeto Cliente si se encuentra un cliente con el nombre especificado; de lo contrario, devuelve null.
 	 * @throws IOException Si ocurre un error al leer el archivo de datos, como problemas de acceso al archivo.
-	 */
-	
+	 */	
 	public static Cliente encontrarClientePorNombre(String rutaArchivo, String nombreCliente) throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
 	    String linea = br.readLine();

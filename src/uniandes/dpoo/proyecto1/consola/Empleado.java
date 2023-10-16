@@ -38,6 +38,18 @@ public class Empleado extends Usuario {
 	    br.close();
 	}
 	
+	/**
+	 * Elimina un empleado del sistema a partir de su nombre de usuario.
+	 * precond: El archivo Usuarios.txt debe existir y ser accesible para lectura y escritura.
+	 * 			Se espera que el nombre de usuario del empleado a eliminar sea válido y exista en el sistema.
+	 * postcond: Se elimina exitosamente al empleado.
+	 * @param nombreUsuarioEmpleado El String del nombre del usuario que se quiere eliminar del sistema.
+	 * @return Un boolean que confirma si el empleado fue eliminado exitosamente.
+	 * @throws IOException Si ocurre un error al escribir en el archivo "Usuarios.txt". Algunos de estos errores pueden ser:
+	 * 					   -file not found
+	 * 					   -permission issues
+	 * 					   -u otros errores tipo I/O.
+	 */
 	public boolean eliminarEmpleado(String nombreUsuarioEmpleado) throws IOException {
 	BufferedReader br = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
 	String linea = null;

@@ -209,7 +209,7 @@ public class Inventario {
 	 * 					   -permission issues
 	 * 					   -u otros errores tipo I/O.
 	 */
-    public Vehiculo encontrarVehiculoPorSedeYCateg(int categoria, String sede) throws IOException {
+    public Vehiculo encontrarVehiculoPorSedeYCateg(String sede,int categoria) throws IOException {
         try (BufferedReader inventarioBR = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"))) {
 			String lineainv = inventarioBR.readLine();
 			ArrayList<String> listaInventario = new ArrayList<>();
@@ -243,7 +243,6 @@ public class Inventario {
 		}
         return null; 
     }
-
 	/** 
 	 * Actualizar el estado de un vehículo cuando este esté alquilado.
 	 * precond: En el sistema ya existe un empleado, pues este maneja el sistema de reservas y alquiler.
@@ -251,29 +250,31 @@ public class Inventario {
 	 * 			Hay vehículos en el sistema.
 	 * 			Se está en el proceso de alquiler de un carro, por lo que ya se tiene la información del vehículo que va a ser alquilado.
 	 * postcond: El estado del vehículo alquilado se ha actualizado.
-	 * @param vehiculo El vehículo cuya información se quiere actualizar.
-	 * @param reserva El ID de la reserva que está relacionada al vehículo que se alquilará. Esto es, la reserva que hará que el estado del vehículo cambie.
+	 * @param vehiculo El vehículo que se está alquilando y cuya información se actualizará en el inventario.
+	 * @param sedeFinal La sede final en la que se devuelve el vehículo alquilado.
+	 * @param clienteNombre El nombre del cliente que alquiló el vehículo.
+	 * @param fechaFin La fecha en la que se devuelve el vehículo alquilado.
 	 * @throws IOException Si hay algun error para escribir en el archivo. Algunos de estos errores pueden ser:
 	 * 					   -file not found
 	 * 					   -permission issues
 	 * 					   -u otros errores tipo I/O.
 	 */
-    public static void actualizarVehiculoAlquilado(Vehiculo vehiculo, Reserva reserva) throws IOException {
-        BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
+    public static void actualizarVehiculoAlquilado(Vehiculo vehiculo, String sedeFinal, String clienteNombre, String fechaFin) throws IOException {
+        BufferedReader inventarioBR = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
         String lineainv;
         ArrayList<String> listaInventario = new ArrayList<>();
         
-        while ((lineainv = brinventario.readLine()) != null) {
+        while ((lineainv = inventarioBR.readLine()) != null) {
             String[] info = lineainv.split(",");
             if (info[0].equals(vehiculo.getPlaca())) {
                 String lineareescribir = vehiculo.getPlaca() + "," + vehiculo.getMarca() + "," + info[2] + "," + info[3]
-                        + "," + info[4] + "," + info[5] + "," + reserva.getSedefinal() + "," + reserva.getCliente().getNombre() + "," + reserva.getFechaFin();
+                        + "," + info[4] + "," + info[5] + "," + sedeFinal + "," + clienteNombre + "," + fechaFin;
                 listaInventario.add(lineareescribir);
             } else {
                 listaInventario.add(lineainv);
             }
         }
-        brinventario.close();
+        inventarioBR.close();
 
     }
     
@@ -284,23 +285,24 @@ public class Inventario {
 	 * 			Hay vehículos en el sistema.
 	 * 			Se tiene la información de la reserva de la cuál no se le pudo encontrar vehículo.
 	 * postcond: El vehículo seleccionado como alternativa para el cliente.
-	 * @param reserva La reserva que aún no tiene vehículo seleccionado, dado que en la sede no se encuentran vehículos de la categoría seleccionada.
+	 * @param categoria La categoría del carro que se desea encontrar. En la aplicación de este método, dada una reserva
+	 * 					es la categoría del carro que el cliente quiere alquilar.
+	 * @param sede La sede del carro que se desea encontrar. En la aplicación de este método, dada una reserva, es la sede
+	 * 			   del carro que el cliente quiere alquilar.
 	 * @throws IOException Si hay algun error para escribir en el archivo. Algunos de estos errores pueden ser:
 	 * 					   -file not found
 	 * 					   -permission issues
 	 * 					   -u otros errores tipo I/O.
 	 */
-	public Vehiculo buscarVehiculoPorCategoriaMax(Reserva reserva) throws IOException {
+	public Vehiculo buscarVehiculoPorCategoriaMax(String sede,int categoria) throws IOException {
 		Vehiculo vehiculoEncontrado = null;
-	    int categoria = reserva.getCategoria();
 	    while (vehiculoEncontrado == null && categoria <= 6) {
-	        vehiculoEncontrado = encontrarVehiculoPorSedeYCateg(reserva);
+	        vehiculoEncontrado = encontrarVehiculoPorSedeYCateg(sede,categoria);
 	        if (vehiculoEncontrado == null) {
 	            categoria++;
 	            if (categoria <= 6) {
-	                reserva.setCategoria(categoria);
 	                String categorianueva = Vehiculo.findcategoria(categoria);
-	                System.out.println("No se encontró ningún carro en la categoría solicitada en la sede " + reserva.getSedeinicial() + ". Se intentará buscar un vehículo de la clase " + categorianueva);
+	                System.out.println("No se encontró ningún carro en la categoría solicitada en la sede " + sede + ". Se intentará buscar un vehículo de la clase " + categorianueva);
 	            }
 	        }
 	    }

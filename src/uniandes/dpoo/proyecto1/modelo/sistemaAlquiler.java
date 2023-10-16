@@ -236,7 +236,10 @@ public class sistemaAlquiler {
 				String horaini = input("Escriba qué a qué hora lo recogerá (en formato HH:MM) ");
 				String fechafinal = input("Escriba qué día va a devolver el vehículo (en formato DD/MM/AA) ");
 				String horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM) ");
-				ArrayList<String> segurosSeleccionados = seleccionarSeguros();					
+				ArrayList<String> segurosSeleccionados = seleccionarSeguros();
+				if (segurosSeleccionados.isEmpty()) {
+					segurosSeleccionados.add("NA");
+					}
 				Reserva reserva = new Reserva(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 				System.out.println(reserva.getinfo());
 				Tarifa tarifa = new Tarifa(reserva);

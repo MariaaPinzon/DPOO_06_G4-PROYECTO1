@@ -19,14 +19,14 @@ public  class Tarifa {
     	HashMap<String, Long> tarifasBase = cargarTarifas();
     	String categoriastr = String.valueOf(tarifable.getCategoria());
         this.tarifaBase = tarifasBase.get(categoriastr);
-        this.tarifasSeguros = cargarTarifasSeguros("./src/datos/Seguros.txt");
+        this.tarifasSeguros = cargarTarifasSeguros();
         this.segurosCliente =tarifable.getSegurosCliente();
-        this.conductoresAdicionales = cargarConductoresAdicionales("./src/datos/ConductoresAdicionales.txt");
+        this.conductoresAdicionales = cargarConductoresAdicionales();
     }
     
     private HashMap<String,Long> cargarTarifas() throws IOException{
     	HashMap<String,Long> tarifas = new HashMap<>();
-    	BufferedReader  br = new BufferedReader (new FileReader(("./src/datos/Seguros.txt")));
+    	BufferedReader  br = new BufferedReader (new FileReader(("./src/datos/jerarquia.txt")));
     	String linea = "";
     	linea = br.readLine();
     	while (linea  != null) {
@@ -39,9 +39,9 @@ public  class Tarifa {
     	br.close();
         return tarifas;
     }
-    public static HashMap<String, ArrayList<String>> cargarTarifasSeguros(String rutaArchivo) throws IOException {
+    public static HashMap<String, ArrayList<String>> cargarTarifasSeguros() throws IOException {
         HashMap<String, ArrayList<String>> tarifasSeguros = new HashMap<>();
-        BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
+        BufferedReader br = new BufferedReader(new FileReader("./src/datos/Seguros.txt"));
         String linea;
         linea = br.readLine();
         while (linea != null) {
@@ -56,9 +56,9 @@ public  class Tarifa {
         br.close();
         return tarifasSeguros;
     }
-    private HashMap<String, ArrayList<String>> cargarConductoresAdicionales(String rutaArchivo) throws IOException {
+    private HashMap<String, ArrayList<String>> cargarConductoresAdicionales() throws IOException {
         HashMap<String, ArrayList<String>> conductoresAdicionales = new HashMap<>();
-        BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
+        BufferedReader br = new BufferedReader(new FileReader("./src/datos/ConductoresAdicionales.txt"));
         String linea;
         linea = br.readLine();
         while (linea != null) {

@@ -781,7 +781,7 @@ public class sistemaAlquiler {
 
 	public static ArrayList<String> seleccionarSeguros() throws IOException {
 		ArrayList<String> segurosSeleccionados = new ArrayList<>();
-		HashMap<String, ArrayList<String>> segurosDisponibles = Tarifa.cargarTarifasSeguros("./src/datos/Seguros.txt");
+		HashMap<String, ArrayList<String>> segurosDisponibles = Tarifa.cargarTarifasSeguros();
 		boolean seleccionandoSeguros = true;
 
 		while (seleccionandoSeguros) {

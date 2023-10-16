@@ -134,3 +134,30 @@ Fecha en la que el cliente devuelve el vehiculo : 14/12/23
 Hora en la que el cliente devuelve el vehiculo: 12:00
 Costo total: 753999
 --------------------------------------------------
+Placa del vehiculo: GTR873
+Marca del vehiculo: Chevrolet Spark
+Nombre del cliente: Luise
+Fecha en la que el cliente recoge el vehiculo : 10/11/23
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 13/11/23
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 922000
+--------------------------------------------------
+Placa del vehiculo: GTR873
+Marca del vehiculo: Chevrolet Spark
+Nombre del cliente: Luise
+Fecha en la que el cliente recoge el vehiculo : 10/11/23
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 13/11/23
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 872000
+--------------------------------------------------
+Placa del vehiculo: GTR873
+Marca del vehiculo: Chevrolet Spark
+Nombre del cliente: Luise
+Fecha en la que el cliente recoge el vehiculo : 12/12/23
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 14/12/23
+Hora en la que el cliente devuelve el vehiculo: 10:00
+Costo total: 653999
+--------------------------------------------------

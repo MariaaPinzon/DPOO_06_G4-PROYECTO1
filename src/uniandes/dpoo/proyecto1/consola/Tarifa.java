@@ -63,7 +63,6 @@ public  class Tarifa {
         linea = br.readLine();
         while (linea != null) {
             String[] partes = linea.split(",");
-
             String licenciaCliente = partes[0];
             String licenciaConductor = partes[2];
             ArrayList<String> conductores = conductoresAdicionales.get(licenciaCliente);
@@ -101,7 +100,8 @@ public  class Tarifa {
 	        }
 	        return costoTotal * tarifable.getDiasAlquiler();
 	    }
-    public long calcularCostoConductoresAd() {
+    public long calcularCostoConductoresAd() throws IOException {
+        this.conductoresAdicionales = cargarConductoresAdicionales();
         long costo = 0;
     	String licenciaClienteRevisar = tarifable.getCliente().getNumeroLicencia();
         ArrayList<String> conductores = conductoresAdicionales.get(licenciaClienteRevisar);

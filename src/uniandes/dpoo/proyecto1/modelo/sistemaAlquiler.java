@@ -634,7 +634,6 @@ public class sistemaAlquiler {
 			}
 
 
-
 			if (opcion == 16) {
 				String placa = input("Ingrese la placa del vehículo que tiene que ser mandado a mantenimiento (tiene que estar disponible actualmente)");
 

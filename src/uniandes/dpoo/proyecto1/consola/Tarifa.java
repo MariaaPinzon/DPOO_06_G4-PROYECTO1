@@ -18,7 +18,7 @@ public  class Tarifa {
     	this.tarifable = tarifable;
     	HashMap<String, Long> tarifasBase = cargarTarifas();
     	String categoriastr = String.valueOf(tarifable.getCategoria());
-        this.tarifaBase = tarifasBase.get(categoriastr);
+    	this.tarifaBase = tarifasBase.get(categoriastr);
         this.tarifasSeguros = cargarTarifasSeguros();
         this.segurosCliente =tarifable.getSegurosCliente();
         this.conductoresAdicionales = cargarConductoresAdicionales();
@@ -31,9 +31,9 @@ public  class Tarifa {
     	linea = br.readLine();
     	while (linea  != null) {
     		String[] partes = linea.split(",");
-            String nombre = partes[1];
-            long tarifa = Long.parseLong(partes[2]);
-            tarifas.put(nombre, tarifa); 
+    		String categoria = partes[0];
+    		long tarifa = Long.parseLong(partes[2]);
+    		tarifas.put(categoria, tarifa);
             linea = br.readLine();
     	}
     	br.close();

@@ -100,7 +100,7 @@ public class AlquilerVehiculo implements Tarifable{
 	 * precond: El archivo de log "Alquileres.txt" debe existir y ser accesible para lectura.
 	 * 			El formato del archivo de log debe seguir las pautas establecidas para los registros de alquiler.
 	 * postcond: Se cargan y organizan los registros de alquileres en un HashMap donde la llave es la placa del vehículo y el valor es una lista de objetos AlquilerVehiculo.
-	 * @param N/A 
+	 * @param - N/A 
 	 * @return Un HashMap que contiene los registros de alquileres organizados por placa de vehículo.
 	 * @throws IOException Si ocurre un error al leer el archivo de log, como problemas de acceso al archivo.
 	 * @throws NumberFormatException Si ocurre un error al convertir la información del costo total a un número.
@@ -283,7 +283,7 @@ public class AlquilerVehiculo implements Tarifable{
 	 * precond: Los datos necesarios para calcular la nueva tarifa deben estar disponibles y correctos en el sistema.
 	 * 			Se debe tener acceso a la clase Tarifa.
 	 * postcond: Se modifica la tarifa base del sistema.
-	 * @param N/A
+	 * @param - N/A
 	 * @return En un long, la nueva tarifa base del sistema después de la modificación.
 	 * @throws IOException Si ocurre un error durante la modificación de la tarifa base, como problemas de acceso a los datos necesarios.
  	 */
@@ -300,7 +300,7 @@ public class AlquilerVehiculo implements Tarifable{
 	 * 			El vehículo debe estar reservado y sus detalles deben estar registrados en el sistema.
 	 * 			Los conductores adicionales asociados al vehículo deben estar registrados y sus detalles deben estar disponibles.
 	 * postcond: Se calcula exitosamente el costo adicional por conductores adicional.
-	 * @param N/A
+	 * @param - N/A
 	 * @return En un long, el costo adicional por conductores adicional.
 	 * @throws IOException Si ocurre un error durante el cálculo del costo adicional, como problemas de acceso a los datos necesarios.
  	 */
@@ -311,7 +311,15 @@ public class AlquilerVehiculo implements Tarifable{
 	}
 
 	/**
-	 * Calcula el costo adicional de 
+	 * Calcula el costo adicional del 70% por temporada alta.
+	 * precond: Los datos necesarios para calcular el costo adicional del 70% por temporada alta deben estar disponibles y correctos en el sistema, incluyendo la información de la reserva y las fechas de inicio y fin.
+	 * 			El sistema debe tener acceso a la clase Tarifa para realizar el cálculo.
+	 * 			La reserva del vehículo debe estar registrada y activa en el sistema.
+	 * 			Las fechas de inicio y fin de la reserva deben ser válidas y estar disponibles.
+	 * postcond: Se calcula exitosamente el 70% adicional para la temporada alta.
+	 * @param - N/A
+	 * @return En un long, el costo adicional de temporada alta.
+	 * @throws IOException Si ocurre un error durante el cálculo del costo adicional, como problemas de acceso a los datos necesario.
 	 */
 	@Override
 	public long calcularCosto70P() throws IOException {
@@ -320,7 +328,12 @@ public class AlquilerVehiculo implements Tarifable{
 	}
 
 	/**
-	 * 
+	 * Verifica si el período de alquiler cae en temporada alta y devuelve un valor booleano.
+	 * precond: Las fechas de inicio y fin de la reserva deben estar disponibles y ser válidas.
+	 * postcond: Se define si un período de alquiler está en temporada alta o no.
+	 * @param - N/A
+	 * @return Un booleano que es true si el periodo de alquiler cae en temporada alta, o falso en caso contrario. 
+	 * @throws - N/A
 	 */
 	@Override
 	public boolean esTemporadaAlta() {
@@ -339,7 +352,12 @@ public class AlquilerVehiculo implements Tarifable{
 		}
 	
 	/**
-	 * 
+	 * Verifica si la entrega del vehículo se realiza en una sede diferente a la sede inicial y devuelve un valor booleano.
+	 * precond: Los datos de las sedes inciales y finales deben ser válidos y estar disponibles.
+	 * postcond: Se verifica si la entrega del vehpiculo se realiza en una sede diferente a la sede inicial.
+	 * @param - N/A
+	 * @return Un booleano que es true si la entrega del vehículo se realiza en una sede diferente a la sede inicial o false en caso contrario.
+	 * @throws - N/A
 	 */
 	@Override
 	public boolean esEntregaOtraSede() {
@@ -358,7 +376,14 @@ public class AlquilerVehiculo implements Tarifable{
 	}
 
 	/**
-	 * 
+	 * Calcula la diferencia en días entre dos fechas.
+	 * precond: Las fechas de inicio y fin deben estar disponibles y ser válidas en el formato "dd/mm".
+ 	 *			El formato de fecha debe ser consistente y seguir el patrón "día/mes".
+	 * postcond: Se calcula exitosamente el número de días de diferencia, incluyendo el día de inicio y fin.
+	 * @param fechaIni La fecha de inicio.
+	 * @param fechaFin La fecha de fin.
+	 * @return La diferencia en días entre las fechas de inicio y fin.
+	 * @throws- N/A
 	 */
 	@Override
 	public int diferenciadias(String fechaIni, String fechaFin) {

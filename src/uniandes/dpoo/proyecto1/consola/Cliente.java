@@ -40,6 +40,19 @@ public class Cliente extends Usuario{
 		
 	}
 
+	
+	/** 
+	 * Muestra las opciones disponibles para el cliente y recibe la selección del cliente.
+	* precond: Se espera que el usuario proporcione una opción numérica válida del menú.
+	* postcond: Un valor que representa la opción seleccionada por el cliente. Este valor puede ser alguno de los siguientes:
+	*         - 1 para "Crear una reserva"
+	*         - 2 para "Revisar/eliminar una reserva"
+	*         - 3 para "Revisar todos los carros disponibles de una sede específica"
+	*         - 4 para "Revisar todos los carros disponibles"
+	*         - 0 para "Salir"
+	*@param N/A
+	*@throws N/A
+	*/
 	@Override
 	public int mostrarOpciones() {
 		System.out.println("\nOpciones del cliente:\n");
@@ -67,6 +80,16 @@ public class Cliente extends Usuario{
 		}
 		return resp;
 	}
+
+	/**
+	 * Busca un cliente por su nombre en un archivo y devuelve un objeto Cliente si se encuentra.
+	 * precond: El archivo especificado por "rutaArchivo" debe existir y ser accesible para lectura.
+	 * postcond: Si se encuentra un cliente con el nombre especificado, se devuelve un objeto Cliente con los datos correspondientes.
+	 * 			 Si no se encuentra un cliente con el nombre especificado, se devuelve null.
+	 * @param rutaArchivoLa ruta del archivo que contiene los datos de los clientes.
+	 * @param nombreCliente El nombre del cliente que se desea encontrar.
+	 * @throws IOException Si ocurre un error al leer el archivo de datos, como problemas de acceso al archivo.
+	 */
 	
 	public static Cliente encontrarClientePorNombre(String rutaArchivo, String nombreCliente) throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));

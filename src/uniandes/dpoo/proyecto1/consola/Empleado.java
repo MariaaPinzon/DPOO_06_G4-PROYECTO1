@@ -101,7 +101,7 @@ public class Empleado extends Usuario {
 		System.out.println("4. Revisar todos los carros disponibles");
 		System.out.println("5. Revisar todos los carros de una sede específica");
 		System.out.println("6. Reserva especial (traslado de carro entre sedes)");
-		System.out.println("7. Alquilar el carro (trasladarlo entre sede)");
+		System.out.println("7. Alquilar el carro (traslado de carro entre sedes)");
 		System.out.println("8. Recibir un auto alquilado (mandarlo a lavar)");
 		System.out.println("9. Enviar un vehículo a mantenimiento");
 		System.out.println("10. Regresar un vehículo de mantenimiento o lavado");

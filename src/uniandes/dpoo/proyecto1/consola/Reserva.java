@@ -21,7 +21,6 @@ public class Reserva implements Tarifable {
 	private int categoria;
 	private ArrayList<String> seguros; 
 	private Empleado empleado;
-	
 
 	public Reserva(Cliente cliente, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria, ArrayList<String> seguros) {
 		this.cliente= cliente;
@@ -281,7 +280,6 @@ public class Reserva implements Tarifable {
                 }
 			}
             }
-        
         
         return encontro_reserva;
     }

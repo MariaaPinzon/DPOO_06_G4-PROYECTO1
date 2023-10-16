@@ -87,7 +87,6 @@ public class sistemaAlquiler {
 		//Si un AG (Administrador general) quiere crear usuario, selecciona la opcion 2 Crear Usuario, y en ingrese su usuario:  se escribe "secretoAG"
 		//Si un AL (Administrador Local) quiere crear usuario, selecciona la opcion 2 Crear Usuario, y en ingrese su usuario:  se escribe "secretoAL"
 
-
 		if (!usuario.equals("secretoAG") && (!usuario.equals("secretoAL"))) {
 			String contra = input("ingrese su contraseña ");
 			String nombres = input("Ingrese sus nombres ");
@@ -478,9 +477,10 @@ public class sistemaAlquiler {
 				} 
 			}
 
-			//13. reserva especial ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+			//13. Generar reserva especial ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
 
 			if (opcion == 13) {
+				// Lo hace Empleado
 				int categoria = seleccionarCategoria() ;
 				String fechaini = input("Escriba qué día va a desplazar el vehículo (en formato DD/MM/AA)");
 				String sedein = input("Escriba de qué sede vendrá el vehiculo");
@@ -491,16 +491,16 @@ public class sistemaAlquiler {
 				System.out.println(reservaespecial.getinfoEspecial());
 			}
 
-			// 14. alquiler especial ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-
+			// 14. Generar alquiler especial ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+			
 			if (opcion == 14) {
+				// Lo hace empleado 
 				String identificador = input("Escriba el número de identificación de la reserva ESPECIAL");
 				BufferedReader br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
 				String linea = null;
 				String sedeorigen = "";
 				String sedefin = "";
 				String categoria = "";
-
 				linea = br.readLine();
 				ArrayList<String> lista = new ArrayList<>();
 				boolean encontrar_reserva = false;
@@ -585,10 +585,12 @@ public class sistemaAlquiler {
 
 			}
 
+			//15.recibir un automovil (ponerlo en limpieza)	----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+			
 			if (opcion == 15) {
-
+				// Lo hace empleado
 				ArrayList<String> inventalquilado = inventariogeneral.mostrarinventarioalquilado();
-				String placa= input("¿cual vehículo fue entregado?");
+				String placa= input("¿cual vehículo fue entregado?: ");
 				boolean carroalquilado = false;
 				for (int i=0;i<inventalquilado.size();i++) {
 					String linea = inventalquilado.get(i);
@@ -632,93 +634,42 @@ public class sistemaAlquiler {
 				}
 			}
 
+			// 16. mandar un automovil a mantenimiento ----------------------------------------------------------------------------------------------------------------------------------------------------------------						
 
 			if (opcion == 16) {
+				// Lo hace empleado
 				String placa = input("Ingrese la placa del vehículo que tiene que ser mandado a mantenimiento (tiene que estar disponible actualmente)");
-
-				boolean revisar_carro = false;
-				BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
-				String linealect = null;
-				linealect = brinventario.readLine();
-				ArrayList<String> inventalleno = new ArrayList<>();
-				String cambioinfo = null;
-				String marca = null;
-				while (linealect!=null) {
-					String info[] = linealect.split(",");
-					String placacomp2 = info[0];
-					String disponible = info[7];
-					if (!placa.equals(placacomp2)) {
-						inventalleno.add(linealect);
-					}
-					else if (disponible.equals("disponible")){
-						revisar_carro= true;
-						cambioinfo= info[0]+","+info[1]+","+info[2]+","+info[3]+","+info[4]+","+info[5]+","+info[6]+","+"mantenimiento";
-						marca = info[1];
-					}
-					linealect = brinventario.readLine();
-				}
-				brinventario.close();
+			    Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
+				boolean revisar_carro = inventario.actualizarMantenimientoVehiculo(placa);
 				if (revisar_carro) {
-					FileWriter fw = new FileWriter("./src/datos/InventarioGENERAL.txt");
-					for (int b=0;b<inventalleno.size();b++) {
-						String dato = inventalleno.get(b);
-						fw.write(dato+"\n");
-					}
-					fw.write(cambioinfo);
-					fw.close();
-					System.out.println("Se envió al mecánico el "+marca+" de placa "+placa);
+					System.out.println("Se envió al mecánico el vehiculo de placa "+placa);
+				}
+				else {
+					System.out.println("No se encontró ningun vehiculo alquilado con esa placa");
+				
+			}
+				}
+
+			// 17.devolver auto de limpieza o mantenimiento ----------------------------------------------------------------------------------------------------------------------------------------------------------------				
+			
+			if (opcion == 17) {
+				// Lo hace empleado
+				String placa = input("Ingrese la placa del vehículo que desea regresar");
+			    Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
+				boolean carroalquilado = inventario.actualizarLimpiezaVehiculo (placa);
+				if (carroalquilado) {
+
+					System.out.println("Se envió a lavar al vehiculo de placa "+placa);
 				}
 				else {
 					System.out.println("No se encontró ningun vehiculo alquilado con esa placa");
 				}
-				brinventario.close();
 			}
 
-
-
-			if (opcion == 17) {
-				String placa = input("Ingrese la placa del vehículo que desea regresar");
-				boolean revisar_carro = false;
-				BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
-				String linealect = null;
-				linealect = brinventario.readLine();
-				ArrayList<String> inventalleno = new ArrayList<>();
-				String cambioinfo = null;
-				String marca = null;
-				String sede = null;
-				while (linealect!=null) {
-					String info[] = linealect.split(",");
-					String placacomp2 = info[0];
-					String disponible = info[7];
-					if (!placa.equals(placacomp2)) {
-						inventalleno.add(linealect);
-					}
-					else if (disponible.equals("mantenimiento")||disponible.equals("limpieza")){
-						revisar_carro= true;
-						cambioinfo= info[0]+","+info[1]+","+info[2]+","+info[3]+","+info[4]+","+info[5]+","+info[6]+","+"disponible";
-						marca = info[1];
-						sede=info[6];
-					}
-					linealect = brinventario.readLine();
-				}
-				brinventario.close();
-				if (revisar_carro) {
-					FileWriter fw = new FileWriter("./src/datos/InventarioGENERAL.txt");
-					for (int b=0;b<inventalleno.size();b++) {
-						String dato = inventalleno.get(b);
-						fw.write(dato+"\n");
-					}
-					fw.write(cambioinfo);
-					fw.close();
-					System.out.println("Ya se regresó el "+marca+" de placa "+placa+" a la sede "+sede);
-				}
-				else {
-					System.out.println("El vehículo no existe o ya está disponible");
-				}
-				brinventario.close();
-			}
-
+			// 18. generar historial alquiler ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+			
 			if (opcion == 18) {
+				// Lo hace Admin general
 				String placa = input("Ingrese la placa del vehículo para el cual desea revisar su historial de alquiler ");
 				AlquilerVehiculo alquiler = new AlquilerVehiculo();
 				HashMap<String, ArrayList<AlquilerVehiculo>> historialesAlquileres = alquiler.cargarLogAlquileres();
@@ -738,7 +689,7 @@ public class sistemaAlquiler {
 						System.out.println("-------------------------------------------------------------");
 					}
 				} else {
-					System.out.println("No se encontró historial de alquileres para el vehículo con placa " + placa);
+					System.out.println("No se encontró historial de alquileres para el carro con la placa " + placa);
 				}
 			}
 
@@ -776,7 +727,6 @@ public class sistemaAlquiler {
 		return Integer.parseInt(input("Seleccione una categoría de acuerdo a su numero, ej. (1)"));
 
 	}
-
 	public static ArrayList<String> seleccionarSeguros() throws IOException {
 		ArrayList<String> segurosSeleccionados = new ArrayList<>();
 		HashMap<String, ArrayList<String>> segurosDisponibles = Tarifa.cargarTarifasSeguros();
@@ -805,8 +755,7 @@ public class sistemaAlquiler {
 			}
 		}
 		return segurosSeleccionados;
-	}    
-
+	}    	
 	public static void agregarConductoresAdicionales(String licenciaClienteAlquiler) throws Exception {
 
 		String decisionConductor = input("¿Desea agregar conductores adicionales? (si/no): ");

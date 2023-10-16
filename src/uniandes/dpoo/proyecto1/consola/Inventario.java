@@ -188,6 +188,102 @@ public class Inventario {
         }
         inventarioBR.close();
 
+        BufferedWriter inventarioBW = new BufferedWriter(new FileWriter("./src/datos/InventarioGENERAL.txt"));
+        for (int i = 0; i < listaInventario.size(); i++) {
+            String linea = listaInventario.get(i);
+            inventarioBW.write(linea);
+            inventarioBW.newLine();
+        }
+        inventarioBW.close();
+    
+    }
+    
+    public boolean actualizarLimpiezaVehiculo (String placa) throws Exception {
+    	Inventario inventariogeneral = new Inventario("./src/datos/InventarioGENERAL.txt");
+		ArrayList<String> inventalquilado = inventariogeneral.mostrarinventarioalquilado();
+
+    	boolean carroalquilado = false;
+		for (int i=0;i<inventalquilado.size();i++) {
+			String linea = inventalquilado.get(i);
+			String lineaarr[] = linea.split(",");
+			String placacomp = lineaarr[0];
+			if (placa.equals(placacomp)) {
+				carroalquilado = true;	
+			}
+			BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
+			String linealect = null;
+			linealect = brinventario.readLine();
+			ArrayList<String> inventalleno = new ArrayList<>();
+			String cambioinfo = null;
+			String marca = null;
+			while (linealect!=null) {
+				String info[] = linealect.split(",");
+				String placacomp2 = info[0];
+				if (!placa.equals(placacomp2)) {
+					inventalleno.add(linealect);
+				}
+				else {
+					cambioinfo= info[0]+","+info[1]+","+info[2]+","+info[3]+","+info[4]+","+info[5]+","+info[6]+","+"limpieza";
+					marca = info[1];
+				}
+				linealect = brinventario.readLine();
+			}
+			if (carroalquilado) {
+				FileWriter fw = new FileWriter("./src/datos/InventarioGENERAL.txt");
+				for (int b=0;b<inventalleno.size();b++) {
+					String dato = inventalleno.get(b);
+					fw.write(dato+"\n");
+				}
+				fw.write(cambioinfo);
+				fw.close();
+			}
+			brinventario.close();
+		}
+		return carroalquilado;
+    }
+    
+    public boolean actualizarMantenimientoVehiculo(String placa) throws Exception {
+    	
+    	Inventario inventariogeneral = new Inventario("./src/datos/InventarioGENERAL.txt");
+		ArrayList<String> inventalquilado = inventariogeneral.mostrarinventarioalquilado();
+
+		boolean revisar_carro = false;
+		BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
+		String linealect = null;
+		linealect = brinventario.readLine();
+		ArrayList<String> inventalleno = new ArrayList<>();
+		String cambioinfo = null;
+		String marca = null;
+		while (linealect!=null) {
+			String info[] = linealect.split(",");
+			String placacomp2 = info[0];
+			String disponible = info[7];
+			if (!placa.equals(placacomp2)) {
+				inventalleno.add(linealect);
+			}
+			else if (disponible.equals("disponible")){
+				revisar_carro= true;
+				cambioinfo= info[0]+","+info[1]+","+info[2]+","+info[3]+","+info[4]+","+info[5]+","+info[6]+","+"mantenimiento";
+				marca = info[1];
+			}
+			linealect = brinventario.readLine();
+		}
+		brinventario.close();
+		if (revisar_carro) {
+			FileWriter fw = new FileWriter("./src/datos/InventarioGENERAL.txt");
+			for (int b=0;b<inventalleno.size();b++) {
+				String dato = inventalleno.get(b);
+				fw.write(dato+"\n");
+			}
+			fw.write(cambioinfo);
+			fw.close();
+			System.out.println("Se envió al mecánico el "+marca+" de placa "+placa);
+		}
+		else {
+			System.out.println("No se encontró ningun vehiculo alquilado con esa placa");
+		}
+		brinventario.close();
+		return revisar_carro;
     }
     
 	public Vehiculo buscarVehiculoPorCategoriaMax(String sede,int categoria) throws IOException {

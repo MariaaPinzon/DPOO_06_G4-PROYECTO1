@@ -57,6 +57,16 @@ public class Inventario {
 		
 		
 	}
+	
+	/** 
+	 * Revisar los carros disponibles del inventario general. Como disponibles se entiende que no estén en mantenimiento ni en limpieza ni alquilado.
+	 * precond: En el sistema ya existe un empleado, pues estos son los que pueden revisar el inventario general.
+	 * 			El catálogo ya fue inicializado.
+	 * 			Hay vehículos en el catálogo.
+	 * postcond: Se imprime, uno por uno, los vehículos que estén disponibles del inventario total, con toda su información.
+	 * @param N/A
+	 * @throws N/A
+	 */
 	public void mostrarinventariodisponible () {
 		for (int i=0; i<catalogo.size(); i++) {
 			Vehiculo vehiculo = catalogo.get(i);
@@ -69,6 +79,17 @@ public class Inventario {
 			}
 		}
 	}
+
+	
+	/** 
+	 * Revisar los carros del inventario general
+	 * precond: En el sistema ya existe un empleado, pues estos son los que pueden revisar el inventario general.
+	 * 			El catálogo ya fue inicializado.
+	 * 			Hay vehículos en el catálogo.
+	 * postcond: Se imprime, uno por uno, los vehículos del inventario total con toda su información.
+	 * @param N/A
+	 * @throws N/A
+	 */
 	public void mostrarinventariototal () {
 		for (int i=0; i<catalogo.size(); i++) {
 			String s = null;
@@ -84,6 +105,16 @@ public class Inventario {
 			System.out.println(s);
 			}
 	}
+	
+	/** 
+	 * Revisar los carros del inventario general que estén alquilados en el momento.
+	 * precond: En el sistema ya existe un empleado, pues estos son los que pueden revisar el inventario general.
+	 * 			El catálogo ya fue inicializado.
+	 * 			Hay vehículos en el catálogo.
+	 * postcond: El inventario en forma de un ArrayList<String>, con la información de los carros alquilados.
+	 * @param N/A
+	 * @throws N/A
+	 */
 	public ArrayList<String> mostrarinventarioalquilado(){
 		ArrayList<String> alquilados = new ArrayList<>();
 		for (int i=0; i<catalogo.size(); i++) {
@@ -99,7 +130,19 @@ public class Inventario {
 	}
 	
 
-    public void añadirVehiculoInventario(Vehiculo vehiculo) throws IOException {
+    
+	/** 
+	 * Añade un carro nuevo al inventario general.
+	 * precond: En el sistema ya existe un administrador general, pues este es el único que puede editar el inventario general.
+	 * 			El catálogo ya fue inicializado.
+	 * postcond: El vehículo se agraga, con toda su información, con éxito al inventario general.
+	 * @param vehiculo El vehículo que se quiere añadir al inventario
+	 * @throws IOException Si hay algun error para escribir en el archivo. Algunos de estos errores pueden ser:
+	 * 					   -file not found
+	 * 					   -permission issues
+	 * 					   -u otros errores tipo I/O.
+	 */
+	public void añadirVehiculoInventario(Vehiculo vehiculo) throws IOException {
         FileWriter output = new FileWriter("./src/datos/InventarioGENERAL.txt", true);
         BufferedWriter br = new BufferedWriter(output);
         String linea = vehiculo.getPlaca() + "," + vehiculo.getMarca() + "," + vehiculo.getModelo() + "," + vehiculo.getCategoria() + "," + vehiculo.getColor() + "," + vehiculo.getTransmision() + "," + vehiculo.getSede() + "," + vehiculo.getDisponible();
@@ -107,7 +150,20 @@ public class Inventario {
         br.close();
     }
     
-    public boolean eliminarVehiculoInventario(String placa) throws IOException {
+    
+	/** 
+	 * Se elminia un carro del inventario
+	 * precond: En el sistema ya existe un administrador general, pues este es el único que puede editar el inventario general.
+	 * 			El catálogo ya fue inicializado.
+	 * 			Hay vehículos en el sistema.
+	 * postcond: Si el vehículo existe en el sistema, es eliminado con éxito.
+	 * @param placa La placa del vehículo que se quiere eliminar. Es importante entender que la placa es el identificador único de los vehículos.
+	 * @throws IOException Si hay algun error para escribir en el archivo. Algunos de estos errores pueden ser:
+	 * 					   -file not found
+	 * 					   -permission issues
+	 * 					   -u otros errores tipo I/O.
+	 */
+	public boolean eliminarVehiculoInventario(String placa) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
         String linea = br.readLine();
         ArrayList<String> lista = new ArrayList<>();
@@ -137,6 +193,22 @@ public class Inventario {
         return encontrar_carro;
     }
 
+	/** 
+	 * Se busca un carro dada cierta categoría y sede. Este proceso es para seleccionar el carro en el proceso de reserva y alquiler.
+	 * precond: En el sistema ya existe un empleado, pues este maneja el sistema de reservas y alquiler.
+	 * 			El catálogo ya fue inicializado.
+	 * 			Hay vehículos en el sistema.
+	 * 			Puede haber una reserva relacionada a esta búsqueda. 
+	 * postcond: El vehículo que esté en una sede específica y sea de una categoría específica. Este es el vehículo seleccionado para un alquiler o reserva.
+	 * @param categoria La categoría del carro que se desea encontrar. En la aplicación de este método, dada una reserva
+	 * 					es la categoría del carro que el cliente quiere alquilar.
+	 * @param sede La sede del carro que se desea encontrar. En la aplicación de este método, dada una reserva, es la sede
+	 * 			   del carro que el cliente quiere alquilar.
+	 * @throws IOException Si hay algun error para escribir en el archivo. Algunos de estos errores pueden ser:
+	 * 					   -file not found
+	 * 					   -permission issues
+	 * 					   -u otros errores tipo I/O.
+	 */
     public Vehiculo encontrarVehiculoPorSedeYCateg(int categoria, String sede) throws IOException {
         try (BufferedReader inventarioBR = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"))) {
 			String lineainv = inventarioBR.readLine();
@@ -171,6 +243,21 @@ public class Inventario {
 		}
         return null; 
     }
+
+	/** 
+	 * Actualizar el estado de un vehículo cuando este esté alquilado.
+	 * precond: En el sistema ya existe un empleado, pues este maneja el sistema de reservas y alquiler.
+	 * 			El catálogo ya fue inicializado.
+	 * 			Hay vehículos en el sistema.
+	 * 			Se está en el proceso de alquiler de un carro, por lo que ya se tiene la información del vehículo que va a ser alquilado.
+	 * postcond: El estado del vehículo alquilado se ha actualizado.
+	 * @param vehiculo El vehículo cuya información se quiere actualizar.
+	 * @param reserva El ID de la reserva que está relacionada al vehículo que se alquilará. Esto es, la reserva que hará que el estado del vehículo cambie.
+	 * @throws IOException Si hay algun error para escribir en el archivo. Algunos de estos errores pueden ser:
+	 * 					   -file not found
+	 * 					   -permission issues
+	 * 					   -u otros errores tipo I/O.
+	 */
     public static void actualizarVehiculoAlquilado(Vehiculo vehiculo, Reserva reserva) throws IOException {
         BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
         String lineainv;
@@ -190,6 +277,19 @@ public class Inventario {
 
     }
     
+	/** 
+	 * Si en la categoria seleccionada por el cliente en el proceso de reserva y alquiler, no se encuentran vehículos disponible, este método se encarga de encontrar un vehículo de una mejor categoría.
+	 * precond: En el sistema ya existe un empleado, pues este maneja el sistema de reservas y alquiler.
+	 * 			El catálogo ya fue inicializado.
+	 * 			Hay vehículos en el sistema.
+	 * 			Se tiene la información de la reserva de la cuál no se le pudo encontrar vehículo.
+	 * postcond: El vehículo seleccionado como alternativa para el cliente.
+	 * @param reserva La reserva que aún no tiene vehículo seleccionado, dado que en la sede no se encuentran vehículos de la categoría seleccionada.
+	 * @throws IOException Si hay algun error para escribir en el archivo. Algunos de estos errores pueden ser:
+	 * 					   -file not found
+	 * 					   -permission issues
+	 * 					   -u otros errores tipo I/O.
+	 */
 	public Vehiculo buscarVehiculoPorCategoriaMax(Reserva reserva) throws IOException {
 		Vehiculo vehiculoEncontrado = null;
 	    int categoria = reserva.getCategoria();

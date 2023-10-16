@@ -589,48 +589,16 @@ public class sistemaAlquiler {
 			
 			if (opcion == 15) {
 				// Lo hace empleado
-				ArrayList<String> inventalquilado = inventariogeneral.mostrarinventarioalquilado();
 				String placa= input("¿cual vehículo fue entregado?: ");
-				boolean carroalquilado = false;
-				for (int i=0;i<inventalquilado.size();i++) {
-					String linea = inventalquilado.get(i);
-					String lineaarr[] = linea.split(",");
-					String placacomp = lineaarr[0];
-					if (placa.equals(placacomp)) {
-						carroalquilado = true;	
-					}
-					BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
-					String linealect = null;
-					linealect = brinventario.readLine();
-					ArrayList<String> inventalleno = new ArrayList<>();
-					String cambioinfo = null;
-					String marca = null;
-					while (linealect!=null) {
-						String info[] = linealect.split(",");
-						String placacomp2 = info[0];
-						if (!placa.equals(placacomp2)) {
-							inventalleno.add(linealect);
-						}
-						else {
-							cambioinfo= info[0]+","+info[1]+","+info[2]+","+info[3]+","+info[4]+","+info[5]+","+info[6]+","+"limpieza";
-							marca = info[1];
-						}
-						linealect = brinventario.readLine();
-					}
-					if (carroalquilado) {
-						FileWriter fw = new FileWriter("./src/datos/InventarioGENERAL.txt");
-						for (int b=0;b<inventalleno.size();b++) {
-							String dato = inventalleno.get(b);
-							fw.write(dato+"\n");
-						}
-						fw.write(cambioinfo);
-						fw.close();
-						System.out.println("Se envió a lavar al "+marca+" de placa "+placa);
-					}
-					else {
-						System.out.println("No se encontró ningun vehiculo alquilado con esa placa");
-					}
-					brinventario.close();
+			    Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
+				boolean carroalquilado = inventario.devolverDeLimpiezaVehiculo (placa);
+				
+				if (carroalquilado) {
+
+					System.out.println("Se envió a lavar al vehiculo de placa "+placa);
+				}
+				else {
+					System.out.println("No se encontró ningun vehiculo alquilado con esa placa");
 				}
 			}
 
@@ -640,6 +608,7 @@ public class sistemaAlquiler {
 				// Lo hace empleado
 				String placa = input("Ingrese la placa del vehículo que tiene que ser mandado a mantenimiento (tiene que estar disponible actualmente)");
 			    Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
+
 				boolean revisar_carro = inventario.actualizarMantenimientoVehiculo(placa);
 				if (revisar_carro) {
 					System.out.println("Se envió al mecánico el vehiculo de placa "+placa);
@@ -656,7 +625,8 @@ public class sistemaAlquiler {
 				// Lo hace empleado
 				String placa = input("Ingrese la placa del vehículo que desea regresar");
 			    Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
-				boolean carroalquilado = inventario.actualizarLimpiezaVehiculo (placa);
+			    
+				boolean carroalquilado = inventario.devolverDeLimpiezaVehiculo (placa);
 				if (carroalquilado) {
 
 					System.out.println("Se envió a lavar al vehiculo de placa "+placa);

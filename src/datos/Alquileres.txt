@@ -71,3 +71,48 @@ Fecha en la que el cliente devuelve el vehiculo : 20/10/23
 Hora en la que el cliente devuelve el vehiculo: 11:00
 Costo total: 2520000
 --------------------------------------------------
+Placa del vehiculo: HSG345
+Marca del vehiculo: Chevrolet Express
+Nombre del cliente: MariaL
+Fecha en la que el cliente recoge el vehiculo : 17/10/24
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 19/10/24
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 1318800
+--------------------------------------------------
+Placa del vehiculo: HSG345
+Marca del vehiculo: Chevrolet Express
+Nombre del cliente: MariaL
+Fecha en la que el cliente recoge el vehiculo : 17/10/24
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 19/10/24
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 1318800
+--------------------------------------------------
+Placa del vehiculo: HSG345
+Marca del vehiculo: Chevrolet Express
+Nombre del cliente: MariaL
+Fecha en la que el cliente recoge el vehiculo : 17/10/24
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 19/10/24
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 1368800
+--------------------------------------------------
+Placa del vehiculo: GTR873
+Marca del vehiculo: Chevrolet Spark
+Nombre del cliente: MariaL
+Fecha en la que el cliente recoge el vehiculo : 10/12/23
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 13/12/23
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 700000
+--------------------------------------------------
+Placa del vehiculo: GTR873
+Marca del vehiculo: Chevrolet Spark
+Nombre del cliente: MariaL
+Fecha en la que el cliente recoge el vehiculo : 10/11/23
+Hora en la que el cliente recoge el vehiculo : 10:00
+Fecha en la que el cliente devuelve el vehiculo : 13/11/23
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 812000
+--------------------------------------------------

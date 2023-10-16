@@ -23,8 +23,8 @@ public class Reserva {
 	private Empleado empleado;
 	
 
-	public Reserva(Cliente pana, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria, ArrayList<String> seguros) {
-		this.cliente= pana;
+	public Reserva(Cliente cliente, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria, ArrayList<String> seguros) {
+		this.cliente= cliente;
 		this.fechaIni= fechaIni;
 		this.horaIni= horaIni;
 		this.fechaFin= fechaFin;
@@ -37,8 +37,9 @@ public class Reserva {
 		this.seguros = seguros;
 		this.ID= crearID();
 	}
-	public Reserva(int ID,Cliente pana, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria,ArrayList<String> seguros) {
-		this.cliente= pana;
+
+	public Reserva(int ID,Cliente cliente, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria,ArrayList<String> seguros) {
+		this.cliente= cliente;
 		this.fechaIni= fechaIni;
 		this.horaIni= horaIni;
 		this.fechaFin= fechaFin;
@@ -51,8 +52,8 @@ public class Reserva {
 		this.seguros = seguros;
 
 	}
-	public Reserva(Empleado chambeador, int categoria, String fecha, String sede1, String sede2) {
-		this.empleado=chambeador;
+	public Reserva(Empleado empleado, int categoria, String fecha, String sede1, String sede2) {
+		this.empleado=empleado;
 		this.categoria=categoria;
 		this.fechaIni=fecha;
 		this.fechaFin=fecha;
@@ -89,8 +90,8 @@ public class Reserva {
 		int rando = x.nextInt(9999);
 		return rando;
 	}
-	public void escribirTXT(String enlace) throws Exception {
-		FileWriter output = new FileWriter(enlace, true);
+	public void escribirTXT() throws Exception {
+		FileWriter output = new FileWriter("./src/datos/ListaReserva.txt", true);
 		BufferedWriter br = new BufferedWriter(output);
 		String nombrecliente = cliente.getNombre();
 
@@ -179,8 +180,8 @@ public class Reserva {
 		return esOtraSede;
 	}
 	
-	public static Reserva encontrarReservaPorID(String rutaArchivoReserva, int idComparador) throws IOException {
-	    BufferedReader br = new BufferedReader(new FileReader(rutaArchivoReserva));
+	public static Reserva encontrarReservaPorID( int idComparador) throws IOException {
+	    BufferedReader br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
 	    String linea = br.readLine();
 	    while (linea != null) {
 	        String[] inforeserva = linea.split(",");
@@ -218,8 +219,8 @@ public class Reserva {
 	    return null; 
 	}
 	
-	public static Reserva encontrarReservaPorNombre(String rutaArchivoUsuario, String nombreClienteComparador) throws IOException {
-	    BufferedReader br = new BufferedReader(new FileReader(rutaArchivoUsuario));
+	public static Reserva encontrarReservaPorNombre( String nombreClienteComparador) throws IOException {
+	    BufferedReader br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
 	    String linea = br.readLine();
 	    while (linea != null) {
 	        String[] inforeserva = linea.split(",");
@@ -257,6 +258,45 @@ public class Reserva {
 	    return null; 
 	}
 	
+    public static boolean eliminarReservaPorID(int id, ArrayList<String> listaTemporal) throws IOException {
+        Reserva reservaEncontrada = encontrarReservaPorID(id);
+        boolean encontro_reserva = false;
+        
+        if (reservaEncontrada != null) {
+        encontro_reserva = true;}
+        
+        if (encontro_reserva) {
+            String IDorigin = String.valueOf(id);
+            try (BufferedReader lect_usuario = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"))) {
+				String linearev = lect_usuario.readLine();
+                while (linearev != null) {
+                    String[] separar = linearev.split(",");
+                    String IDcomparar = separar[0];
+                    if (!IDorigin.equals(IDcomparar)) {
+                        listaTemporal.add(linearev);
+                    }
+                    linearev = lect_usuario.readLine();
+                }
+			}
+            }
+        
+        
+        return encontro_reserva;
+    }
+
+    public static void eliminarReservaYActualizarArchivo(int id) throws IOException {
+        ArrayList<String> listaTemporal = new ArrayList<>();
+        boolean encontro_reserva = eliminarReservaPorID(id, listaTemporal);
+        
+        if (encontro_reserva) {
+            FileWriter output = new FileWriter("./src/datos/ListaReserva.txt");
+            for (String linea : listaTemporal) {
+                output.write(linea + "\n");
+            }
+            output.close();
+        }
+    }
+	
 	public String getFechaIni() {
 		return fechaIni;
 	}
@@ -284,6 +324,11 @@ public class Reserva {
 	public int getCategoria() {
 		return categoria;
 	}
+	
+	public void setCategoria(int categoria) {
+		this.categoria = categoria;
+	}
+	
 	public ArrayList<String> getSegurosCliente() {
         return seguros;
     }

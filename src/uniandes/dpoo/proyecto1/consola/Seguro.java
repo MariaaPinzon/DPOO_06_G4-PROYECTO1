@@ -30,8 +30,8 @@ public class Seguro {
 		return descripcionSeguro;
 	}
 
-	public void escribirTXT(String enlace) throws Exception {
-	    FileWriter output = new FileWriter(enlace, true);
+	public void escribirTXT() throws Exception {
+	    FileWriter output = new FileWriter("./src/datos/Seguros.txt", true);
 	    BufferedWriter br = new BufferedWriter(output);
 	    br.write(idSeguro + "," + descripcionSeguro + "," + costoSeguro + "\n");
 	    br.close();

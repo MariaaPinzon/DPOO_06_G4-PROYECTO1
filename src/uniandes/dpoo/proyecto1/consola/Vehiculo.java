@@ -35,6 +35,30 @@ public class Vehiculo {
 		this.setCliente(cliente);
 		this.setFechaDev(fechaDev);
 	}
+	
+	public static String findcategoria(int categoria) {
+		String resp = "";
+		if (categoria==1) {
+			resp = "economico";
+		}
+		if (categoria==2) {
+			resp = "estándar";
+		}
+		if (categoria==3) {
+			resp = "van";
+		}
+		if (categoria==4) {
+			resp = "SUV";
+		}
+		if (categoria==5) {
+			resp = "todoterreno";
+		}
+		if (categoria==6) {
+			resp = "lujo";
+		}
+		return resp;
+	}
+	
 	public String getPlaca() {
 		return placa;
 	}

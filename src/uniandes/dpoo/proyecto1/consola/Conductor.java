@@ -18,8 +18,8 @@ public class Conductor {
 	        this.fechaVencimientoLicencia = fechaVencimientoLicencia;
 		}
 		
-		public void escribirTXT(String enlace) throws Exception {
-		    FileWriter output = new FileWriter(enlace, true);
+		public void escribirTXT() throws Exception {
+		    FileWriter output = new FileWriter("./src/datos/ConductoresAdicionales.txt", true);
 		    BufferedWriter br = new BufferedWriter(output);
 		    br.write(licenciaClienteAlquiler + "," + nombres + "," + numeroLicencia + "," + paisExpedicionLicencia + "," + fechaVencimientoLicencia + "\n");
 		    br.close();

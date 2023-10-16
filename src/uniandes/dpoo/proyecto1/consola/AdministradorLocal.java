@@ -48,7 +48,7 @@ public class AdministradorLocal extends Administrador{
 	public int mostrarOpciones() {
 		System.out.println("\nOpciones del admin de la sede "+getSede() +":\n");
 		System.out.println("1. Añadir un nuevo empleado de la sede");
-		System.out.println("2. Despedir a un empleado");
+		System.out.println("2. Despedir (eliminar) a un empleado");
 		System.out.println("3. Revisar todos los carros de la sede");
 		System.out.println("4. Revisar todos los carros");
 		System.out.println("5. Salir.");

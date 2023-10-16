@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class AlquilerVehiculo {
-	
+	private Cliente cliente;
 	private String placa;
 	private String marca;
 	private int modelo;
-	private String categoria;
+	private int categoria;
 	private String clienteAlquiler;
 	private String fechaIni;
 	private String horaIni;
@@ -22,14 +22,26 @@ public class AlquilerVehiculo {
 	private String sedeinicial;
 	private String sedefinal;
 	private long costoTotal;
+	private ArrayList<String> seguros; 
 
 
 		public AlquilerVehiculo() {
 			// TODO Auto-generated constructor stub
 		}
 
+	public AlquilerVehiculo(Cliente cliente, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeinicial, String sedefinal, int categoria, ArrayList<String> seguros) {
+		this.cliente = cliente;
+		this.fechaIni = fechaIni;
+		this.horaIni = horaIni;
+		this.fechaFin = fechaFin;
+		this.horaFin = horaFin;
+		this.sedeinicial = sedeinicial;
+		this.sedefinal = sedefinal;
+		this.categoria = categoria;
+		this.seguros = seguros;
+	}
 
-	public AlquilerVehiculo(String placa, String marca, int modelo, String categoria, String clienteAlquiler,
+	public AlquilerVehiculo(String placa, String marca, int modelo, int categoria, String clienteAlquiler,
 			String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeinicial, String sedefinal, long costoTotal) {
 		super();
 		this.placa = placa;
@@ -85,7 +97,7 @@ public class AlquilerVehiculo {
 	                    historialesAlquileres.get(placaActual).add(alquilerActual);
 	                }
 	                placaActual = linea.split(": ")[1];
-	                alquilerActual = new AlquilerVehiculo(placaActual, placaActual, modelo, placaActual, placaActual, placaActual, placaActual, placaActual, placaActual, placaActual, placaActual, costoTotal);
+	                alquilerActual = new AlquilerVehiculo();
 	                alquilerActual.setPlaca(placaActual);
 	            } else if (linea.startsWith("Marca del vehiculo: ")) {
 	                alquilerActual.setMarca(linea.split(": ")[1]);
@@ -144,11 +156,11 @@ public class AlquilerVehiculo {
 		this.modelo = modelo;
 	}
 
-	public String getCategoria() {
+	public int getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(String categoria) {
+	public void setCategoria(int categoria) {
 		this.categoria = categoria;
 	}
 

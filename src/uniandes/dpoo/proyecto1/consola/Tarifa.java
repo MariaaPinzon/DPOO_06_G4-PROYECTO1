@@ -118,13 +118,16 @@ public class Tarifa {
         return costoTarifaBaseModificada + costoTotalSeguros ;
     }
     
-    public void calcularCosto30P() {
+    public long calcularCosto30P() {
 		long preciofinal = calcularCostoFinal();
-		String preciofin = Long.toString(preciofinal);
-		System.out.println("El precio total de la reserva es de: "+preciofin+" mil pesos");
 		long precio30 = (long) (preciofinal*0.3);
-		System.out.println("Pague ahora mismo el 30% del precio, el cual es: "+precio30);
+		return precio30;
     }
 
+    public long calcularCosto70P() {
+		long preciofinal = calcularCostoFinal();
+		long precio70 = (long) (preciofinal*0.7);
+		return precio70;
+    }
 
 }

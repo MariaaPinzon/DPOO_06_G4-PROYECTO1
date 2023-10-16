@@ -3,7 +3,9 @@ package uniandes.dpoo.proyecto1.consola;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 
 public class Empleado extends Usuario {
@@ -23,14 +25,50 @@ public class Empleado extends Usuario {
         this.nacionalidad = nacionalidad;
         this.docIdentidad = docIdentidad;
 	}
-
-	public void escribirTXT(String enlace) throws Exception {
-		FileWriter output = new FileWriter(enlace, true);
+    
+    public Empleado() {
+        super("", ""); 
+    }    
+    
+	public void escribirTXT() throws Exception {
+		FileWriter output = new FileWriter("./src/datos/Usuarios.txt", true);
 		BufferedWriter br = new BufferedWriter(output);
 
 	    br.write(getNombre() + "," + getContraseña()+",E" + "," + nombres + "," + contacto + "," + fechaNacimiento + "," + nacionalidad + "," + docIdentidad+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+ "," + "NA"+"\n");
 	    br.close();
 	}
+	
+	public boolean eliminarEmpleado(String nombreUsuarioEmpleado) throws IOException {
+	BufferedReader br = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
+	String linea = null;
+	linea=br.readLine();
+	ArrayList<String> usuarios= new ArrayList<>();
+	boolean usuario_eliminado= false;
+	
+	while (linea!=null) {
+		String informacion[]= linea.split(",");
+		String usuariocomp = informacion[0];
+		if (!usuariocomp.equals(nombreUsuarioEmpleado)) {
+			usuarios.add(linea);
+		}
+		else if (informacion[2].equals("E")){
+			usuario_eliminado=true;
+		}
+		linea=br.readLine();
+	}
+	br.close();
+	if (usuario_eliminado) {
+		FileWriter eliminarUsuario = new FileWriter("./src/datos/Usuarios.txt");
+		for (int i=0;i<usuarios.size();i++) {
+			eliminarUsuario.append(usuarios.get(i)+"\n");
+		}
+		
+		eliminarUsuario.close();
+	}
+	return usuario_eliminado;
+}
+
+		
 
 	public String getTipoUsuario() {
 		return tipoUsuario;

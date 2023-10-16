@@ -57,6 +57,23 @@ public class AlquilerVehiculo {
 		this.costoTotal = costoTotal;
 	}
 
+	/**
+	 * Registra un registro de alquiler en el archivo de log.
+	 * precond: El archivo de log (Alquileres.txt) debe existir y ser accesible para escritura.
+	 * postcond: Se registra un nuevo registro de alquiler en el archivo de log.
+	 * @param placa La placa del vehículo alquilado.
+	 * @param marca La marca del vehículo alquilado.
+	 * @param categoria La categoría del vehículo alquilado.
+	 * @param clienteAlquiler El nombre del cliente que alquila el vehículo.
+	 * @param fechaIni La fecha en la que el cliente recoge el vehículo.
+	 * @param horaIni La hora en la que el cliente recoge el vehículo.
+	 * @param fechaFin La fecha en la que el cliente devuelve el vehículo.
+	 * @param horaFin La hora en la que el cliente devuelve el vehículo.
+	 * @param sedeinicial La sede en la que el cliente recoge el vehículo.
+	 * @param sedefinal La sede en la que el cliente devuelve el vehículo.
+	 * @param costoTotal El costo total del alquiler.
+	 * @throws IOException Si ocurre un error al escribir en el archivo de log, como problemas de acceso al archivo.
+	 */
 	public void escribirLog(String placa, String marca, String categoria, String clienteAlquiler,
 			String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeinicial, String sedefinal, long costoTotal ) {
 			try {
@@ -78,6 +95,15 @@ public class AlquilerVehiculo {
 	    }
 	}
 
+	/**
+	 * Carga los registros de alquileres desde el archivo de log "Alquileres.txt" y los organiza en un HashMap.
+	 * precond: El archivo de log "Alquileres.txt" debe existir y ser accesible para lectura.
+	 * 			El formato del archivo de log debe seguir las pautas establecidas para los registros de alquiler.
+	 * postcond: Se cargan y organizan los registros de alquileres en un HashMap donde la llave es la placa del vehículo y el valor es una lista de objetos AlquilerVehiculo.
+	 * @param N/A 
+	 * @throws IOException Si ocurre un error al leer el archivo de log, como problemas de acceso al archivo.
+	 * @throws NumberFormatException Si ocurre un error al convertir la información del costo total a un número.
+	 */
 	public HashMap<String, ArrayList<AlquilerVehiculo>> cargarLogAlquileres() {
 	    HashMap<String, ArrayList<AlquilerVehiculo>> historialesAlquileres = new HashMap<>();
 

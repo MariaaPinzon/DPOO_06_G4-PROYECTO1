@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.io.FileWriter;
 
 import uniandes.dpoo.proyecto1.consola.Administrador;
@@ -250,7 +249,7 @@ public class sistemaAlquiler {
 				reserva.escribirTXT();	
 			}
 
-			// 5.Gestionar/eliminar reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// 5.Gestionar reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			//La hace un Cliente
 			if (opcion == 5) {
@@ -378,7 +377,6 @@ public class sistemaAlquiler {
 					Reserva.eliminarReservaYActualizarArchivo(reserva.getID()); // se elimina la reserva de la lista de reservas
 					Inventario inventario = new Inventario(); // se busca vehiculo por categoria y sede
 					Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(reserva.getSedeinicial(), reserva.getCategoria());
-					int categoria = reserva.getCategoria();
 
 					vehiculoEncontrado = inventario.buscarVehiculoPorCategoriaMax(reserva.getSedeinicial(), reserva.getCategoria());
 					if (vehiculoEncontrado != null) { //actualiza la disponibilidad vehiculo 
@@ -582,7 +580,6 @@ public class sistemaAlquiler {
 				else {
 					System.out.println("No existe una reserva especial con esa identificación");
 				}
-
 			}
 
 			//15.recibir un automovil (ponerlo en limpieza)	----------------------------------------------------------------------------------------------------------------------------------------------------------------			

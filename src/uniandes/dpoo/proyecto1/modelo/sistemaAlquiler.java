@@ -83,7 +83,7 @@ public class sistemaAlquiler {
 		BufferedWriter br = new BufferedWriter(output);
 		//br.newLine();
 		String usuario = input("ingrese su usuario: ");
-		
+
 		//Si un AG (Administrador general) quiere crear usuario, selecciona la opcion 2 Crear Usuario, y en ingrese su usuario:  se escribe "secretoAG"
 		//Si un AL (Administrador Local) quiere crear usuario, selecciona la opcion 2 Crear Usuario, y en ingrese su usuario:  se escribe "secretoAL"
 
@@ -184,43 +184,43 @@ public class sistemaAlquiler {
 			17.devolver auto de limpieza o mantenimiento					check	Revisado
 			18. generar historial alquiler									check  	Revisado	bonito
 		 */
-		
+
 		Boolean revision_opciones = true;
 		while (revision_opciones == true){
 			int opcion = usuario.mostrarOpciones();
 
-//  1. revisar los carros del inventario general.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-			
+			//  1. revisar los carros del inventario general.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 			// La hace un Empleado
 			if (opcion == 1) {
 				inventariogeneral.mostrarinventariototal();
 			}
 
-// 2. revisar todos los carros disponibles.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// 2. revisar todos los carros disponibles.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			// La hace un Empleado
 			if (opcion == 2) {
 				inventariogeneral.mostrarinventariodisponible();
 			}
 
-// 3. revisar todos los carros disponibles de una sede.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-			
+			// 3. revisar todos los carros disponibles de una sede.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 			// La hace un Empleado
 			if (opcion == 3) {
 				System.out.println("1. Sede 1");
 				System.out.println("2. Sede 2");
 				System.out.println("3. Sede 3");;
 				String opcionSede = input("Seleccione una sede");
-			    try {
-			        InventarioSede inventarioSede = InventarioSede.crearInventarioPorSede(opcionSede);
-			        inventarioSede.mostrarinventariodisponible();
-			    } catch (IllegalArgumentException e) {
-			        System.out.println(e.getMessage());
-			    }
+				try {
+					InventarioSede inventarioSede = InventarioSede.crearInventarioPorSede(opcionSede);
+					inventarioSede.mostrarinventariodisponible();
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+				}
 			}
-		
-// 4.Crear una reserva ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-			
+
+			// 4.Crear una reserva ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 			//La hace un Cliente
 			if (opcion == 4) {
 				Cliente cliente = (Cliente)usuario;
@@ -248,7 +248,7 @@ public class sistemaAlquiler {
 				reserva.escribirTXT();	
 			}
 
-// 5.Gestionar/eliminar reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// 5.Gestionar/eliminar reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			//La hace un Cliente
 			if (opcion == 5) {
@@ -257,60 +257,60 @@ public class sistemaAlquiler {
 				System.out.println("2. Por identificador de la reserva");
 				int seleccion = Integer.parseInt(input("Seleccione una opción"));
 				Reserva reserva = null;
-				
+
 				if (seleccion ==1) {
 					String nombreComparador = input("Escriba el nombre de quien generó la reserva");
-			        reserva = Reserva.encontrarReservaPorNombre(nombreComparador);
+					reserva = Reserva.encontrarReservaPorNombre(nombreComparador);
 				}
 				else if (seleccion ==2) {
-				    int idComparador = Integer.parseInt(input("Escriba el identificador de su reserva"));
-				    reserva = Reserva.encontrarReservaPorID(idComparador);
+					int idComparador = Integer.parseInt(input("Escriba el identificador de su reserva"));
+					reserva = Reserva.encontrarReservaPorID(idComparador);
 				}
-			    if (reserva != null) {
-			        System.out.println(reserva.getinfo());
-			        Tarifa precio = new Tarifa(reserva);
-			        long preciofinal = precio.calcularCostoFinal();
-			        System.out.println("El precio total de la reserva es de: " + preciofinal + " mil pesos");
-			    } else {
-			        System.out.println("No se encontró la reserva.");
-			    }
+				if (reserva != null) {
+					System.out.println(reserva.getinfo());
+					Tarifa precio = new Tarifa(reserva);
+					long preciofinal = precio.calcularCostoFinal();
+					System.out.println("El precio total de la reserva es de: " + preciofinal + " mil pesos");
+				} else {
+					System.out.println("No se encontró la reserva.");
+				}
 			}
-// 6.Añadir carro al inventario ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+			// 6.Añadir carro al inventario ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 			// La hace Administrador General
 			if (opcion == 6) {
-			    String placa = input("Escriba la placa del vehículo");
-			    String marca = input("Escriba la marca del vehículo");
-			    int modelo = Integer.parseInt(input("Escriba el modelo de vehículo"));
-			    String categoria = Vehiculo.findcategoria(seleccionarCategoria());
-			    String color = input("Escriba el color del vehículo");
-			    String transmision = (input("Escoja el tipo de transmisión que tiene el vehiculo").equals("1")) ? "AUTOMATICO" : "MANUAL";
-			    String sede = input("¿En qué sede se encontrará el vehículo?");
-			    Vehiculo nuevoVehiculo = new Vehiculo(placa, marca, modelo, categoria, color, transmision, sede, "disponible");
-			    Inventario inventario = new Inventario();
-			    inventario.añadirVehiculoInventario(nuevoVehiculo);
-			    System.out.println("\nSe añadió el vehículo con éxito");
+				String placa = input("Escriba la placa del vehículo");
+				String marca = input("Escriba la marca del vehículo");
+				int modelo = Integer.parseInt(input("Escriba el modelo de vehículo"));
+				String categoria = Vehiculo.findcategoria(seleccionarCategoria());
+				String color = input("Escriba el color del vehículo");
+				String transmision = (input("Escoja el tipo de transmisión que tiene el vehiculo").equals("1")) ? "AUTOMATICO" : "MANUAL";
+				String sede = input("¿En qué sede se encontrará el vehículo?");
+				Vehiculo nuevoVehiculo = new Vehiculo(placa, marca, modelo, categoria, color, transmision, sede, "disponible");
+				Inventario inventario = new Inventario();
+				inventario.añadirVehiculoInventario(nuevoVehiculo);
+				System.out.println("\nSe añadió el vehículo con éxito");
 
 			}
-			
-// 7. Eliminar carro del inventario ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-			
+
+			// 7. Eliminar carro del inventario ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 			// La hace Administrador General
-			
-			if (opcion == 7) {
-			    String placa = input("Escriba la placa del vehículo que desea retirar del inventario");
-			    Inventario inventario = new Inventario();
-			    boolean eliminado = inventario.eliminarVehiculoInventario(placa); // Asumiendo que 'inventario' es una instancia de la clase Inventario
 
-			    if (eliminado) {
-			        System.out.println("El vehículo con las placas " + placa + " ha sido eliminado éxitosamente");
-			    } else {
-			        System.out.println("No existe un vehículo con esa placa");
-			    }
+			if (opcion == 7) {
+				String placa = input("Escriba la placa del vehículo que desea retirar del inventario");
+				Inventario inventario = new Inventario();
+				boolean eliminado = inventario.eliminarVehiculoInventario(placa); // Asumiendo que 'inventario' es una instancia de la clase Inventario
+
+				if (eliminado) {
+					System.out.println("El vehículo con las placas " + placa + " ha sido eliminado éxitosamente");
+				} else {
+					System.out.println("No existe un vehículo con esa placa");
+				}
 			}
-			
-// 8. Crear seguro ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-			
+
+			// 8. Crear seguro ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+
 			//Administrador general hace esto 
 			if (opcion == 8) {
 
@@ -320,9 +320,9 @@ public class sistemaAlquiler {
 				Seguro seguro= new Seguro(idSeguro,descripcionSeguro,costoSeguro);
 				seguro.escribirTXT();
 			}
-			
-// 9. crear empleado ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-			
+
+			// 9. crear empleado ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+
 			//Administrador Local hace esto
 			if (opcion == 9) {
 
@@ -338,15 +338,15 @@ public class sistemaAlquiler {
 				empleado.escribirTXT();
 				System.out.println("Empleado creado");
 			}
-			
-// 10. eliminar/despedir empleado ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-			
+
+			// 10. eliminar/despedir empleado ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+
 			//Administrador Local hace esto
 			if (opcion == 10) {
 				String nombreUsuarioEmpleado = input("Escriba el usuario del empleado que desea eliminar");
 				Empleado empleado = new Empleado();
 				boolean usuario_eliminado = empleado.eliminarEmpleado(nombreUsuarioEmpleado);
-				
+
 				if (usuario_eliminado) {
 					System.out.println("El empleado "+nombreUsuarioEmpleado+" ha sido eliminado.");	
 				}
@@ -355,58 +355,58 @@ public class sistemaAlquiler {
 				}
 
 			}
-//11. alquiler con reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-		
+			//11. alquiler con reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+
 			// Empleado normal hace esto
 			if (opcion == 11) {				
-				 System.out.println("\nOpciones para buscar la reserva\n");
-				    System.out.println("1. Por nombre de quien generó la reserva.");
-				    System.out.println("2. Por identificador de la reserva");
-				    int seleccion = Integer.parseInt(input("Seleccione una opción"));
-				    Reserva reserva = null;
-				    
-				    if (seleccion == 1) { 
-				        String nombreCliente = input("Escriba el nombre de quien generó la reserva");
-				        reserva = Reserva.encontrarReservaPorNombre(nombreCliente); // se encuentra la reserva
-				    } else if (seleccion == 2) {
-				        int idReserva = Integer.parseInt(input("Escriba el identificador de su reserva"));
-				        reserva = Reserva.encontrarReservaPorID(idReserva);
-				    }
-				    if (reserva != null) {       
-				        Reserva.eliminarReservaYActualizarArchivo(reserva.getID()); // se elimina la reserva de la lista de reservas
-				        Inventario inventario = new Inventario(); // se busca vehiculo por categoria y sede
-				        Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(reserva.getSedeinicial(), reserva.getCategoria());
-				         int categoria = reserva.getCategoria();
+				System.out.println("\nOpciones para buscar la reserva\n");
+				System.out.println("1. Por nombre de quien generó la reserva.");
+				System.out.println("2. Por identificador de la reserva");
+				int seleccion = Integer.parseInt(input("Seleccione una opción"));
+				Reserva reserva = null;
 
-				        vehiculoEncontrado = inventario.buscarVehiculoPorCategoriaMax(reserva);
-				        if (vehiculoEncontrado != null) { //actualiza la disponibilidad vehiculo 
-				        Inventario.actualizarVehiculoAlquilado(vehiculoEncontrado, reserva);
-						
-			            Tarifa tarifa = new Tarifa(reserva);
-			            long totalFinal = tarifa.calcularCosto70P();
-			            System.out.println("Pague el 70% restante del alquiler, el cual es " + totalFinal + " mil pesos");
-			            System.out.println("El vehículo " + vehiculoEncontrado.getMarca() + " con las placas " + vehiculoEncontrado.getPlaca() + " fue alquilado con éxito");
-			            
-			            Cliente clienteReserva = reserva.getCliente();
-			            agregarConductoresAdicionales(clienteReserva.getNumeroLicencia());
-			          
-			            long costoConductoresAdicionales = tarifa.calcularCostoConductoresAd();
-			            totalFinal += costoConductoresAdicionales;
-			            if (costoConductoresAdicionales > 0) {
-			                System.out.println("El nuevo total final, incluyendo el costo de los conductores adicionales, es: " + totalFinal + " mil pesos");
-			            }
-			            AlquilerVehiculo alquiler = new AlquilerVehiculo();
-			            alquiler.escribirLog(vehiculoEncontrado.getPlaca(), vehiculoEncontrado.getMarca(), vehiculoEncontrado.getCategoria(), reserva.getCliente().getNombre(), reserva.getFechaIni(), reserva.getHoraIni(), reserva.getFechaFin(), reserva.getHoraFin(), reserva.getSedeinicial(), reserva.getSedefinal(), totalFinal);
-			        } else {
-			            System.out.println("No se encontró ningún vehículo disponible en la categoría y sede especificadas.");
-			        }
-			    } else {
-			        System.out.println("No se encontró la reserva.");
-			    }
+				if (seleccion == 1) { 
+					String nombreCliente = input("Escriba el nombre de quien generó la reserva");
+					reserva = Reserva.encontrarReservaPorNombre(nombreCliente); // se encuentra la reserva
+				} else if (seleccion == 2) {
+					int idReserva = Integer.parseInt(input("Escriba el identificador de su reserva"));
+					reserva = Reserva.encontrarReservaPorID(idReserva);
+				}
+				if (reserva != null) {       
+					Reserva.eliminarReservaYActualizarArchivo(reserva.getID()); // se elimina la reserva de la lista de reservas
+					Inventario inventario = new Inventario(); // se busca vehiculo por categoria y sede
+					Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(reserva.getSedeinicial(), reserva.getCategoria());
+					int categoria = reserva.getCategoria();
+
+					vehiculoEncontrado = inventario.buscarVehiculoPorCategoriaMax(reserva.getSedeinicial(), reserva.getCategoria());
+					if (vehiculoEncontrado != null) { //actualiza la disponibilidad vehiculo 
+						Inventario.actualizarVehiculoAlquilado(vehiculoEncontrado, reserva.getSedefinal(),reserva.getCliente().getNombre(),reserva.getFechaFin());
+
+						Tarifa tarifa = new Tarifa(reserva);
+						long totalFinal = tarifa.calcularCosto70P();
+						System.out.println("Pague el 70% restante del alquiler, el cual es " + totalFinal + " mil pesos");
+						System.out.println("El vehículo " + vehiculoEncontrado.getMarca() + " con las placas " + vehiculoEncontrado.getPlaca() + " fue alquilado con éxito");
+
+						Cliente clienteReserva = reserva.getCliente();
+						agregarConductoresAdicionales(clienteReserva.getNumeroLicencia());
+
+						long costoConductoresAdicionales = tarifa.calcularCostoConductoresAd();
+						totalFinal += costoConductoresAdicionales;
+						if (costoConductoresAdicionales > 0) {
+							System.out.println("El nuevo total final, incluyendo el costo de los conductores adicionales, es: " + totalFinal + " mil pesos");
+						}
+						AlquilerVehiculo alquiler = new AlquilerVehiculo();
+						alquiler.escribirLog(vehiculoEncontrado.getPlaca(), vehiculoEncontrado.getMarca(), vehiculoEncontrado.getCategoria(), reserva.getCliente().getNombre(), reserva.getFechaIni(), reserva.getHoraIni(), reserva.getFechaFin(), reserva.getHoraFin(), reserva.getSedeinicial(), reserva.getSedefinal(), totalFinal);
+					} else {
+						System.out.println("No se encontró ningún vehículo disponible en la categoría y sede especificadas.");
+					}
+				} else {
+					System.out.println("No se encontró la reserva.");
+				}
 			}
 
-//12. alquiler sin reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-			
+			//12. alquiler sin reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+
 			// Empleado normal hace esto
 			if (opcion == 12) {
 				System.out.println("1. El cliente ya tiene una cuenta en la página");
@@ -444,45 +444,40 @@ public class sistemaAlquiler {
 					horafinal = input("Escriba qué a qué hora lo devolverá (en formato HH:MM) ");
 
 					segurosSeleccionados = seleccionarSeguros();
-				    AlquilerVehiculo alquiler = new AlquilerVehiculo(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
+					AlquilerVehiculo alquiler = new AlquilerVehiculo(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 
-				    // Busca un vehículo disponible
-				    Inventario inventario = new Inventario();
-				    Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(alquiler); // Modifica este método para aceptar un AlquilerVehiculo en lugar de una Reserva
+					// Busca un vehículo disponible
+					Inventario inventario = new Inventario();
+					Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(alquiler.getSedeinicial(), alquiler.getCategoria()); // Modifica este método para aceptar un AlquilerVehiculo en lugar de una Reserva
 
-					 if (vehiculoEncontrado != null) {       
-					        Inventario inventario = new Inventario(); // se busca vehiculo por categoria y sede
-					        Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(reserva);
-					         categoria = reserva.getCategoria();
+					vehiculoEncontrado = inventario.buscarVehiculoPorCategoriaMax(alquiler.getSedeinicial(), alquiler.getCategoria());
+					if (vehiculoEncontrado != null) { //actualiza la disponibilidad vehiculo 
+						Inventario.actualizarVehiculoAlquilado(vehiculoEncontrado, alquiler.getSedefinal(),alquiler.getCliente().getNombre(),alquiler.getFechaFin());
 
-					        vehiculoEncontrado = inventario.buscarVehiculoPorCategoriaMax(reserva);
-					        if (vehiculoEncontrado != null) { //actualiza la disponibilidad vehiculo 
-					        Inventario.actualizarVehiculoAlquilado(vehiculoEncontrado, reserva);
-							
-				            Tarifa tarifa = new Tarifa(reserva);
-				            long totalFinal = tarifa.calcularCosto70P();
-				            System.out.println("Pague el 70% restante del alquiler, el cual es " + totalFinal + " mil pesos");
-				            System.out.println("El vehículo " + vehiculoEncontrado.getMarca() + " con las placas " + vehiculoEncontrado.getPlaca() + " fue alquilado con éxito");
-				            
-				            Cliente clienteReserva = reserva.getCliente();
-				            agregarConductoresAdicionales(clienteReserva.getNumeroLicencia());
-				          
-				            long costoConductoresAdicionales = tarifa.calcularCostoConductoresAd();
-				            totalFinal += costoConductoresAdicionales;
-				            if (costoConductoresAdicionales > 0) {
-				                System.out.println("El nuevo total final, incluyendo el costo de los conductores adicionales, es: " + totalFinal + " mil pesos");
-				            }
-				            AlquilerVehiculo alquiler = new AlquilerVehiculo();
-				            alquiler.escribirLog(vehiculoEncontrado.getPlaca(), vehiculoEncontrado.getMarca(), vehiculoEncontrado.getCategoria(), reserva.getCliente().getNombre(), reserva.getFechaIni(), reserva.getHoraIni(), reserva.getFechaFin(), reserva.getHoraFin(), reserva.getSedeinicial(), reserva.getSedefinal(), totalFinal);
-				        } else {
-				            System.out.println("No se encontró ningún vehículo disponible en la categoría y sede especificadas.");
-				        }
-				    } 
-				}
+						Tarifa tarifa = new Tarifa(alquiler);
+						long totalFinal = tarifa.calcularCosto70P();
+						System.out.println("Pague el 70% restante del alquiler, el cual es " + totalFinal + " mil pesos");
+						System.out.println("El vehículo " + vehiculoEncontrado.getMarca() + " con las placas " + vehiculoEncontrado.getPlaca() + " fue alquilado con éxito");
+
+						Cliente clienteReserva = alquiler.getCliente();
+						agregarConductoresAdicionales(clienteReserva.getNumeroLicencia());
+
+						long costoConductoresAdicionales = tarifa.calcularCostoConductoresAd();
+						totalFinal += costoConductoresAdicionales;
+						if (costoConductoresAdicionales > 0) {
+							System.out.println("El nuevo total final, incluyendo el costo de los conductores adicionales, es: " + totalFinal + " mil pesos");
+						}
+
+						alquiler.escribirLog(vehiculoEncontrado.getPlaca(), vehiculoEncontrado.getMarca(), vehiculoEncontrado.getCategoria(), alquiler.getCliente().getNombre(), alquiler.getFechaIni(), alquiler.getHoraIni(), alquiler.getFechaFin(), alquiler.getHoraFin(), alquiler.getSedeinicial(), alquiler.getSedefinal(), totalFinal);
+					} else {
+						System.out.println("No se encontró ningún vehículo disponible en la categoría y sede especificadas.");
+					}
+				} 
 			}
-			
-//13. reserva especial ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-			
+
+
+			//13. reserva especial ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+
 			if (opcion == 13) {
 				int categoria = seleccionarCategoria() ;
 				String fechaini = input("Escriba qué día va a desplazar el vehículo (en formato DD/MM/AA)");
@@ -494,7 +489,7 @@ public class sistemaAlquiler {
 				System.out.println(reservaespecial.getinfoEspecial());
 			}
 
-// 14. alquiler especial ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+			// 14. alquiler especial ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
 
 			if (opcion == 14) {
 				String identificador = input("Escriba el número de identificación de la reserva ESPECIAL");
@@ -589,7 +584,7 @@ public class sistemaAlquiler {
 			}
 
 			if (opcion == 15) {
-				
+
 				ArrayList<String> inventalquilado = inventariogeneral.mostrarinventarioalquilado();
 				String placa= input("¿cual vehículo fue entregado?");
 				boolean carroalquilado = false;
@@ -678,7 +673,7 @@ public class sistemaAlquiler {
 				brinventario.close();
 			}
 
-			
+
 
 			if (opcion == 17) {
 				String placa = input("Ingrese la placa del vehículo que desea regresar");
@@ -723,27 +718,27 @@ public class sistemaAlquiler {
 			}
 
 			if (opcion == 18) {
-			    String placa = input("Ingrese la placa del vehículo para el cual desea revisar su historial de alquiler ");
-			    AlquilerVehiculo alquiler = new AlquilerVehiculo();
-			    HashMap<String, ArrayList<AlquilerVehiculo>> historialesAlquileres = alquiler.cargarLogAlquileres();
+				String placa = input("Ingrese la placa del vehículo para el cual desea revisar su historial de alquiler ");
+				AlquilerVehiculo alquiler = new AlquilerVehiculo();
+				HashMap<String, ArrayList<AlquilerVehiculo>> historialesAlquileres = alquiler.cargarLogAlquileres();
 
-			    if (historialesAlquileres.containsKey(placa)) {
-			        System.out.println("Historial de alquileres para el vehículo con placa " + placa + ":");
-			        ArrayList<AlquilerVehiculo> alquileres = historialesAlquileres.get(placa);
-			        for (AlquilerVehiculo indiceAlquiler : alquileres) {
-			            System.out.println("Placa del vehiculo: " + indiceAlquiler.getPlaca());
-			            System.out.println("Marca del vehiculo: " + indiceAlquiler.getMarca());
-			            System.out.println("Nombre del cliente: " + indiceAlquiler.getClienteAlquiler());
-			            System.out.println("Fecha en la que el cliente recoge el vehiculo : " + indiceAlquiler.getFechaIni());
-			            System.out.println("Hora en la que el cliente recoge el vehiculo : " + indiceAlquiler.getHoraIni());
-			            System.out.println("Fecha en la que el cliente devuelve el vehiculo : " + indiceAlquiler.getFechaFin());
-			            System.out.println("Hora en la que el cliente devuelve el vehiculo: " + indiceAlquiler.getHoraFin());
-			            System.out.println("Costo total: " + indiceAlquiler.getCostoTotal());
-			            System.out.println("-------------------------------------------------------------");
-			        }
-			    } else {
-			        System.out.println("No se encontró historial de alquileres para el vehículo con placa " + placa);
-			    }
+				if (historialesAlquileres.containsKey(placa)) {
+					System.out.println("Historial de alquileres para el vehículo con placa " + placa + ":");
+					ArrayList<AlquilerVehiculo> alquileres = historialesAlquileres.get(placa);
+					for (AlquilerVehiculo indiceAlquiler : alquileres) {
+						System.out.println("Placa del vehiculo: " + indiceAlquiler.getPlaca());
+						System.out.println("Marca del vehiculo: " + indiceAlquiler.getMarca());
+						System.out.println("Nombre del cliente: " + indiceAlquiler.getClienteAlquiler());
+						System.out.println("Fecha en la que el cliente recoge el vehiculo : " + indiceAlquiler.getFechaIni());
+						System.out.println("Hora en la que el cliente recoge el vehiculo : " + indiceAlquiler.getHoraIni());
+						System.out.println("Fecha en la que el cliente devuelve el vehiculo : " + indiceAlquiler.getFechaFin());
+						System.out.println("Hora en la que el cliente devuelve el vehiculo: " + indiceAlquiler.getHoraFin());
+						System.out.println("Costo total: " + indiceAlquiler.getCostoTotal());
+						System.out.println("-------------------------------------------------------------");
+					}
+				} else {
+					System.out.println("No se encontró historial de alquileres para el vehículo con placa " + placa);
+				}
 			}
 
 			if (opcion == 0) {
@@ -751,7 +746,7 @@ public class sistemaAlquiler {
 			}
 		}
 	}
-	    
+
 	public static String input(String mensaje)
 	{
 		try
@@ -767,53 +762,53 @@ public class sistemaAlquiler {
 		}
 		return null;
 	}
-	
+
 	// codigo que se repetia mucho:	
-    public static int seleccionarCategoria() {
-        System.out.println("Estos son los tipos de carros disponibles actualmente: \n"
-                + "1.economico, costo: 200000 \r\n"
-                + "2.estándar, costo: 250000 \r\n"
-                + "3.van,costo: 280000 \r\n"
-                + "4.SUV, costo: 300000\r\n"
-                + "5.todoterreno, costo: 320000 \r\n"
-                + "6.lujo, costo: 400000 ");
-        return Integer.parseInt(input("Seleccione una categoría de acuerdo a su numero, ej. (1)"));
+	public static int seleccionarCategoria() {
+		System.out.println("Estos son los tipos de carros disponibles actualmente: \n"
+				+ "1.economico, costo: 200000 \r\n"
+				+ "2.estándar, costo: 250000 \r\n"
+				+ "3.van,costo: 280000 \r\n"
+				+ "4.SUV, costo: 300000\r\n"
+				+ "5.todoterreno, costo: 320000 \r\n"
+				+ "6.lujo, costo: 400000 ");
+		return Integer.parseInt(input("Seleccione una categoría de acuerdo a su numero, ej. (1)"));
 
-    }
+	}
 
-    public static ArrayList<String> seleccionarSeguros() throws IOException {
-        ArrayList<String> segurosSeleccionados = new ArrayList<>();
-        HashMap<String, ArrayList<String>> segurosDisponibles = Tarifa.cargarTarifasSeguros("./src/datos/Seguros.txt");
-        boolean seleccionandoSeguros = true;
+	public static ArrayList<String> seleccionarSeguros() throws IOException {
+		ArrayList<String> segurosSeleccionados = new ArrayList<>();
+		HashMap<String, ArrayList<String>> segurosDisponibles = Tarifa.cargarTarifasSeguros("./src/datos/Seguros.txt");
+		boolean seleccionandoSeguros = true;
 
-        while (seleccionandoSeguros) {
-            System.out.println("Seleccione un seguro por su ID, ej. (Seguro1). Escriba 'terminar' para finalizar la selección.");
+		while (seleccionandoSeguros) {
+			System.out.println("Seleccione un seguro por su ID, ej. (Seguro1). Escriba 'terminar' para finalizar la selección.");
 
-            int numero = 1;
-            for (String idSeguro : segurosDisponibles.keySet()) {
-                ArrayList<String> datosSeguro = segurosDisponibles.get(idSeguro);
-                if (datosSeguro != null && datosSeguro.size() > 1) {
-                    String descripcion = datosSeguro.get(0);
-                    String costo = datosSeguro.get(1);
-                    System.out.println(numero + ". " + "(" + idSeguro + ")" + "  " + descripcion + ", Costo:  " + costo);
-                    numero++;
-                }
-            }
-            String seguro = input("Seguro: ");
-            if (seguro.equalsIgnoreCase("terminar")) {
-                seleccionandoSeguros = false;
-            } else if (segurosDisponibles.containsKey(seguro)) {
-                segurosSeleccionados.add(seguro);
-            } else {
-                System.out.println("ID de seguro no válido. Intente nuevamente.");
-            }
-        }
-        return segurosSeleccionados;
-    }    
-   
-    public static void agregarConductoresAdicionales(String licenciaClienteAlquiler) throws Exception {
+			int numero = 1;
+			for (String idSeguro : segurosDisponibles.keySet()) {
+				ArrayList<String> datosSeguro = segurosDisponibles.get(idSeguro);
+				if (datosSeguro != null && datosSeguro.size() > 1) {
+					String descripcion = datosSeguro.get(0);
+					String costo = datosSeguro.get(1);
+					System.out.println(numero + ". " + "(" + idSeguro + ")" + "  " + descripcion + ", Costo:  " + costo);
+					numero++;
+				}
+			}
+			String seguro = input("Seguro: ");
+			if (seguro.equalsIgnoreCase("terminar")) {
+				seleccionandoSeguros = false;
+			} else if (segurosDisponibles.containsKey(seguro)) {
+				segurosSeleccionados.add(seguro);
+			} else {
+				System.out.println("ID de seguro no válido. Intente nuevamente.");
+			}
+		}
+		return segurosSeleccionados;
+	}    
 
-        String decisionConductor = input("¿Desea agregar conductores adicionales? (si/no): ");
+	public static void agregarConductoresAdicionales(String licenciaClienteAlquiler) throws Exception {
+
+		String decisionConductor = input("¿Desea agregar conductores adicionales? (si/no): ");
 		if (decisionConductor.equalsIgnoreCase("si")) {
 			HashMap<String, ArrayList<String>> conductoresAdicionales = new HashMap<>();
 			ArrayList<String> licenciasAdicionales = new ArrayList<>();
@@ -832,11 +827,11 @@ public class sistemaAlquiler {
 					conductor.escribirTXT();
 					numeroConductor++;
 					conductoresAdicionales.put(licenciaClienteAlquiler, licenciasAdicionales);
-					
+
 				} else if (decision.equalsIgnoreCase("terminarConductores")) {
 					añadiendoConductor = false;
-                }
-            }
-        }
-    }	
+				}
+			}
+		}
+	}	
 }

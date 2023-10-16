@@ -5,28 +5,28 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 
-public class Tarifa {
+public  class Tarifa {
 	
-	private Reserva reserva;
+	private Tarifable tarifable;
     private long tarifaBase; //la tarifa base es la misma de cada categoria 
     private HashMap <String, ArrayList<String>> tarifasSeguros;
     private ArrayList<String>  segurosCliente;
     private HashMap<String, ArrayList<String>> conductoresAdicionales;
     
     
-    public Tarifa(Reserva reserva) throws IOException {
-    	this.reserva = reserva; 
-    	HashMap<String, Long> tarifasBase = cargarTarifas("./src/datos/jerarquia.txt");
-    	String categoriastr = reserva.findcategoria();
+    public Tarifa(Tarifable tarifable) throws IOException {
+    	this.tarifable = tarifable;
+    	HashMap<String, Long> tarifasBase = cargarTarifas();
+    	String categoriastr = String.valueOf(tarifable.getCategoria());
         this.tarifaBase = tarifasBase.get(categoriastr);
         this.tarifasSeguros = cargarTarifasSeguros("./src/datos/Seguros.txt");
-        this.segurosCliente =reserva.getSegurosCliente();
+        this.segurosCliente =tarifable.getSegurosCliente();
         this.conductoresAdicionales = cargarConductoresAdicionales("./src/datos/ConductoresAdicionales.txt");
     }
     
-    private HashMap<String,Long> cargarTarifas(String rutaArchivo) throws IOException{
+    private HashMap<String,Long> cargarTarifas() throws IOException{
     	HashMap<String,Long> tarifas = new HashMap<>();
-    	BufferedReader  br = new BufferedReader (new FileReader(rutaArchivo));
+    	BufferedReader  br = new BufferedReader (new FileReader(("./src/datos/Seguros.txt")));
     	String linea = "";
     	linea = br.readLine();
     	while (linea  != null) {
@@ -80,10 +80,10 @@ public class Tarifa {
 
 	    public long modificarTarifaBase() {
 	        long tarifaModificada = this.tarifaBase;
-	        if (reserva.esTemporadaAlta()) {
+	        if (tarifable.esTemporadaAlta()) {
 	            tarifaModificada += (tarifaBase * 0.2);
 	        }
-	        if (reserva.esEntregaOtraSede()) {
+	        if (tarifable.esEntregaOtraSede()) {
 	            tarifaModificada += (tarifaBase * 0.15);
 	        }
 	        return tarifaModificada;
@@ -99,11 +99,11 @@ public class Tarifa {
 	                costoTotal += costo;
 	            }
 	        }
-	        return costoTotal * reserva.getDiasAlquiler();
+	        return costoTotal * tarifable.getDiasAlquiler();
 	    }
     public long calcularCostoConductoresAd() {
         long costo = 0;
-    	String licenciaClienteRevisar = reserva.getCliente().getNumeroLicencia();
+    	String licenciaClienteRevisar = tarifable.getCliente().getNumeroLicencia();
         ArrayList<String> conductores = conductoresAdicionales.get(licenciaClienteRevisar);
         if (conductores != null) {
             costo = conductores.size() * 50000;
@@ -114,7 +114,7 @@ public class Tarifa {
 
     public long calcularCostoFinal() {
         long costoTotalSeguros = calcularCostoTotalSeguros();
-        long costoTarifaBaseModificada = modificarTarifaBase() * reserva.getDiasAlquiler();
+        long costoTarifaBaseModificada = modificarTarifaBase() * tarifable.getDiasAlquiler();
         return costoTarifaBaseModificada + costoTotalSeguros ;
     }
     

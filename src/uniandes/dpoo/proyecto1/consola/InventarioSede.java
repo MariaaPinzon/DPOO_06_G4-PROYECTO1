@@ -65,6 +65,17 @@ public class InventarioSede extends Inventario {
 		
 	}
 	
+	
+	/** 
+	 * Método constructor responsable de crear el inventario por sede.
+	 * precond:El catálogo general debe estar previamente inicializado.
+	 * postcond: Se crea el inventario de la sede exitosamente.
+	 * @param opcionSede La sede, puede ser sede 1, 2 o 3.
+	 * @throws Exception Si ocurre un error inesperado al crear el inventario por sede. Esto puede incluir:
+	 *                  - Problemas al abrir o leer el catálogo general.
+	 *                  - Errores al crear o escribir en el inventario de la sede.
+	 *                  - La opción de sede no es válida.
+	 */
 	public static InventarioSede crearInventarioPorSede(String opcionSede) throws Exception {
 	    switch (opcionSede) {
 	        case "1":
@@ -78,6 +89,15 @@ public class InventarioSede extends Inventario {
 	    }
 	}
 	
+	/** 
+	 * Revisar los carros disponibles del inventario de la sede. Como disponibles se entiende que no estén en mantenimiento ni en limpieza ni alquilado.
+	 * precond: En el sistema ya existe un empleado, pues estos son los que pueden revisar el inventario general.
+	 * 			El catálogo de la sede ya fue inicializado.
+	 * 			Hay vehículos en el catálogo de la sede.
+	 * postcond: Se imprime, uno por uno, los vehículos que estén disponibles del inventario de la sede, con toda su información.
+	 * @param N/A
+	 * @throws N/A
+	 */
 	@Override
 	public void mostrarinventariodisponible () {
 		for (int i=0; i<catalogo.size(); i++) {

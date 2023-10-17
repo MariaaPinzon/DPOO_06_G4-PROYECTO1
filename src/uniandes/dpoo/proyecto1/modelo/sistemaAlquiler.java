@@ -60,10 +60,7 @@ public class sistemaAlquiler {
 					else if (jerarquia.equals("C")) {
 						usuarioreal = new Cliente(usuario, contra, info[3], info[4], info[5], info[6], info[7], info[8], info[9], info[10], info[11], Long.parseLong(info[12]), info[13]);
 						usuarioreal.getRol();
-
-
 					}
-
 					revisar = true;
 					break;
 				}
@@ -152,12 +149,10 @@ public class sistemaAlquiler {
 			usuario = sistema.CrearNuevoUsuario("./src/datos/Usuarios.txt");
 		}
 		Inventario inventariogeneral = new Inventario("./src/datos/InventarioGENERAL.txt");
-
 		/*System.out.println("\nMostrando todos los carros disponibles en todas las sedes\n");
 		 *inventariogeneral.mostrarinventariodisponible();
 		 *System.out.println("\nMostrando todos los carros de la empresa\n");
 		 *inventariogeneral.mostrarinventariototal();*/
-		
 		/*TOTAL DE OPCIONES:
 		  	0.cerrar
 			1. revisar los carros del inventario general 					
@@ -191,14 +186,12 @@ public class sistemaAlquiler {
 			}
 
 			// 2. revisar todos los carros disponibles.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 			// La hace un Empleado
 			if (opcion == 2) {
 				inventariogeneral.mostrarinventariodisponible();
 			}
 
 			// 3. revisar todos los carros disponibles de una sede.  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 			// La hace un Empleado
 			if (opcion == 3) {
 				System.out.println("1. Sede 1");
@@ -214,7 +207,6 @@ public class sistemaAlquiler {
 			}
 
 			// 4.Crear una reserva ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 			//La hace un Cliente
 			if (opcion == 4) {
 				Cliente cliente = (Cliente)usuario;
@@ -233,7 +225,7 @@ public class sistemaAlquiler {
 				ArrayList<String> segurosSeleccionados = seleccionarSeguros();
 				if (segurosSeleccionados.isEmpty()) {
 					segurosSeleccionados.add("NA");
-					}
+				}
 				Reserva reserva = new Reserva(cliente, fechaini, horaini, fechafinal, horafinal, sedeIn, sedeFin, categoria, segurosSeleccionados);
 				System.out.println(reserva.getinfo());
 				Tarifa tarifa = new Tarifa(reserva);
@@ -246,7 +238,6 @@ public class sistemaAlquiler {
 			}
 
 			// 5.Gestionar reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 			//La hace un Cliente
 			if (opcion == 5) {
 				System.out.println("\nOpciones para buscar la reserva\n");
@@ -273,7 +264,6 @@ public class sistemaAlquiler {
 				}
 			}
 			// 6.Añadir carro al inventario ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 			// La hace Administrador General
 			if (opcion == 6) {
 				String placa = input("Escriba la placa del vehículo");
@@ -291,7 +281,6 @@ public class sistemaAlquiler {
 			}
 
 			// 7. Eliminar carro del inventario ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 			// La hace Administrador General
 
 			if (opcion == 7) {
@@ -307,7 +296,6 @@ public class sistemaAlquiler {
 			}
 
 			// 8. Crear seguro ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-
 			//Administrador general hace esto 
 			if (opcion == 8) {
 
@@ -337,7 +325,6 @@ public class sistemaAlquiler {
 			}
 
 			// 10. eliminar/despedir empleado ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-
 			//Administrador Local hace esto
 			if (opcion == 10) {
 				String nombreUsuarioEmpleado = input("Escriba el usuario del empleado que desea eliminar");
@@ -353,7 +340,6 @@ public class sistemaAlquiler {
 
 			}
 			//11. alquiler con reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-
 			// Empleado normal hace esto
 			if (opcion == 11) {				
 				System.out.println("\nOpciones para buscar la reserva\n");
@@ -402,7 +388,6 @@ public class sistemaAlquiler {
 			}
 
 			//12. alquiler sin reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-
 			// Empleado normal hace esto
 			if (opcion == 12) {
 				System.out.println("1. El cliente ya tiene una cuenta en la página");
@@ -472,9 +457,8 @@ public class sistemaAlquiler {
 			}
 
 			//13. Generar reserva especial (trasaldar carro entre sedes) ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-
+			// Lo hace Empleado
 			if (opcion == 13) {
-				// Lo hace Empleado
 				int categoria = seleccionarCategoria() ;
 				String fechaini = input("Escriba qué día va a desplazar el vehículo (en formato DD/MM/AA)");
 				String sedein = input("Escriba de qué sede vendrá el vehiculo");
@@ -486,36 +470,33 @@ public class sistemaAlquiler {
 			}
 
 			// 14. Generar alquiler especial (trasladar carro entre sedes)  ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-			
+			// Lo hace empleado 
 			if (opcion == 14) {
-			    // Lo hace empleado 
-			    String identificador = input("Escriba el número de identificación de la reserva ESPECIAL");		    
-			    Reserva reservaEspecial = Reserva.encontrarReservaPorID(Integer.parseInt(identificador));
-			    if (reservaEspecial != null && reservaEspecial.isEsEspecial()) {  // mira si la reserva es o no especial
+				String identificador = input("Escriba el número de identificación de la reserva ESPECIAL");		    
+				Reserva reservaEspecial = Reserva.encontrarReservaPorID(Integer.parseInt(identificador));
+				if (reservaEspecial != null && reservaEspecial.isEsEspecial()) {  // mira si la reserva es o no especial
 
-			        Reserva.eliminarReservaYActualizarArchivo(reservaEspecial.getID());
-			        Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
-			        Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(reservaEspecial.getSedeinicial(), reservaEspecial.getCategoria());
+					Reserva.eliminarReservaYActualizarArchivo(reservaEspecial.getID());
+					Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
+					Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(reservaEspecial.getSedeinicial(), reservaEspecial.getCategoria());
 
-			        if (vehiculoEncontrado != null) {
-			            Inventario.actualizarVehiculoAlquilado(vehiculoEncontrado, reservaEspecial.getSedefinal(), reservaEspecial.getCliente().getNombre(), reservaEspecial.getFechaFin()); // Actualizar el vehículo alquilado con su nueva sede
-			            System.out.println("El vehiculo " + vehiculoEncontrado.getMarca() + " con las placas " + vehiculoEncontrado.getPlaca() + " fue transferido con éxito");
-			        } else {
-			            System.out.println("No se encontró el carro");
-			        }
-			    } else {
-			        System.out.println("No existe una reserva especial con esa identificación");
-			    }
+					if (vehiculoEncontrado != null) {
+						Inventario.actualizarVehiculoAlquilado(vehiculoEncontrado, reservaEspecial.getSedefinal(), reservaEspecial.getCliente().getNombre(), reservaEspecial.getFechaFin()); // Actualizar el vehículo alquilado con su nueva sede
+						System.out.println("El vehiculo " + vehiculoEncontrado.getMarca() + " con las placas " + vehiculoEncontrado.getPlaca() + " fue transferido con éxito");
+					} else {
+						System.out.println("No se encontró el carro");
+					}
+				} else {
+					System.out.println("No existe una reserva especial con esa identificación");
+				}
 			}
 
 			//15.recibir un automovil (ponerlo en limpieza)	----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-			
+			// Lo hace empleado 
 			if (opcion == 15) {
-				// Lo hace empleado
 				String placa= input("¿cual vehículo fue entregado?: ");
-			    Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
+				Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
 				boolean carroalquilado = inventario.devolverDeLimpiezaVehiculo (placa);
-				
 				if (carroalquilado) {
 
 					System.out.println("Se envió a lavar al vehiculo de placa "+placa);
@@ -526,29 +507,25 @@ public class sistemaAlquiler {
 			}
 
 			// 16. mandar un automovil a mantenimiento ----------------------------------------------------------------------------------------------------------------------------------------------------------------						
-
+			// Lo hace empleado 
 			if (opcion == 16) {
-				// Lo hace empleado
 				String placa = input("Ingrese la placa del vehículo que tiene que ser mandado a mantenimiento (tiene que estar disponible actualmente)");
-			    Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
-
+				Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
 				boolean revisar_carro = inventario.actualizarMantenimientoVehiculo(placa);
 				if (revisar_carro) {
 					System.out.println("Se envió al mecánico el vehiculo de placa "+placa);
 				}
 				else {
 					System.out.println("No se encontró ningun vehiculo alquilado con esa placa");
-				
-			}
+
 				}
+			}
 
 			// 17.devolver auto de limpieza o mantenimiento ----------------------------------------------------------------------------------------------------------------------------------------------------------------				
-			
+			// Lo hace empleado 			
 			if (opcion == 17) {
-				// Lo hace empleado
 				String placa = input("Ingrese la placa del vehículo que desea regresar");
-			    Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
-			    
+				Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
 				boolean carroalquilado = inventario.devolverDeLimpiezaVehiculo (placa);
 				if (carroalquilado) {
 
@@ -560,13 +537,11 @@ public class sistemaAlquiler {
 			}
 
 			// 18. generar historial alquiler ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
-			
+			// Lo hace Admin general			
 			if (opcion == 18) {
-				// Lo hace Admin general
 				String placa = input("Ingrese la placa del vehículo para el cual desea revisar su historial de alquiler ");
 				AlquilerVehiculo alquiler = new AlquilerVehiculo();
 				HashMap<String, ArrayList<AlquilerVehiculo>> historialesAlquileres = alquiler.cargarLogAlquileres();
-
 				if (historialesAlquileres.containsKey(placa)) {
 					System.out.println("Historial de alquileres para el vehículo con placa " + placa + ":");
 					ArrayList<AlquilerVehiculo> alquileres = historialesAlquileres.get(placa);
@@ -585,7 +560,7 @@ public class sistemaAlquiler {
 					System.out.println("No se encontró historial de alquileres para el carro con la placa " + placa);
 				}
 			}
-
+			
 			if (opcion == 0) {
 				revision_opciones = false;
 			}

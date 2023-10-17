@@ -79,7 +79,10 @@ public class Empleado extends Usuario {
 	}
 	return usuario_eliminado;
 }
-
+	public static Empleado encontrarempleado (String enlace, String nombre) {
+		
+		return null;
+	}
 		
 
 	public String getTipoUsuario() {

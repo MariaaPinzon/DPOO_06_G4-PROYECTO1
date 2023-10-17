@@ -1,4 +1,18 @@
 package uniandes.dpoo.proyecto1.modelo;
+/*
+ * 
+ * 
+ $$$$$$\   $$$$$$\  $$\   $$\  $$$$$$\   $$$$$$\  $$\        $$$$$$\        $$$$$$$\  $$$$$$$\  $$$$$$\ $$\   $$\  $$$$$$\  $$$$$$\ $$$$$$$\   $$$$$$\  $$\       
+$$  __$$\ $$  __$$\ $$$\  $$ |$$  __$$\ $$  __$$\ $$ |      $$  __$$\       $$  __$$\ $$  __$$\ \_$$  _|$$$\  $$ |$$  __$$\ \_$$  _|$$  __$$\ $$  __$$\ $$ |      
+$$ /  \__|$$ /  $$ |$$$$\ $$ |$$ /  \__|$$ /  $$ |$$ |      $$ /  $$ |      $$ |  $$ |$$ |  $$ |  $$ |  $$$$\ $$ |$$ /  \__|  $$ |  $$ |  $$ |$$ /  $$ |$$ |      
+$$ |      $$ |  $$ |$$ $$\$$ |\$$$$$$\  $$ |  $$ |$$ |      $$$$$$$$ |      $$$$$$$  |$$$$$$$  |  $$ |  $$ $$\$$ |$$ |        $$ |  $$$$$$$  |$$$$$$$$ |$$ |      
+$$ |      $$ |  $$ |$$ \$$$$ | \____$$\ $$ |  $$ |$$ |      $$  __$$ |      $$  ____/ $$  __$$<   $$ |  $$ \$$$$ |$$ |        $$ |  $$  ____/ $$  __$$ |$$ |      
+$$ |  $$\ $$ |  $$ |$$ |\$$$ |$$\   $$ |$$ |  $$ |$$ |      $$ |  $$ |      $$ |      $$ |  $$ |  $$ |  $$ |\$$$ |$$ |  $$\   $$ |  $$ |      $$ |  $$ |$$ |      
+\$$$$$$  | $$$$$$  |$$ | \$$ |\$$$$$$  | $$$$$$  |$$$$$$$$\ $$ |  $$ |      $$ |      $$ |  $$ |$$$$$$\ $$ | \$$ |\$$$$$$  |$$$$$$\ $$ |      $$ |  $$ |$$$$$$$$\ 
+ \______/  \______/ \__|  \__| \______/  \______/ \________|\__|  \__|      \__|      \__|  \__|\______|\__|  \__| \______/ \______|\__|      \__|  \__|\________|
+                                                                                                                                                                   
+ */
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -77,10 +91,10 @@ public class sistemaAlquiler {
 		Usuario returnfinal = null;
 		FileWriter output = new FileWriter(name, true);
 		BufferedWriter br = new BufferedWriter(output);
-		//br.newLine();
+		
 		String usuario = input("ingrese su usuario: ");
 
-		//Si un AG (Administrador general) quiere crear usuario, selecciona la opcion 2 Crear Usuario, y en ingrese su usuario:  se escribe "secretoAG"
+		//Si un AG (Administrador general) quiere crear usuario, selecciona la opcion 2 Crear Usuario, y en 'ingrese su usuario:'  se escribe "secretoAG"
 		//Si un AL (Administrador Local) quiere crear usuario, selecciona la opcion 2 Crear Usuario, y en ingrese su usuario:  se escribe "secretoAL"
 
 		if (!usuario.equals("secretoAG") && (!usuario.equals("secretoAL"))) {
@@ -149,30 +163,27 @@ public class sistemaAlquiler {
 			usuario = sistema.CrearNuevoUsuario("./src/datos/Usuarios.txt");
 		}
 		Inventario inventariogeneral = new Inventario("./src/datos/InventarioGENERAL.txt");
-		/*System.out.println("\nMostrando todos los carros disponibles en todas las sedes\n");
-		 *inventariogeneral.mostrarinventariodisponible();
-		 *System.out.println("\nMostrando todos los carros de la empresa\n");
-		 *inventariogeneral.mostrarinventariototal();*/
+		
 		/*TOTAL DE OPCIONES:
 		  	0.cerrar
-			1. revisar los carros del inventario general 					
-			2. revisar todos los carros disponibles 						
-			3. revisar todos los carros disponibles de una sede. 			
-			4.Crear una reserva 											
-			5.Gestiona reserva 									
-			6.Añadir carro al inventario									
-			7. Eliminar carro del inventario								
-			8. Crear seguro 												
-			9. crear empleado												
-			10. eliminar empleado											
-			11. alquiler con reserva										
-			12. alquiler sin reserva										
-			13. reserva especial											
-			14. alquiler especial											
-			15.recibir un automovil (ponerlo en limpieza)					
-			16. mandar un automovil a mantenimiento							
-			17.devolver auto de limpieza o mantenimiento					
-			18. generar historial alquiler									
+			1. revisar los carros del inventario general 	(Pueden acceder administradores y empleados)				
+			2. revisar todos los carros disponibles 		(Pueden acceder clientes y empleados)						
+			3. revisar todos los carros disponibles de una sede (solo se actualiza el txt respectivo si se selecciona esta opción)	(Pueden acceder administradores locales, clientes y empleados)		
+			4.Crear una reserva 							(Pueden acceder clientes)									
+			5.Gestiona reserva 								(Pueden acceder clientes)								
+			6.Añadir carro al inventario					(Puede acceder administrador general)								
+			7. Eliminar carro del inventario 				(Puede acceder administrador general)								
+			8. Crear seguro 								(Puede acceder administrador general)													
+			9. crear empleado								(Puede acceder administrador local)												
+			10. eliminar empleado							(Puede acceder administrador general)										
+			11. alquiler con reserva						(Pueden acceder los empleados)									
+			12. alquiler sin reserva						(Pueden acceder los empleados)						
+			13. reserva especial							(Pueden acceder los empleados)					
+			14. alquiler especial							(Pueden acceder los empleados)					
+			15.recibir un automovil (ponerlo en limpieza)	(Pueden acceder los empleados)			
+			16. mandar un automovil a mantenimiento			(Pueden acceder los empleados)				
+			17.devolver auto de limpieza o mantenimiento	(Pueden acceder los empleados)				
+			18. generar historial alquiler					(Puede acceder el administrador general)	
 		 */
 		Boolean revision_opciones = true;
 		while (revision_opciones == true){
@@ -210,7 +221,7 @@ public class sistemaAlquiler {
 			//La hace un Cliente
 			if (opcion == 4) {
 				Cliente cliente = (Cliente)usuario;
-				System.out.println(cliente.getNombre()); 				
+				System.out.println("Reserva a nombre de: "+cliente.getNombre()); 				
 				int categoria = seleccionarCategoria();				
 				System.out.println("Nuestras sedes: \n"
 						+ "Sede 1 (s1)\r\n"
@@ -239,6 +250,8 @@ public class sistemaAlquiler {
 
 			// 5.Gestionar reserva  ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 			//La hace un Cliente
+			//Si hay más de una reserva por el mismo cliente y se busca por nombre, solo encontrará la primera reserva
+			//Si se busca por identificador no dhay problema, ya que hay diferentes identificadores incluso si es el mismo cliente.
 			if (opcion == 5) {
 				System.out.println("\nOpciones para buscar la reserva\n");
 				System.out.println("1. Por nombre de quien generó la reserva.");
@@ -436,8 +449,8 @@ public class sistemaAlquiler {
 						Inventario.actualizarVehiculoAlquilado(vehiculoEncontrado, alquiler.getSedefinal(),alquiler.getCliente().getNombre(),alquiler.getFechaFin());
 
 						Tarifa tarifa = new Tarifa(alquiler);
-						long totalFinal = tarifa.calcularCosto70P();
-						System.out.println("Pague el 70% restante del alquiler, el cual es " + totalFinal + " mil pesos");
+						long totalFinal = tarifa.calcularCostoFinal();
+						System.out.println("Este es su precio sin conductores adicionales, el cual es " + totalFinal + " mil pesos");
 						System.out.println("El vehículo " + vehiculoEncontrado.getMarca() + " con las placas " + vehiculoEncontrado.getPlaca() + " fue alquilado con éxito");
 
 						Cliente clienteReserva = alquiler.getCliente();
@@ -472,11 +485,14 @@ public class sistemaAlquiler {
 			// 14. Generar alquiler especial (trasladar carro entre sedes)  ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
 			// Lo hace empleado 
 			if (opcion == 14) {
-				String identificador = input("Escriba el número de identificación de la reserva ESPECIAL");		    
-				Reserva reservaEspecial = Reserva.encontrarReservaPorID(Integer.parseInt(identificador));
+				String identificador = input("Escriba el número de identificación de la reserva ESPECIAL");		
+				Empleado empleadoEspecial =(Empleado)usuario;
+				Reserva reservaEspecial = Reserva.encontrarReservaEspecialPorID(identificador,empleadoEspecial);
+				System.out.println("reserva encontrada");
 				if (reservaEspecial != null && reservaEspecial.isEsEspecial()) {  // mira si la reserva es o no especial
 
-					Reserva.eliminarReservaYActualizarArchivo(reservaEspecial.getID());
+					Reserva.eliminarReservaEspecial(reservaEspecial.getID());
+					System.out.println("reserva eliminada");
 					Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
 					Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(reservaEspecial.getSedeinicial(), reservaEspecial.getCategoria());
 
@@ -494,7 +510,7 @@ public class sistemaAlquiler {
 			//15.recibir un automovil (ponerlo en limpieza)	----------------------------------------------------------------------------------------------------------------------------------------------------------------			
 			// Lo hace empleado 
 			if (opcion == 15) {
-				String placa= input("¿cual vehículo fue entregado?: ");
+				String placa= input("Escriba la placa del vehiculo entregado");
 				Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
 				boolean carroalquilado = inventario.actualizarLimpiezaVehiculo(placa);
 				if (carroalquilado) {
@@ -627,7 +643,7 @@ public class sistemaAlquiler {
 	public static void agregarConductoresAdicionales(String licenciaClienteAlquiler) throws Exception {
 
 		String decisionConductor = input("¿Desea agregar conductores adicionales? (si/no): ");
-		if (decisionConductor.equalsIgnoreCase("si")) {
+		if (decisionConductor.equals("si")) {
 			HashMap<String, ArrayList<String>> conductoresAdicionales = new HashMap<>();
 			ArrayList<String> licenciasAdicionales = new ArrayList<>();
 			boolean añadiendoConductor = true;

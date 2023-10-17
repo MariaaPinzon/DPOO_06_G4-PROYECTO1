@@ -188,3 +188,30 @@ Fecha en la que el cliente devuelve el vehiculo : 15/11/23
 Hora en la que el cliente devuelve el vehiculo: 12:00
 Costo total: 1107999
 --------------------------------------------------
+Placa del vehiculo: MPI800
+Marca del vehiculo: Hyundai Elantra
+Nombre del cliente: Luise
+Fecha en la que el cliente recoge el vehiculo : 18/11/23
+Hora en la que el cliente recoge el vehiculo : 09:00
+Fecha en la que el cliente devuelve el vehiculo : 19/11/23
+Hora en la que el cliente devuelve el vehiculo: 17:00
+Costo total: 598000
+--------------------------------------------------
+Placa del vehiculo: GTR873
+Marca del vehiculo: Chevrolet Spark
+Nombre del cliente: Taylor
+Fecha en la que el cliente recoge el vehiculo : 17/10/23
+Hora en la que el cliente recoge el vehiculo : 19:00
+Fecha en la que el cliente devuelve el vehiculo : 19/10/23
+Hora en la que el cliente devuelve el vehiculo: 12:00
+Costo total: 603999
+--------------------------------------------------
+Placa del vehiculo: GTR873
+Marca del vehiculo: Chevrolet Spark
+Nombre del cliente: Taylor
+Fecha en la que el cliente recoge el vehiculo : 16/10/21
+Hora en la que el cliente recoge el vehiculo : 16:00
+Fecha en la que el cliente devuelve el vehiculo : 17/10/21
+Hora en la que el cliente devuelve el vehiculo: 19:00
+Costo total: 580000
+--------------------------------------------------

@@ -44,7 +44,7 @@ public class Cliente extends Usuario{
 	public int mostrarOpciones() {
 		System.out.println("\nOpciones del cliente:\n");
 		System.out.println("1. Crear una reserva");
-		System.out.println("2. Revisar/eliminar una reserva");
+		System.out.println("2. Revisar una reserva");
 		System.out.println("3. Revisar todos los carros disponibles");
 		System.out.println("4. Revisar todos los carros disponibles de una sede específica");
 		System.out.println("5. Salir.");

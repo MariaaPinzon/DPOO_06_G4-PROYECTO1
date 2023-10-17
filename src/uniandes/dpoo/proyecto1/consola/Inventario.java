@@ -374,17 +374,20 @@ public class Inventario {
 			String cambioinfo = null;
 			String marca = null;
 			boolean carroEncontrado = false;
-			 while ((linealect = brinventario.readLine()) != null) {
+			 while (linealect != null) {
 			        String info[] = linealect.split(",");
 			        String placacomp2 = info[0];
 			        String estado = info[7];
 			        if (placa.equals(placacomp2) && (estado.equals("limpieza") || estado.equals("mantenimiento"))) {
-			            cambioinfo = info[0] + "," + info[1] + "," + info[2] + "," + info[3] + "," + info[4] + "," + info[5] + "," + info[6] + "," + "disponible";
+			            cambioinfo = info[0] + "," + info[1] + "," + info[2] + "," + info[3] + "," + info[4] + "," + info[5] + "," + info[6] + "," + "disponible\n";
 			            carroEncontrado = true;
 			        } else {
 			            inventalleno.add(linealect);
 			        }
+			        linealect = brinventario.readLine();
+			        
 			    }
+			 
 			    brinventario.close();
 			if (carroEncontrado) {
 				FileWriter fw = new FileWriter("./src/datos/InventarioGENERAL.txt");

@@ -2,6 +2,7 @@ package uniandes.dpoo.proyecto1.consola;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class Reserva implements Tarifable {
 	private int ID;
 	private int categoria;
 	private ArrayList<String> seguros; 
-	private Empleado empleado;
+	private static Empleado empleado;
 	private boolean esEspecial = false;
 
 	public Reserva(Cliente cliente, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria, ArrayList<String> seguros) {
@@ -63,7 +64,19 @@ public class Reserva implements Tarifable {
 		this.diasAlquiler=diferenciadias(fecha,fecha);
 		this.ID= crearID();
 	}
-	
+	public Reserva(Empleado empleado, int ID, int categoria, String fecha, String sede1, String sede2) {
+		this.empleado=empleado;
+		this.categoria=categoria;
+		this.fechaIni=fecha;
+		this.fechaFin=fecha;
+		this.sedeinicial=sede1;
+		this.sedefinal=sede2;
+		this.diasAlquiler=diferenciadias(fecha,fecha);
+		this.ID= ID;
+		this.esEspecial=true;
+	}
+
+
 	@Override
 	public int diferenciadias(String fechaIni, String fechaFin) {
 	//Se asume que todos los meses tienen 30 días
@@ -113,7 +126,7 @@ public class Reserva implements Tarifable {
 		BufferedWriter br = new BufferedWriter(output);
 		String nombreempleado = empleado.getNombre();
 
-	    br.write(ID + "," + nombreempleado + "," + categoria + "," + diasAlquiler + "," + fechaIni + ","+ fechaFin + ","+ sedeinicial + "," + sedefinal +",ESPECIAL"+"\n");
+	    br.write(ID + "," + nombreempleado + "," + categoria + "," + diasAlquiler + "," + fechaIni + ","+ fechaFin + ","+ sedeinicial + "," + sedefinal +",ESPECIAL"+",NA,NA"+"\n");
 	    br.close();
 	}
 	
@@ -211,10 +224,30 @@ public class Reserva implements Tarifable {
 	                br.close();
 	                throw new IOException("Cliente no encontrado");
 	            }
-
+	            if (! inforeserva[8].equals("ESPECIAL")) {
 	            Reserva reserva = new Reserva(ID, cliente, fechaIni, horaIni, fechaFin, horafin, sedein, sedeout, categoria, seguros);
 	            br.close();
 	            return reserva; 
+	            }
+	            else {
+	            	BufferedReader br2 = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
+	        	    String linearev = br2.readLine();
+	        	    Empleado empleado = null;
+	        	    while (linearev != null) {
+	        	        String[] info = linea.split(",");
+	        	        if (nombrecliente.equals(info[0])) {
+	        	        	empleado = new Empleado(info[0], info[1], info[2], info[3], info[4], info[5], info[6], info[7]);
+	        	            br2.close();
+	        	        	}
+	        	        linearev = br2.readLine();
+	        	    
+	        	        
+	        	    }
+	        	    br2.close();
+	            	Reserva reserva = new Reserva(empleado,ID, categoria, fechaIni, sedein, sedeout);
+	            	return reserva;
+	        	     }
+	            
 	        }
 	        linea = br.readLine();
 	    }
@@ -287,6 +320,18 @@ public class Reserva implements Tarifable {
     }
 
     public static void eliminarReservaYActualizarArchivo(int id) throws IOException {
+        ArrayList<String> listaTemporal = new ArrayList<>();
+        boolean encontro_reserva = eliminarReservaPorID(id, listaTemporal);
+        
+        if (encontro_reserva) {
+            FileWriter output = new FileWriter("./src/datos/ListaReserva.txt");
+            for (String linea : listaTemporal) {
+                output.write(linea + "\n");
+            }
+            output.close();
+        }
+    }
+    public static void eliminarReservaEspecial(int id) throws IOException {
         ArrayList<String> listaTemporal = new ArrayList<>();
         boolean encontro_reserva = eliminarReservaPorID(id, listaTemporal);
         
@@ -371,6 +416,46 @@ public class Reserva implements Tarifable {
 		this.esEspecial = esEspecial;
 	}
 
+	public static Reserva encontrarReservaEspecialPorID(String identificador, Empleado empleado) throws Exception {
+		BufferedReader br;
+		
+			br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
+	    String linea = br.readLine();
+	    while (linea != null) {
+	        String[] inforeserva = linea.split(",");
+	        String ID = inforeserva[0];
+	        if (identificador.equals(ID)) {
+	        	int IDint = Integer.parseInt(ID);
+	            String nombre = inforeserva[1];
+	            int categoria = Integer.parseInt(inforeserva[2]);
+	            int dias = Integer.parseInt(inforeserva[3]);
+	            String fechaIni = inforeserva[4];
+	            String fechaFin = inforeserva[5];
+	            String sedein = inforeserva[6];
+	            String sedeout = inforeserva[7];
 
+	            Cliente cliente = Cliente.encontrarClientePorNombre("./src/datos/Usuarios.txt", nombre);
+	            if (cliente == null) {
+	                br.close();
+	                throw new IOException("Cliente no encontrado");
+	            }
+
+	            Reserva reserva = new Reserva(empleado, IDint, categoria, fechaIni,sedein, sedeout);
+	            br.close();
+	            return reserva; 
+	        }
+	        linea = br.readLine();
+	    }
+	    try {
+			br.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    return null; 
+	}
+	
+
+	
 
 }

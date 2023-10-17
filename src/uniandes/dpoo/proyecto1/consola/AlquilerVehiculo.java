@@ -57,6 +57,23 @@ public class AlquilerVehiculo implements Tarifable{
 		this.costoTotal = costoTotal;
 	}
 
+	/**
+	 * Registra un registro de alquiler en el archivo de log.
+	 * precond: El archivo de log (Alquileres.txt) debe existir y ser accesible para escritura.
+	 * postcond: Se registra un nuevo registro de alquiler en el archivo de log.
+	 * @param placa La placa del vehículo alquilado.
+	 * @param marca La marca del vehículo alquilado.
+	 * @param categoria La categoría del vehículo alquilado.
+	 * @param clienteAlquiler El nombre del cliente que alquila el vehículo.
+	 * @param fechaIni La fecha en la que el cliente recoge el vehículo.
+	 * @param horaIni La hora en la que el cliente recoge el vehículo.
+	 * @param fechaFin La fecha en la que el cliente devuelve el vehículo.
+	 * @param horaFin La hora en la que el cliente devuelve el vehículo.
+	 * @param sedeinicial La sede en la que el cliente recoge el vehículo.
+	 * @param sedefinal La sede en la que el cliente devuelve el vehículo.
+	 * @param costoTotal El costo total del alquiler.
+	 * @throws IOException Si ocurre un error al escribir en el archivo de log, como problemas de acceso al archivo.
+	 */	
 	public void escribirLog(String placa, String marca, String categoria, String clienteAlquiler,
 			String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeinicial, String sedefinal, long costoTotal ) {
 		try {
@@ -78,6 +95,20 @@ public class AlquilerVehiculo implements Tarifable{
 		}
 	}
 
+	/**
+	 * Carga los registros de alquileres desde el archivo de log "Alquileres.txt" y los organiza en un HashMap.
+	 * precond: El archivo de log "Alquileres.txt" debe existir y ser accesible para lectura.
+	 * 			El formato del archivo de log debe seguir las pautas establecidas para los registros de alquiler.
+	 * postcond: Se cargan y organizan los registros de alquileres en un HashMap donde la llave es la placa del vehículo y el valor es una lista de objetos AlquilerVehiculo.
+	 * @param - N/A 
+	 * @return Un HashMap que contiene los registros de alquileres organizados por placa de vehículo.
+	 * @throws IOException Si ocurre un error al leer el archivo de log, como problemas de acceso al archivo.
+	 * @throws NumberFormatException Si ocurre un error al convertir la información del costo total a un número.
+	 */
+	/**
+	 * 
+	 * @return
+	 */
 	public HashMap<String, ArrayList<AlquilerVehiculo>> cargarLogAlquileres() {
 		HashMap<String, ArrayList<AlquilerVehiculo>> historialesAlquileres = new HashMap<>();
 
@@ -247,24 +278,64 @@ public class AlquilerVehiculo implements Tarifable{
 		this.seguros = seguros;
 	}
 
+	
+	/**
+	 * Modifica la tarifa base del sistema y devuelve la nueva tarifa base resultante.
+	 * precond: Los datos necesarios para calcular la nueva tarifa deben estar disponibles y correctos en el sistema.
+	 * 			Se debe tener acceso a la clase Tarifa.
+	 * postcond: Se modifica la tarifa base del sistema.
+	 * @param - N/A
+	 * @return En un long, la nueva tarifa base del sistema después de la modificación.
+	 * @throws IOException Si ocurre un error durante la modificación de la tarifa base, como problemas de acceso a los datos necesarios.
+ 	 */
 	@Override
 	public long modificarTarifaBase() throws IOException {
         Tarifa tarifa = new Tarifa(this); 
         return tarifa.modificarTarifaBase();
 	}
 
+	/**
+	 * Calcula el costo adicional por conductores y devuelve el resultado.
+	 * precond: Los datos necesarios para calcular el costo adicional deben estar disponibles y correctos en el sistema, incluyendo la información del vehículo y los conductores adicionales.
+	 * 			El sistema debe tener acceso a la clase Tarifa para realizar el cálculo.
+	 * 			El vehículo debe estar reservado y sus detalles deben estar registrados en el sistema.
+	 * 			Los conductores adicionales asociados al vehículo deben estar registrados y sus detalles deben estar disponibles.
+	 * postcond: Se calcula exitosamente el costo adicional por conductores adicional.
+	 * @param - N/A
+	 * @return En un long, el costo adicional por conductores adicional.
+	 * @throws IOException Si ocurre un error durante el cálculo del costo adicional, como problemas de acceso a los datos necesarios.
+ 	 */	
 	@Override
 	public long calcularCostoConductoresAd() throws IOException {
         Tarifa tarifa = new Tarifa(this);
         return tarifa.calcularCostoConductoresAd();
 	}
 
+	/**
+	 * Calcula 70% del costo completo de la tarifa que debe pagar al recoger el carro.
+	 * precond: Los datos necesarios para calcular el costo adicional del 70% estar disponibles y correctos en el sistema, incluyendo la información de la reserva y las fechas de inicio y fin.
+	 * 			El sistema debe tener acceso a la clase Tarifa para realizar el cálculo.
+	 * 			La reserva del vehículo debe estar registrada y activa en el sistema.
+	 * 			Las fechas de inicio y fin de la reserva deben ser válidas y estar disponibles.
+	 * postcond: Se calcula exitosamente el 70% de la tarifa.
+	 * @param - N/A
+	 * @return En un long, el costo adicional de temporada alta.
+	 * @throws IOException Si ocurre un error durante el cálculo del costo adicional, como problemas de acceso a los datos necesario.
+	 */	
 	@Override
 	public long calcularCosto70P() throws IOException {
         Tarifa tarifa = new Tarifa(this);
         return tarifa.calcularCosto70P();
 	}
 
+	/**
+	 * Verifica si el período de alquiler cae en temporada alta y devuelve un valor booleano.
+	 * precond: Las fechas de inicio y fin de la reserva deben estar disponibles y ser válidas.
+	 * postcond: Se define si un período de alquiler está en temporada alta o no.
+	 * @param - N/A
+	 * @return Un booleano que es true si el periodo de alquiler cae en temporada alta (de junio a diciembre), o falso en caso contrario (de enero a mayo). 
+	 * @throws - N/A
+	 */	
 	@Override
 	public boolean esTemporadaAlta() {
 	    String[] fechaIniParts = fechaIni.split("/");
@@ -280,6 +351,15 @@ public class AlquilerVehiculo implements Tarifable{
 	    }
 		return esAlta;
 		}
+	
+	/**
+	 * Verifica si la entrega del vehículo se realiza en una sede diferente a la sede inicial y devuelve un valor booleano.
+	 * precond: Los datos de las sedes inciales y finales deben ser válidos y estar disponibles.
+	 * postcond: Se verifica si la entrega del vehpiculo se realiza en una sede diferente a la sede inicial.
+	 * @param - N/A
+	 * @return Un booleano que es true si la entrega del vehículo se realiza en una sede diferente a la sede inicial o false en caso contrario.
+	 * @throws - N/A
+	 */	
 	@Override
 	public boolean esEntregaOtraSede() {
 		String sedeInicial = getSedeinicial();
@@ -295,6 +375,17 @@ public class AlquilerVehiculo implements Tarifable{
 	public int getDiasAlquiler() {
 		return diferenciadias( fechaIni,  fechaFin);
 	}
+	
+	/**
+	 * Calcula la diferencia en días entre dos fechas.
+	 * precond: Las fechas de inicio y fin deben estar disponibles y ser válidas en el formato "dd/mm".
+ 	 *			El formato de fecha debe ser consistente y seguir el patrón "día/mes".
+	 * postcond: Se calcula exitosamente el número de días de diferencia, incluyendo el día de inicio y fin.
+	 * @param fechaIni La fecha de inicio.
+	 * @param fechaFin La fecha de fin.
+	 * @return La diferencia en días entre las fechas de inicio y fin.
+	 * @throws- N/A
+	 */
 	@Override
 	public int diferenciadias(String fechaIni, String fechaFin) {
 	//Se asume que todos los meses tienen 30 días

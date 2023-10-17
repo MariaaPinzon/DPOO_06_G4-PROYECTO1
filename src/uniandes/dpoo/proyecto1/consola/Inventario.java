@@ -279,10 +279,13 @@ public class Inventario {
     }
 
 	/**
-	 * 
-	 * @param placa
-	 * @return
-	 * @throws Exception
+	 * Actualiza el estado de un vehículo a que esté en limpieza, en el inventario general.
+	 * precond: El inventario general debe estar inicializado y debe tener vehículos. 
+	 * postcond: Se buscará el vehículo con la placa especificada en el inventario general y cambiará su estado a "limpieza".
+ 	 *     		 Si el vehículo se encuentra en la lista de vehículos alquilados, no se realizará la actualización.
+	 * @param placa La placa del vehículo que se desea actualizar.
+	 * @return Un valor booleano que indica si la actualización fue exitosa.
+	 * @throws Exception Si ocurre un error en la lectura o escritura del archivo de inventario general.
 	 */
     public boolean actualizarLimpiezaVehiculo(String placa) throws Exception {
     	Inventario inventariogeneral = new Inventario("./src/datos/InventarioGENERAL.txt");
@@ -329,10 +332,13 @@ public class Inventario {
     }
     
 	/**
-	 * 
-	 * @param placa
-	 * @return
-	 * @throws Exception
+	 * Actualiza el estado de un vehículo a que esté en mantenimiento, en el inventario general.
+	 * precond: El inventario general debe estar inicializado y debe tener vehículos. 
+	 * postcond: Se buscará el vehículo con la placa especificada en el inventario general y cambiará su estado a "mantenimiento".
+ 	 *     		 Si el vehículo se encuentra en la lista de vehículos alquilados, no se realizará la actualización.
+	 * @param placa La placa del vehículo que se desea actualizar.
+	 * @return Un valor booleano que indica si la actualización fue exitosa.
+	 * @throws Exception Si ocurre un error en la lectura o escritura del archivo de inventario general.
 	 */
     public boolean actualizarMantenimientoVehiculo(String placa) throws Exception {
     	Inventario inventariogeneral = new Inventario("./src/datos/InventarioGENERAL.txt");
@@ -374,10 +380,15 @@ public class Inventario {
     }
     
 	/**
-	 * 
-	 * @param placa
-	 * @return
-	 * @throws Exception
+	 * Devuelve un vehículo al estado "disponible" después de la limpieza.
+	 * precond: El catálogo ya fue inicializado.
+	 * 			Hay vehículos en el sistema.
+	 * 			El vehículo debe estar en el estado de "limpieza" para que vuelva a estar disponible.
+	 * postcond: El método buscará el vehículo con la placa especificada en el inventario general y cambiará su estado a "disponible".
+ 	 *    		 Si el vehículo se encuentra en la lista de vehículos alquilados, no se realizará la actualización y el método devolverá false.
+	 * @param placa La placa del vehículo que se desea actualizar.
+	 * @return Un valor booleano que indica si la actualización fue exitosa o no.
+	 * @throws Exception Si ocurre un error en la lectura o escritura del archivo de inventario general.
 	 */
     public boolean devolverDeLimpiezaVehiculo (String placa) throws Exception {
     	Inventario inventariogeneral = new Inventario("./src/datos/InventarioGENERAL.txt");

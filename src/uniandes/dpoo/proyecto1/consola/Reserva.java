@@ -21,6 +21,7 @@ public class Reserva implements Tarifable {
 	private int categoria;
 	private ArrayList<String> seguros; 
 	private Empleado empleado;
+	private boolean esEspecial = false;
 
 	public Reserva(Cliente cliente, String fechaIni, String horaIni, String fechaFin, String horaFin, String sedeIn, String sedeFin, int categoria, ArrayList<String> seguros) {
 		this.cliente= cliente;
@@ -49,6 +50,7 @@ public class Reserva implements Tarifable {
 		this.categoria = categoria;
 		this.ID= ID;
 		this.seguros = seguros;
+		this.setEsEspecial(true);
 
 	}
 	public Reserva(Empleado empleado, int categoria, String fecha, String sede1, String sede2) {
@@ -359,6 +361,14 @@ public class Reserva implements Tarifable {
 	public long calcularCosto70P() throws IOException {
         Tarifa tarifa = new Tarifa(this);
         return tarifa.calcularCosto70P();
+	}
+
+	public boolean isEsEspecial() {
+		return esEspecial;
+	}
+
+	public void setEsEspecial(boolean esEspecial) {
+		this.esEspecial = esEspecial;
 	}
 
 

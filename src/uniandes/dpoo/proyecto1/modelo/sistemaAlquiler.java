@@ -106,7 +106,6 @@ public class sistemaAlquiler {
 			returnfinal = new Cliente(usuario, contra, nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad, numeroLicencia, paisExpedicionLicencia, fechaVencimientoLicencia, tipoMedioDePago, numeroMedioDePago, fechaVencimientoMedioPago);
 		} 
 		//EMPLEADO: ADMINISTRADOR GENERAL:
-
 		else if (usuario.equals("secretoAG")) {
 			System.out.println("Hola admin general");
 			String adminusuario = input("ingrese su usuario");
@@ -121,7 +120,6 @@ public class sistemaAlquiler {
 			returnfinal = new Administrador(adminusuario, contra, "AG", nombres, contacto, fechaNacimiento, nacionalidad, docIdentidad);
 
 			//EMPLEADO: ADMINISTRADOR LOCAL
-
 		} else {
 			System.out.println("Hola admin local");
 			String adminLocalUsuario = input("ingrese su usuario ");
@@ -157,32 +155,30 @@ public class sistemaAlquiler {
 
 		/*System.out.println("\nMostrando todos los carros disponibles en todas las sedes\n");
 		 *inventariogeneral.mostrarinventariodisponible();
-
 		 *System.out.println("\nMostrando todos los carros de la empresa\n");
 		 *inventariogeneral.mostrarinventariototal();*/
-
+		
 		/*TOTAL DE OPCIONES:
 		  	0.cerrar
-			1. revisar los carros del inventario general 					check	Revisado    bonito
-			2. revisar todos los carros disponibles 						check	Revisado    bonito 
-			3. revisar todos los carros disponibles de una sede. 			check	Revisado    bonito
-			4.Crear una reserva 											check	Revisado    bonito
-			5.Gestionar/eliminar reserva 									check	Revisado	bonito  no entiendo lo de eliiminar
-			6.Añadir carro al inventario									check	Revisado	bonito
-			7. Eliminar carro del inventario								check	Revisado	bonito
-			8. Crear seguro 												check   Revisado	bonito
-			9. crear empleado												check	Revisado	bonito
-			10. eliminar empleado											check	Revisado	bonito
-			11. alquiler con reserva										check	Revisado	bonito
-			12. alquiler sin reserva										check	Revisado 	no
-			13. reserva especial											check	Revisado	bonito
-			14. alquiler especial											check	Revisado	no
-			15.recibir un automovil (ponerlo en limpieza)					check	Revisado	
-			16. mandar un automovil a mantenimiento							check	Revisado
-			17.devolver auto de limpieza o mantenimiento					check	Revisado
-			18. generar historial alquiler									check  	Revisado	bonito
+			1. revisar los carros del inventario general 					
+			2. revisar todos los carros disponibles 						
+			3. revisar todos los carros disponibles de una sede. 			
+			4.Crear una reserva 											
+			5.Gestiona reserva 									
+			6.Añadir carro al inventario									
+			7. Eliminar carro del inventario								
+			8. Crear seguro 												
+			9. crear empleado												
+			10. eliminar empleado											
+			11. alquiler con reserva										
+			12. alquiler sin reserva										
+			13. reserva especial											
+			14. alquiler especial											
+			15.recibir un automovil (ponerlo en limpieza)					
+			16. mandar un automovil a mantenimiento							
+			17.devolver auto de limpieza o mantenimiento					
+			18. generar historial alquiler									
 		 */
-
 		Boolean revision_opciones = true;
 		while (revision_opciones == true){
 			int opcion = usuario.mostrarOpciones();
@@ -475,7 +471,7 @@ public class sistemaAlquiler {
 				} 
 			}
 
-			//13. Generar reserva especial ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+			//13. Generar reserva especial (trasaldar carro entre sedes) ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
 
 			if (opcion == 13) {
 				// Lo hace Empleado
@@ -489,97 +485,27 @@ public class sistemaAlquiler {
 				System.out.println(reservaespecial.getinfoEspecial());
 			}
 
-			// 14. Generar alquiler especial ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
+			// 14. Generar alquiler especial (trasladar carro entre sedes)  ----------------------------------------------------------------------------------------------------------------------------------------------------------------			
 			
 			if (opcion == 14) {
-				// Lo hace empleado 
-				String identificador = input("Escriba el número de identificación de la reserva ESPECIAL");
-				BufferedReader br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
-				String linea = null;
-				String sedeorigen = "";
-				String sedefin = "";
-				String categoria = "";
-				linea = br.readLine();
-				ArrayList<String> lista = new ArrayList<>();
-				boolean encontrar_reserva = false;
-				while (linea!=null) {
-					String info[]= linea.split(",");
-					String IDcomp = info[0];
-					String especial = info[8];
-					if (! identificador.equals(IDcomp)) {
-						lista.add(linea+"\n");
-					}
-					else if (identificador.equals(IDcomp) && especial.equals("ESPECIAL")){
-						encontrar_reserva=true;
-						sedeorigen = info[6];
-						categoria=Vehiculo.findcategoria(Integer.parseInt(info[2]));
+			    // Lo hace empleado 
+			    String identificador = input("Escriba el número de identificación de la reserva ESPECIAL");		    
+			    Reserva reservaEspecial = Reserva.encontrarReservaPorID(Integer.parseInt(identificador));
+			    if (reservaEspecial != null && reservaEspecial.isEsEspecial()) {  // mira si la reserva es o no especial
 
-						sedefin= info[7];
-					}
-					linea= br.readLine();
-				}
-				br.close();
+			        Reserva.eliminarReservaYActualizarArchivo(reservaEspecial.getID());
+			        Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
+			        Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(reservaEspecial.getSedeinicial(), reservaEspecial.getCategoria());
 
-				if (encontrar_reserva==true) {
-					FileWriter output = new FileWriter("./src/datos/ListaReserva.txt");
-					for (int i=0; i<lista.size(); i++) {
-						String dato = lista.get(i);
-						output.append(dato);
-					}
-					output.close();
-					BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
-					String lineainv = null;
-					lineainv=brinventario.readLine();
-					ArrayList<String> listaInventario = new ArrayList<>();
-					String marca = "";
-					String placa = "";
-					boolean encontrar_auto = false;
-					String lineareescribir = null;
-					while (lineainv!=null) {
-						String info[]= lineainv.split(",");
-
-						String categoriacomp = info[3];
-						String sedecomp = info[6];
-						String es_disponible = info[7];
-						if ((!categoriacomp.equals(categoria))||(!sedecomp.equals(sedeorigen))||(encontrar_auto==true)){
-							listaInventario.add(lineainv);	
-						}
-						else if (es_disponible.equals("disponible")){
-							encontrar_auto=true;
-							String informacion[]=lineainv.split(",");
-							marca = informacion[1];
-							placa= informacion[0];
-							lineareescribir =informacion[0]+","+informacion[1]+","+informacion[2]+","+informacion[3]+","+informacion[4]+","+informacion[5]+","+sedefin+","+informacion[7];
-						}
-						else {
-							listaInventario.add(lineainv);	
-						}
-						lineainv=brinventario.readLine();
-
-					}
-					brinventario.close();
-					if (encontrar_auto==true) {
-						FileWriter escritura = new FileWriter("./src/datos/InventarioGENERAL.txt");
-						for (int i=0; i<listaInventario.size(); i++) {
-							String dato = listaInventario.get(i);
-							escritura.append(dato+"\n");
-						}
-
-						if (lineareescribir!=null) {
-							escritura.append(lineareescribir+"\n");
-							System.out.println("El vehiculo "+marca +" con las placas "+placa+" fue transferido con éxito");
-						}
-						escritura.close();
-					}
-					else {
-						System.out.println("No se encontró el carro");
-					}
-				}
-
-
-				else {
-					System.out.println("No existe una reserva especial con esa identificación");
-				}
+			        if (vehiculoEncontrado != null) {
+			            Inventario.actualizarVehiculoAlquilado(vehiculoEncontrado, reservaEspecial.getSedefinal(), "", ""); // Actualizar el vehículo alquilado con su nueva sede
+			            System.out.println("El vehiculo " + vehiculoEncontrado.getMarca() + " con las placas " + vehiculoEncontrado.getPlaca() + " fue transferido con éxito");
+			        } else {
+			            System.out.println("No se encontró el carro");
+			        }
+			    } else {
+			        System.out.println("No existe una reserva especial con esa identificación");
+			    }
 			}
 
 			//15.recibir un automovil (ponerlo en limpieza)	----------------------------------------------------------------------------------------------------------------------------------------------------------------			

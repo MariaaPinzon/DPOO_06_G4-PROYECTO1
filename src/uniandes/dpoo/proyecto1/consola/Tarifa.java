@@ -24,6 +24,11 @@ public  class Tarifa {
         this.conductoresAdicionales = cargarConductoresAdicionales();
     }
     
+    /**
+     * 
+     * @return
+     * @throws IOException
+     */
     private HashMap<String,Long> cargarTarifas() throws IOException{
     	HashMap<String,Long> tarifas = new HashMap<>();
     	BufferedReader  br = new BufferedReader (new FileReader(("./src/datos/jerarquia.txt")));
@@ -39,6 +44,12 @@ public  class Tarifa {
     	br.close();
         return tarifas;
     }
+
+    /**
+     * 
+     * @return
+     * @throws IOException
+     */
     public static HashMap<String, ArrayList<String>> cargarTarifasSeguros() throws IOException {
         HashMap<String, ArrayList<String>> tarifasSeguros = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader("./src/datos/Seguros.txt"));
@@ -56,6 +67,12 @@ public  class Tarifa {
         br.close();
         return tarifasSeguros;
     }
+
+    /**
+     * 
+     * @return
+     * @throws IOException
+     */
     private HashMap<String, ArrayList<String>> cargarConductoresAdicionales() throws IOException {
         HashMap<String, ArrayList<String>> conductoresAdicionales = new HashMap<>();
         BufferedReader br = new BufferedReader(new FileReader("./src/datos/ConductoresAdicionales.txt"));
@@ -77,29 +94,43 @@ public  class Tarifa {
         return conductoresAdicionales;
     }
 
-	    public long modificarTarifaBase() {
-	        long tarifaModificada = this.tarifaBase;
-	        if (tarifable.esTemporadaAlta()) {
-	            tarifaModificada += (tarifaBase * 0.2);
-	        }
-	        if (tarifable.esEntregaOtraSede()) {
-	            tarifaModificada += (tarifaBase * 0.15);
-	        }
-	        return tarifaModificada;
-	    }
+    /**
+     * 
+     * @return
+     */
+    public long modificarTarifaBase() {
+        long tarifaModificada = this.tarifaBase;
+        if (tarifable.esTemporadaAlta()) {
+            tarifaModificada += (tarifaBase * 0.2);
+        }
+        if (tarifable.esEntregaOtraSede()) {
+            tarifaModificada += (tarifaBase * 0.15);
+        }
+        return tarifaModificada;
+    }
 
-	    public long calcularCostoTotalSeguros() {
-	        long costoTotal = 0;
-	        for (int i = 0; i < segurosCliente.size(); i++) {
-	            String idSeguro = segurosCliente.get(i);
-	            ArrayList<String> datosSeguro = tarifasSeguros.get(idSeguro);
-	            if (datosSeguro != null && datosSeguro.size() > 1) {
-	                long costo = Long.parseLong(datosSeguro.get(1)); //  El costo que es el segundo elemento  ArrayList
-	                costoTotal += costo;
-	            }
-	        }
-	        return costoTotal * tarifable.getDiasAlquiler();
-	    }
+    /**
+     * 
+     * @return
+     */
+    public long calcularCostoTotalSeguros() {
+        long costoTotal = 0;
+        for (int i = 0; i < segurosCliente.size(); i++) {
+            String idSeguro = segurosCliente.get(i);
+            ArrayList<String> datosSeguro = tarifasSeguros.get(idSeguro);
+            if (datosSeguro != null && datosSeguro.size() > 1) {
+                long costo = Long.parseLong(datosSeguro.get(1)); //  El costo que es el segundo elemento  ArrayList
+                costoTotal += costo;
+            }
+        }
+        return costoTotal * tarifable.getDiasAlquiler();
+    }
+
+    /**
+     * 
+     * @return
+     * @throws IOException
+     */
     public long calcularCostoConductoresAd() throws IOException {
         this.conductoresAdicionales = cargarConductoresAdicionales();
         long costo = 0;
@@ -112,18 +143,30 @@ public  class Tarifa {
 
     }
 
+    /**
+     * 
+     * @return
+     */
     public long calcularCostoFinal() {
         long costoTotalSeguros = calcularCostoTotalSeguros();
         long costoTarifaBaseModificada = modificarTarifaBase() * tarifable.getDiasAlquiler();
         return costoTarifaBaseModificada + costoTotalSeguros ;
     }
     
+    /**
+     * 
+     * @return
+     */
     public long calcularCosto30P() {
 		long preciofinal = calcularCostoFinal();
 		long precio30 = (long) (preciofinal*0.3);
 		return precio30;
     }
 
+    /**
+     * 
+     * @return
+     */
     public long calcularCosto70P() {
 		long preciofinal = calcularCostoFinal();
 		long precio70 = (long) (preciofinal*0.7);

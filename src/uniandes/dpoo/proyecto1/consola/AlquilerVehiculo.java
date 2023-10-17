@@ -280,7 +280,8 @@ public class AlquilerVehiculo implements Tarifable{
 
 	/**
 	 * Modifica la tarifa base del sistema y devuelve la nueva tarifa base resultante.
-	 * precond: Los datos necesarios para calcular la nueva tarifa deben estar disponibles y correctos en el sistema.
+	 * precond: El alquiler debe estar inicializado.
+	 * 			Los datos necesarios para calcular la nueva tarifa deben estar disponibles y correctos en el sistema.
 	 * 			Se debe tener acceso a la clase Tarifa.
 	 * postcond: Se modifica la tarifa base del sistema.
 	 * @param - N/A
@@ -295,9 +296,10 @@ public class AlquilerVehiculo implements Tarifable{
 
 	/**
 	 * Calcula el costo adicional por conductores y devuelve el resultado.
-	 * precond: Los datos necesarios para calcular el costo adicional deben estar disponibles y correctos en el sistema, incluyendo la información del vehículo y los conductores adicionales.
+	 * precond: El alquiler debe estar inicializado.
+	 * 			Los datos necesarios para calcular el costo adicional deben estar disponibles y correctos en el sistema, incluyendo la información del vehículo y los conductores adicionales.
 	 * 			El sistema debe tener acceso a la clase Tarifa para realizar el cálculo.
-	 * 			El vehículo debe estar reservado y sus detalles deben estar registrados en el sistema.
+	 * 			El vehículo debe estar en el proceso de alquiler y sus detalles deben estar registrados en el sistema.
 	 * 			Los conductores adicionales asociados al vehículo deben estar registrados y sus detalles deben estar disponibles.
 	 * postcond: Se calcula exitosamente el costo adicional por conductores adicional.
 	 * @param - N/A
@@ -312,10 +314,10 @@ public class AlquilerVehiculo implements Tarifable{
 
 	/**
 	 * Calcula el costo adicional del 70% por temporada alta.
-	 * precond: Los datos necesarios para calcular el costo adicional del 70% por temporada alta deben estar disponibles y correctos en el sistema, incluyendo la información de la reserva y las fechas de inicio y fin.
+	 * precond: El alquiler debe estar inicializado.
+	 * 			Los datos necesarios para calcular el costo adicional del 70% por temporada alta deben estar disponibles y correctos en el sistema, incluyendo la información del alquiler y las fechas de inicio y fin.
 	 * 			El sistema debe tener acceso a la clase Tarifa para realizar el cálculo.
-	 * 			La reserva del vehículo debe estar registrada y activa en el sistema.
-	 * 			Las fechas de inicio y fin de la reserva deben ser válidas y estar disponibles.
+	 * 			Las fechas de inicio y fin del alquiler deben ser válidas y estar disponibles.
 	 * postcond: Se calcula exitosamente el 70% adicional para la temporada alta.
 	 * @param - N/A
 	 * @return En un long, el costo adicional de temporada alta.
@@ -329,7 +331,7 @@ public class AlquilerVehiculo implements Tarifable{
 
 	/**
 	 * Verifica si el período de alquiler cae en temporada alta y devuelve un valor booleano.
-	 * precond: Las fechas de inicio y fin de la reserva deben estar disponibles y ser válidas.
+	 * precond: Las fechas de inicio y fin del alquiler deben estar disponibles y ser válidas.
 	 * postcond: Se define si un período de alquiler está en temporada alta o no.
 	 * @param - N/A
 	 * @return Un booleano que es true si el periodo de alquiler cae en temporada alta, o falso en caso contrario. 
@@ -353,7 +355,8 @@ public class AlquilerVehiculo implements Tarifable{
 	
 	/**
 	 * Verifica si la entrega del vehículo se realiza en una sede diferente a la sede inicial y devuelve un valor booleano.
-	 * precond: Los datos de las sedes inciales y finales deben ser válidos y estar disponibles.
+	 * precond: El alquiler debe estar inicializado.
+	 * 			Los datos de las sedes inciales y finales del proceso de alquiler deben ser válidos y estar disponibles.
 	 * postcond: Se verifica si la entrega del vehpiculo se realiza en una sede diferente a la sede inicial.
 	 * @param - N/A
 	 * @return Un booleano que es true si la entrega del vehículo se realiza en una sede diferente a la sede inicial o false en caso contrario.
@@ -377,7 +380,8 @@ public class AlquilerVehiculo implements Tarifable{
 
 	/**
 	 * Calcula la diferencia en días entre dos fechas.
-	 * precond: Las fechas de inicio y fin deben estar disponibles y ser válidas en el formato "dd/mm".
+	 * precond: El alquiler debe estar inicializado.
+	 * 			Las fechas de inicio y fin deben estar disponibles y ser válidas en el formato "dd/mm".
  	 *			El formato de fecha debe ser consistente y seguir el patrón "día/mes".
 	 * postcond: Se calcula exitosamente el número de días de diferencia, incluyendo el día de inicio y fin.
 	 * @param fechaIni La fecha de inicio.

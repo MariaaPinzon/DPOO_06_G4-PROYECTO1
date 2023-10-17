@@ -63,9 +63,20 @@ public class Reserva implements Tarifable {
 		this.ID= crearID();
 	}
 	
+	
+	/** 
+	 * Calcula la diferecia entre las dos fechas de la reserva, para lo cual asume que todos los meses tienen 30 días
+	 * precond: La reserva debe estar inicializada.
+	 * 			Las fechas de inicio y fin deben estar disponibles y ser válidas en el formato "dd/mm".
+ 	 *			El formato de fecha debe ser consistente y seguir el patrón "día/mes".
+	 * postcond: Se calcula exitosamente el número de días de diferencia, incluyendo el día de inicio y fin.
+	 * @param fechaIni La fecha de inicio.
+	 * @param fechaFin La fecha de fin.
+	 * @return En forma de int, retorna los días que hay entre la fecha de inicio y fin.
+	 * @throws - N/A
+	 */
 	@Override
 	public int diferenciadias(String fechaIni, String fechaFin) {
-	//Se asume que todos los meses tienen 30 días
 	int diferencia = 0;
 	String inicio[] = fechaIni.split("/");
 	int diainicio = Integer.parseInt(inicio[0]);
@@ -134,6 +145,22 @@ public class Reserva implements Tarifable {
 				+"\nCarro de la categoría "+categoriaS
 				+"\nel día "+fechaIni+" de la sede "+sedeinicial+" a la sede "+ sedefinal+"\nCon el identificador: "+ID;
 	}
+
+	/**
+	 * Busca la categoría del vehículo de la reserva en forma de String.
+	 * precond: La reserva debe estar inicializada.
+	 * 			El valor de la categoría del vehículo de la reserva debe estar correctamente establecido. Debe ser un número entre 1-6.
+	 * postcond: Se encuentra exitosamente la categoría del vehículo.
+	 * @param - N/A
+	 * @return En forma de String, se retorna la categoría del vehículo. Las categorías establecidad son:
+	 * 			- economico
+	 * 			- estándar
+	 * 			- van
+	 * 			- SUV
+	 * 			- todoterreno
+	 * 			- lujo
+	 * @throws- N/A
+	 */
 	public String findcategoria() {
 		String resp = "";
 		if (categoria==1) {
@@ -156,6 +183,16 @@ public class Reserva implements Tarifable {
 		}
 		return resp;
 	}
+
+	/**
+	 * Dadas las fechas de inicio y fin de una reserva, el método define si está o no en temporada alta.
+	 * precond: La reserva debe estar inicializada.
+	 * 			Las fechas de inicio y fin de la reserva deben estar disponibles y ser válidas.
+	 * postcond: Se define si un período de alquiler está en temporada alta o no.
+	 * @param - N/A
+	 * @return Un booleano que es true si el periodo de alquiler cae en temporada alta, o falso en caso contrario. 
+	 * @throws - N/A
+	 */
 	@Override
 	public boolean esTemporadaAlta() {
 	    String[] fechaIniParts = fechaIni.split("/");
@@ -171,6 +208,16 @@ public class Reserva implements Tarifable {
 	    }
 		return esAlta;
 		}
+
+	/**
+	 * Verifica si la entrega del vehículo de una reserva se realiza en una sede diferente a la sede inicial y devuelve un valor booleano.
+	 * precond: La reserva debe estar inicializada.
+	 * 			Los datos de las sedes inciales y finales de la reserva deben ser válidos y estar disponibles.
+	 * postcond:Se verifica si la entrega del vehpiculo se realiza en una sede diferente a la sede inicial.
+	 * @param - N/A
+	 * @return Un booleano que es true si la entrega del vehículo de la reserva se realiza en una sede diferente a la sede inicial o false en caso contrario.
+	 * @throws - N/A
+	 */
 	@Override
 	public boolean esEntregaOtraSede() {
 		String sedeInicial = getSedeinicial();
@@ -182,6 +229,19 @@ public class Reserva implements Tarifable {
 		return esOtraSede;
 	}
 	
+	/**
+	 * Busca una reserva por su ID.
+	 * precond: El archivo especificado por la ruta "datos/ListaReserva.txt" debe existir y ser accesible para lectura.
+	 * 			El ID de la reserva, representado por "idComparador", debe ser un número entero válido.
+	 * 			El formato de las reservas en el archivo debe ser consistente y seguir el patrón "ID, nombrecliente, categoria, ..., seguros".
+	 * 			El cliente asociado a la reserva debe existir en el archivo "datos/Usuarios.txt".
+	 * postcond: El método busca una reserva por su ID y la devuelve como un objeto Reserva si se encuentra.
+	 *			 El objeto Reserva contendrá información relevante de la reserva, como el cliente, fechas, sedes, categoría y seguros.
+	 * 			 Si la reserva no se encuentra o el cliente asociado no existe, el método devuelve null. 
+	 * @param idComparador El ID de la reserva que se desea buscar.
+	 * @return Se retorna el objeto Reserva que se encontró.
+	 * @throws IOException Si hay algún error al leer el archivo de reservas, como problemas de acceso al archivo o si el cliente no se encuentra.
+ 	 */
 	public static Reserva encontrarReservaPorID( int idComparador) throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
 	    String linea = br.readLine();
@@ -221,6 +281,19 @@ public class Reserva implements Tarifable {
 	    return null; 
 	}
 	
+	/**
+	 * Busca una reserva por el nombre del cliente.
+	 * precond: El archivo especificado por la ruta "datos/ListaReserva.txt" debe existir y ser accesible para lectura.
+	 * 			El nombre del cliente, representado por "nombreClienteComparador", debe ser una cadena no nula y no vacía.
+	 *			El formato de las reservas en el archivo debe ser consistente y seguir el patrón "ID, nombrecliente, categoria, ..., seguros".
+	 *			El cliente asociado a la reserva debe existir en el archivo "datos/Usuarios.txt".
+	 * postcond: El método busca una reserva por el nombre del cliente y la devuelve como un objeto Reserva si se encuentra.
+	 *			 El objeto Reserva contendrá información relevante de la reserva, como el cliente, fechas, sedes, categoría y seguros.
+	 *			 Si la reserva no se encuentra o el cliente asociado no existe, el método devuelve null.
+	 * @param nombreClienteComparador El nombre del cliente para el cual se desea realizar la búsqueda de la reserva.
+	 * @return Un objeto Reserva si encuentra la reserva, o null si no se encuentra.
+	 * @throws IOException Si hay algún error al leer el archivo de reservas, como problemas de acceso al archivo o si el cliente no se encuentra.
+	 */
 	public static Reserva encontrarReservaPorNombre( String nombreClienteComparador) throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader("./src/datos/ListaReserva.txt"));
 	    String linea = br.readLine();
@@ -260,6 +333,18 @@ public class Reserva implements Tarifable {
 	    return null; 
 	}
 	
+	/**
+	 * Elimina una reserva dado su ID.
+	 * precond: El archivo especificado por la ruta "datos/ListaReserva.txt" debe existir y ser accesible para lectura.
+ 	 *			El ID proporcionado para eliminar la reserva debe ser un valor entero positivo.
+	 * postcond: El método busca una reserva por su ID y, si se encuentra, la elimina del archivo de reservas.
+	 *			 Se actualiza la lista temporal "listaTemporal" con las reservas restantes que no se eliminaron.
+	 * @param id El identificador único de la reserva que se desea eliminar.
+	 * @param listaTemporal Una lista temporal que se actualiza con las reservas restantes depués de elminiar la reserva. Itera por todas
+	 * 						las reservas y las guarda en esta lista, todas MENOS la del id dado por el usuario. Así se elimina la reserva.
+	 * @return Si se encuentra y elimina con éxito una reserva con el ID proporcionado, el retorno será true, de caso contratio será false.
+	 * @throws IOException
+	 */
     public static boolean eliminarReservaPorID(int id, ArrayList<String> listaTemporal) throws IOException {
         Reserva reservaEncontrada = encontrarReservaPorID(id);
         boolean encontro_reserva = false;
@@ -286,6 +371,17 @@ public class Reserva implements Tarifable {
         return encontro_reserva;
     }
 
+	/**
+	 * Se elimina una reserva por su ID único, y se actualiza el archivo de reservas con la lista temporal.
+	 * precond: El archivo especificado por la ruta "datos/ListaReserva.txt" debe existir y ser accesible para lectura y escritura.
+ 	 *			El ID proporcionado para eliminar la reserva debe ser un valor entero positivo.
+	 * postcond: El método busca una reserva por su ID y, si se encuentra, la elimina del archivo de reservas.
+ 	 * 			 Se actualiza el archivo "datos/ListaReserva.txt" con las reservas restantes en la lista temporal.
+	 * 			 Si se encuentra y elimina con éxito una reserva con el ID proporcionado, el archivo de reservas se actualiza y no se produce ninguna excepción.
+	 * 			 Si no se encuentra una reserva con el ID especificado, no se realiza ninguna modificación en el archivo.
+	 * @param id El identificador único de la reserva que se quiere eliminar.
+	 * @throws IOException Si hay algún error al leer o escribir el archivo de reservas, como problemas de acceso al archivo.
+	 */
     public static void eliminarReservaYActualizarArchivo(int id) throws IOException {
         ArrayList<String> listaTemporal = new ArrayList<>();
         boolean encontro_reserva = eliminarReservaPorID(id, listaTemporal);
@@ -345,18 +441,51 @@ public class Reserva implements Tarifable {
 		return empleado;
 	}
 
+	/**
+	 * Modifica la tarifa base del sistema y devuelve la nueva tarifa base resultante.
+	 * precond: la reserva debe estar inicializada.
+	 * 			Los datos necesarios para calcular la nueva tarifa deben estar disponibles y correctos en el sistema.
+	 * 			Se debe tener acceso a la clase Tarifa.
+	 * postcond: Se modifica la tarifa base del sistema.
+	 * @param - N/A
+	 * @return En un long, la nueva tarifa base del sistema después de la modificación.
+	 * @throws IOException Si ocurre un error durante la modificación de la tarifa base, como problemas de acceso a los datos necesarios.
+	 */
 	@Override
 	public long modificarTarifaBase() throws IOException {
         Tarifa tarifa = new Tarifa(this); 
         return tarifa.modificarTarifaBase();
 	}
 
+	/**
+	 * Calcula el costo adicional por conductores y devuelve el resultado.
+	 * precond: La reserva debe estar inicializada.
+	 * 			Los datos necesarios para calcular el costo adicional deben estar disponibles y correctos en el sistema, incluyendo la información del vehículo y los conductores adicionales.
+	 * 			El sistema debe tener acceso a la clase Tarifa para realizar el cálculo.
+	 * 			El vehículo debe estar reservado y sus detalles deben estar registrados en el sistema.
+	 * 			Los conductores adicionales asociados al vehículo deben estar registrados y sus detalles deben estar disponibles.
+	 * postcond: Se calcula exitosamente el costo adicional por conductores adicional.
+	 * @param - N/A
+	 * @return En un long, el costo adicional por conductores adicional.
+	 * @throws IOException Si ocurre un error durante el cálculo del costo adicional, como problemas de acceso a los datos necesarios.
+ 	 */
 	@Override
 	public long calcularCostoConductoresAd() throws IOException {
         Tarifa tarifa = new Tarifa(this);
         return tarifa.calcularCostoConductoresAd();
 	}
 
+	/**
+	 * Calcula el costo adicional del 70% por temporada alta.
+	 * precond: La reserva debe estar inicializada.
+	 * 			Los datos necesarios para calcular el costo adicional del 70% por temporada alta deben estar disponibles y correctos en el sistema, incluyendo la información de la reserva y las fechas de inicio y fin.
+	 * 			El sistema debe tener acceso a la clase Tarifa para realizar el cálculo.
+	 * 			Las fechas de inicio y fin de la reserva deben ser válidas y estar disponibles.
+	 * postcond: Se calcula exitosamente el 70% adicional para la temporada alta.
+	 * @param - N/A
+	 * @return En un long, el costo adicional de temporada alta.
+	 * @throws IOException Si ocurre un error durante el cálculo del costo adicional, como problemas de acceso a los datos necesario.
+	 */
 	@Override
 	public long calcularCosto70P() throws IOException {
         Tarifa tarifa = new Tarifa(this);

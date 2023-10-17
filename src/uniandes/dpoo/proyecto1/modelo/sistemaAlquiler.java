@@ -498,7 +498,7 @@ public class sistemaAlquiler {
 			        Vehiculo vehiculoEncontrado = inventario.encontrarVehiculoPorSedeYCateg(reservaEspecial.getSedeinicial(), reservaEspecial.getCategoria());
 
 			        if (vehiculoEncontrado != null) {
-			            Inventario.actualizarVehiculoAlquilado(vehiculoEncontrado, reservaEspecial.getSedefinal(), "", ""); // Actualizar el vehículo alquilado con su nueva sede
+			            Inventario.actualizarVehiculoAlquilado(vehiculoEncontrado, reservaEspecial.getSedefinal(), reservaEspecial.getCliente().getNombre(), reservaEspecial.getFechaFin()); // Actualizar el vehículo alquilado con su nueva sede
 			            System.out.println("El vehiculo " + vehiculoEncontrado.getMarca() + " con las placas " + vehiculoEncontrado.getPlaca() + " fue transferido con éxito");
 			        } else {
 			            System.out.println("No se encontró el carro");

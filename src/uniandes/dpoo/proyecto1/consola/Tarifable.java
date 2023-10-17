@@ -3,7 +3,9 @@ package uniandes.dpoo.proyecto1.consola;
 import java.io.IOException;
 import java.util.ArrayList;
 
-// tarifable son las clases a las que se les puede sacar una tarifa
+/**
+ * Interfaz que define métodos para calcular tarifas y proporcionar información relacionada con el proceso de reservas y alquiler.
+ */
 public interface Tarifable {
 	Cliente getCliente();
 	String getFechaIni();

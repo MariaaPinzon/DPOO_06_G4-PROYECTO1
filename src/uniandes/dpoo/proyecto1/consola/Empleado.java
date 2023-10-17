@@ -49,7 +49,7 @@ public class Empleado extends Usuario {
 	 * 					   -file not found
 	 * 					   -permission issues
 	 * 					   -u otros errores tipo I/O.
-	 */	
+	 */
 	public boolean eliminarEmpleado(String nombreUsuarioEmpleado) throws IOException {
 	BufferedReader br = new BufferedReader(new FileReader("./src/datos/Usuarios.txt"));
 	String linea = null;

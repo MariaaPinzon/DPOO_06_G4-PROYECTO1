@@ -364,37 +364,29 @@ public class Inventario {
 		return revisar_carro;
     }
     
-    public boolean devolverDeLimpiezaVehiculo (String placa) throws Exception {
+    public boolean devolverDeLimpiezaOMantenimientoVehiculo (String placa) throws Exception {
     	Inventario inventariogeneral = new Inventario("./src/datos/InventarioGENERAL.txt");
 		ArrayList<String> inventalquilado = inventariogeneral.mostrarinventarioalquilado();
-
-    	boolean carroalquilado = false;
-		for (int i=0;i<inventalquilado.size();i++) {
-			String linea = inventalquilado.get(i);
-			String lineaarr[] = linea.split(",");
-			String placacomp = lineaarr[0];
-			if (placa.equals(placacomp)) {
-				carroalquilado = true;	
-			}
 			BufferedReader brinventario = new BufferedReader(new FileReader("./src/datos/InventarioGENERAL.txt"));
 			String linealect = null;
 			linealect = brinventario.readLine();
 			ArrayList<String> inventalleno = new ArrayList<>();
 			String cambioinfo = null;
 			String marca = null;
-			while (linealect!=null) {
-				String info[] = linealect.split(",");
-				String placacomp2 = info[0];
-				if (!placa.equals(placacomp2)) {
-					inventalleno.add(linealect);
-				}
-				else {
-					cambioinfo= info[0]+","+info[1]+","+info[2]+","+info[3]+","+info[4]+","+info[5]+","+info[6]+","+"disponible";
-					marca = info[1];
-				}
-				linealect = brinventario.readLine();
-			}
-			if (carroalquilado) {
+			boolean carroEncontrado = false;
+			 while ((linealect = brinventario.readLine()) != null) {
+			        String info[] = linealect.split(",");
+			        String placacomp2 = info[0];
+			        String estado = info[7];
+			        if (placa.equals(placacomp2) && (estado.equals("limpieza") || estado.equals("mantenimiento"))) {
+			            cambioinfo = info[0] + "," + info[1] + "," + info[2] + "," + info[3] + "," + info[4] + "," + info[5] + "," + info[6] + "," + "disponible";
+			            carroEncontrado = true;
+			        } else {
+			            inventalleno.add(linealect);
+			        }
+			    }
+			    brinventario.close();
+			if (carroEncontrado) {
 				FileWriter fw = new FileWriter("./src/datos/InventarioGENERAL.txt");
 				for (int b=0;b<inventalleno.size();b++) {
 					String dato = inventalleno.get(b);
@@ -403,9 +395,8 @@ public class Inventario {
 				fw.write(cambioinfo);
 				fw.close();
 			}
-			brinventario.close();
-		}
-		return carroalquilado;
+		
+		return carroEncontrado;
     }
     
 	/** 

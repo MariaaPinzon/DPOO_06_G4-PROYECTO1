@@ -496,7 +496,7 @@ public class sistemaAlquiler {
 			if (opcion == 15) {
 				String placa= input("¿cual vehículo fue entregado?: ");
 				Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
-				boolean carroalquilado = inventario.devolverDeLimpiezaVehiculo (placa);
+				boolean carroalquilado = inventario.actualizarLimpiezaVehiculo(placa);
 				if (carroalquilado) {
 
 					System.out.println("Se envió a lavar al vehiculo de placa "+placa);
@@ -526,10 +526,10 @@ public class sistemaAlquiler {
 			if (opcion == 17) {
 				String placa = input("Ingrese la placa del vehículo que desea regresar");
 				Inventario inventario = new Inventario("./src/datos/InventarioGENERAL.txt");
-				boolean carroalquilado = inventario.devolverDeLimpiezaVehiculo (placa);
+				boolean carroalquilado = inventario.devolverDeLimpiezaOMantenimientoVehiculo(placa);
 				if (carroalquilado) {
 
-					System.out.println("Se envió a lavar al vehiculo de placa "+placa);
+					System.out.println("Esta disponible vehiculo de placa "+placa);
 				}
 				else {
 					System.out.println("No se encontró ningun vehiculo alquilado con esa placa");
